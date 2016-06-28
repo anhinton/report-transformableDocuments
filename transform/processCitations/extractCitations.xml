@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<module xmlns="http://www.openapi.org/2014/" language="R">
+  <description>Extract citations to text file in pandoc nocite format</description>
+  <input name="report">
+    <file ref="~/uoastorage/openapi/documentation/report/report.xml"/>
+    <format formatType="text">XML file</format>
+  </input>
+  <source>
+    <file ref="extractCitations.R"/>
+  </source>
+  <output name="citations">
+    <file ref="citations.txt"/>
+    <format formatType="text">text file</format>
+  </output>
+</module>

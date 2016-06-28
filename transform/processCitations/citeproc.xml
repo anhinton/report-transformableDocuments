@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<module xmlns="http://www.openapi.org/2014/" language="shell">
+  <description>Process pandoc citations HTML</description>
+  <input name="citations">
+    <file ref="citations.txt"/>
+    <format formatType="text">text file</format>
+  </input>
+  <input name="bibliography">
+    <file ref="~/uoastorage/openapi/documentation/report/bibliography.bib"/>
+    <format formatType="text">biblatex file</format>
+  </input>
+  <input name="csl">
+    <file ref="~/uoastorage/openapi/documentation/report/apa.csl"/>
+    <format formatType="text">CSL file</format>
+  </input>
+  <source>
+    <file ref="citeproc.sh"/>
+  </source>
+  <output name="references">
+    <file ref="references.html"/>
+    <format formatType="text">HTML file</format>
+  </output>
+</module>

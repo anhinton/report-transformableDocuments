@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<module xmlns="http://www.openapi.org/2014/" language="shell">
+  <description>convert report.xml to a knitr .Rtex document for knitting</description>
+  <input name="report.xml">
+    <file ref="report.xml"/>
+    <format formatType="text">XML file</format>
+  </input>
+  <input name="toRtex.xsl">
+    <file ref="~/uoastorage/openapi/documentation/report/xsl/toRtex.xsl"/>
+    <format formatType="text">XSL stylesheet</format>
+  </input>
+  <source>
+    <file ref="toRtex.sh"/>
+  </source>
+  <output name="report.Rtex">
+    <file ref="~/uoastorage/openapi/documentation/report/report.Rtex"/>
+    <format formatType="text">knitr Rtex file</format>
+  </output>
+</module>

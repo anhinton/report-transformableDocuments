@@ -1,0 +1,5 @@
+library(XML)
+document <- xmlRoot(xmlParse(
+    "~/uoastorage/openapi/documentation/report/report.xml"))
+
+refSection <- getNodeSet(document, "//section[@class='references']")
