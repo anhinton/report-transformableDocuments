@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<pipeline xmlns="http://www.openapi.org/2014/">
+  <description></description>
+  <component name="xinclude" ref="xinclude.xml" type="module"/>
+  <component name="commentRCode" ref="commentRCode.xml" type="module"/>
+  <component name="latexChars" ref="latexChars.xml" type="module"/>
+  <component name="toRtex" ref="toRtex.xml" type="module"/>
+  <pipe>
+    <start component="xinclude" output="report.xml"/>
+    <end component="latexChars" input="report.xml"/>
+  </pipe>
+  <pipe>
+    <start component="latexChars" output="report.xml"/>
+    <end component="commentRCode" input="report.xml"/>
+  </pipe>
+  <pipe>
+    <start component="commentRCode" output="report.xml"/>
+    <end component="toRtex" input="report.xml"/>
+  </pipe>
+</pipeline>

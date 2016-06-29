@@ -1,0 +1,18 @@
+body {
+    margin: auto; max-width: 800px; }
+code{ white-space: pre-wrap; }
+pre { margin-left: 2em; }
+img { max-width: 100%; }
+.ann {color: green; font-style: italic; background-color: silver; border: solid thin}
+.mod {color: red; font-style: italic; background-color: silver; border: solid thin}
+div.title {
+    text-align: center;
+}
+p.author { 
+    font-style: italic;
+    font-size: large;
+ }
+div.introduction { 
+    padding: 0.5em 2em 0.5em 2em; 
+    background-color: silver;
+}

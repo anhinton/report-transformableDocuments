@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<?xml-stylesheet type="text/xsl" href="xsl/preview.xsl"><!-- Time-stamp: "2016-06-29 16:43:38 ashley"--><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Transforming documents with OpenAPI pipelines</title>
+<meta name="author" content="Ashley Noel Hinton">
+<meta name="description" content="Technical report on transforming documents using an
+    OpenAPI pipeline.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+<body><div class="main">
+<div class="title">
+<h1 class="title">Transforming documents with OpenAPI pipelines</h1>
+<h2 class="subtitle">Limits are for quitters</h2>
+<p class="author">Ashley Noel Hinton<br><a href="ahin017@aucklanduni.ac.nz">ahin017@aucklanduni.ac.nz</a><br>Department of Statistics, The University of
+      Auckland</p>
+<p class="date"></p>
+</div>
+    <div>
+      <h1 class="unnumbered">Introduction</h1>
+
+      <p>This sections is “unnumbered”, which means it won't show
+      up in a table of contents.</p>
+
+    </div>
+
+    <div>
+      <h1>The case for transformable documents</h1>
+    </div>
+
+    <div>
+      <h1>The <code>document</code> format</h1>
+
+      <p>The transformable document pipeline is based around an XML
+      document with <code>document</code> as the root node. This
+      document has two child elements: <code>head</code> and
+      <code>body</code>.</p>
+
+      <p>The <code>head</code> node contains the document metadata,
+      with nodes for the document <code>title</code> and
+      <code>subtitle</code>, <code>author</code> information,
+      <code>date</code> of publication, and a <code>description</code>
+      section.</p>
+
+      <pre><code>&lt;head&gt;
+  &lt;title&gt;Transforming documents with OpenAPI pipelines&lt;/title&gt;
+  &lt;subtitle&gt;Limits are for quitters&lt;/subtitle&gt;
+  &lt;author&gt;
+    &lt;name&gt;Ashley Noel Hinton&lt;/name&gt;
+    &lt;email&gt;ahin017@aucklanduni.ac.nz&lt;/email&gt;
+    &lt;affiliation&gt;Department of Statistics, The University of
+    Auckland&lt;/affiliation&gt;
+  &lt;/author&gt;
+  &lt;date&gt;&lt;/date&gt;
+  &lt;description&gt;Technical report on transforming documents using an
+  OpenAPI pipeline.&lt;/description&gt;
+&lt;/head&gt;
+</code></pre>
+    </div>
+
+    <div>
+      <h1>Transformation to HTML</h1>
+
+      <h2>Do xinclude</h2>
+
+      <p></p>
+
+      <h2>XML entities</h2>
+
+      <h2>R code comments</h2>
+
+      <h2>Produce <code>.Rhtml</code> file</h2>
+
+      <h2>Produce <code>.html</code> file</h2>
+
+    </div>
+
+    <div>
+      <h1>Transformation to PDF</h1>
+
+      <h2>Do xinclude</h2>
+
+      <p></p>
+
+      <h2>XML entities</h2>
+
+      <h2>R code comments</h2>
+
+      <h2>Produce <code>.Rtex</code> file</h2>
+
+      <h2>Produce <code>.tex</code> file</h2>
+
+      <h2>Produce <code>.pdf</code> file</h2>
+
+    </div>
+    
+    <div>
+      <h1>Background</h1>
+
+
+
+      <pre class="knitr" name="exchangeDemo" options="eval=FALSE">library(conduit)
+      exchangeRates &lt;- loadModule(
+      name = "exchangeRates",
+      ref = "examples/subsetting/exchange_rates.xml")
+      outputs &lt;- runModule(exchangeRates)
+      </pre>
+    </div>
+
+
+    <div class="references">
+      <h1 class="unnumbered">References</h1>
+      <!-- citations not included in main text -->
+      <cite key="w3c2008extensible"></cite>
+      Document processing will xinclude the contents of
+	references.html
+    </div>
+
+    <!-- section break -->
+
+    <div class="appendix">
+      <h1>Technical requirements</h1>
+
+      <p>This is an appendix section.</p>
+
+    </div>
+  </div></body>
+</html>

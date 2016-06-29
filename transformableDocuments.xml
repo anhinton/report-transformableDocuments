@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?><!--*-html-*-->
+<?xml-stylesheet type="text/xsl" href="xsl/preview.xsl"?>
+<!-- Time-stamp: "2016-06-29 17:05:00 ashley"-->
+<!DOCTYPE document [
+<!ENTITY mdash "&#x2014;">
+<!ENTITY ndash "&#x2013;">
+<!ENTITY conduit "<code>conduit</code>">
+<!ENTITY us "_">
+<!ENTITY tilde "~">
+<!ENTITY bar "|">
+<!ENTITY ldquo "&#x201C;">
+<!ENTITY rdquo "&#x201D;">
+]>
+<document xmlns:xi="http://www.w3.org/2001/XInclude">
+  
+  <head>
+    <title>Transforming documents with OpenAPI pipelines</title>
+    <subtitle>Limits are for quitters</subtitle>
+    <author>
+      <name>Ashley Noel Hinton</name>
+      <email>ahin017@aucklanduni.ac.nz</email>
+      <affiliation>Department of Statistics, The University of
+      Auckland</affiliation>
+    </author>
+    <date></date>
+    <description>Technical report on transforming documents using an
+    OpenAPI pipeline.</description>
+  </head>
+
+  <body>
+    <h1 class="unnumbered">Introduction</h1>
+
+    <p>This sections is <q>unnumbered</q>, which means it won't show
+    up in a table of contents.</p>
+    
+    <h1>The case for transformable documents</h1>
+    
+    <h1>The <code>document</code> format</h1>
+
+    <p>The transformable document pipeline is based around an XML
+    document with <code>document</code> as the root node. This
+    document has two child elements: <code>head</code> and
+    <code>body</code>.</p>
+
+    <p>The <code>head</code> node contains the document metadata,
+    with nodes for the document <code>title</code> and
+    <code>subtitle</code>, <code>author</code> information,
+    <code>date</code> of publication, and a <code>description</code>
+    section.</p>
+
+    <pre><code><xi:include href="headExample.xml" parse="text">
+      <xi:fallback>Document processing will xinclude the contents of
+      headExample.html</xi:fallback>
+    </xi:include></code></pre>
+    
+    <h1>Transformation to HTML</h1>
+
+    <h2>Do xinclude</h2>
+
+    <p></p>
+
+    <h2>XML entities</h2>
+
+    <h2>R code comments</h2>
+
+    <h2>Produce <code>.Rhtml</code> file</h2>
+
+    <h2>Produce <code>.html</code> file</h2>
+    
+    <h1>Transformation to PDF</h1>
+
+    <h2>Do xinclude</h2>
+
+    <p></p>
+
+    <h2>XML entities</h2>
+
+    <h2>R code comments</h2>
+
+    <h2>Produce <code>.Rtex</code> file</h2>
+
+    <h2>Produce <code>.tex</code> file</h2>
+
+    <h2>Produce <code>.pdf</code> file</h2>
+    
+    <h1>Background</h1>
+
+    <pre class="knitr" name="exchangeDemo" options="eval=FALSE">library(conduit)
+exchangeRates &lt;- loadModule(
+    name = "exchangeRates",
+    ref = "examples/subsetting/exchange_rates.xml")
+outputs &lt;- runModule(exchangeRates)
+    </pre>
+
+    <div class="references">
+      <h1 class="unnumbered">References</h1>
+      <!-- citations not included in main text -->
+      <cite key="w3c2008extensible"/>
+      <xi:include href="references.html">
+	<xi:fallback>Document processing will xinclude the contents of
+	references.html</xi:fallback>
+      </xi:include>
+    </div>
+    
+    <h1>Technical requirements</h1>
+
+    <p>This is an appendix section.</p>
+  </body>
+  
+</document>
