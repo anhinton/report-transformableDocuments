@@ -1,7 +1,5 @@
 <?xml version="1.0"?>
 <!DOCTYPE xsl:stylesheet [
-  <!ENTITY ldquo "&#x201C;">
-  <!ENTITY rdquo "&#x201D;">
 ]>
 <xsl:stylesheet version="1.0"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
@@ -15,18 +13,18 @@
     <html>
       <head>
 	<!-- process head tags -->
-	<xsl:apply-templates select="//head"/>
+	<xsl:apply-templates select="/document/metadata"/>
 	<meta name="viewport" content ="width=device-width, initial-scale=1.0"/>
 	<link rel="stylesheet" href="stylesheet.css"/>
       </head>
       <body>
-	<xsl:apply-templates select="//body"/>
+	<xsl:apply-templates select="/document/body"/>
       </body>
     </html>
   </xsl:template>
 
   <!-- html head template -->
-  <xsl:template match="//head">
+  <xsl:template match="/document/metadata">
     <title><xsl:value-of select="title"/></title>
 
     <!-- author meta tag -->
@@ -61,32 +59,32 @@
   </xsl:template>
 
   <!-- html body template -->
-  <xsl:template match="//body">
+  <xsl:template match="/document/body">
     <div class="main">
       <!-- produce document title section -->
       <div class="title">
-	<h1 class="title"><xsl:value-of select="//head/title"/></h1>
+	<h1 class="title"><xsl:value-of select="/document/metadata/title"/></h1>
 
 	<!-- subtitle -->
-	<xsl:for-each select="//head/subtitle">
-	  <xsl:if test="//head/subtitle != ''">
+	<xsl:for-each select="/document/metadata/subtitle">
+	  <xsl:if test="/document/metadata/subtitle != ''">
 	    <h2 class="subtitle"><xsl:value-of select="node()"/></h2>
 	  </xsl:if>
 	</xsl:for-each>
 
 	<!-- author -->
-	<p class="author"><xsl:value-of select="//head/author/name"/>
+	<p class="author"><xsl:value-of select="/document/metadata/author/name"/>
 	<!-- email -->
-	<xsl:if test="//head/author/email">
-	<br/><xsl:element name="a"><xsl:attribute name="href"><xsl:value-of select="//head/author/email"/></xsl:attribute><xsl:value-of select="//head/author/email"/></xsl:element></xsl:if>
+	<xsl:if test="/document/metadata/author/email">
+	<br/><xsl:element name="a"><xsl:attribute name="href"><xsl:value-of select="/document/metadata/author/email"/></xsl:attribute><xsl:value-of select="/document/metadata/author/email"/></xsl:element></xsl:if>
 	<!-- affiliation -->
-	<xsl:if test="//head/author/affiliation"><br/><xsl:value-of select="//head/author/affiliation"/></xsl:if>
+	<xsl:if test="/document/metadata/author/affiliation"><br/><xsl:value-of select="/document/metadata/author/affiliation"/></xsl:if>
 	<!-- supervisor -->
-	<xsl:if test="//head/author/supervisor"><br/><br/>Supervisor: <xsl:value-of select="//head/author/supervisor"/></xsl:if>
+	<xsl:if test="/document/metadata/author/supervisor"><br/><br/>Supervisor: <xsl:value-of select="/document/metadata/author/supervisor"/></xsl:if>
 	</p>
 
 	<!-- date -->
-	<p class="date"><xsl:value-of select="//head/date"/></p>
+	<p class="date"><xsl:value-of select="/document/metadata/date"/></p>
       </div>
 
       <!-- process rest of body -->
@@ -115,7 +113,17 @@
 
   <!-- double-quote -->
   <xsl:template match="q">
-    <xsl:text>&ldquo;</xsl:text><xsl:value-of select="."/><xsl:text>&rdquo;</xsl:text>
+    <xsl:text>&#x201C;</xsl:text><xsl:value-of select="."/><xsl:text>&#x201D;</xsl:text>
+  </xsl:template>
+
+  <!-- single-quote -->
+  <xsl:template match="sq">
+    <xsl:text>&#x2018;</xsl:text><xsl:value-of select="."/><xsl:text>&#x2019;</xsl:text>
+  </xsl:template>
+
+  <!-- knitr chunks -->
+  <xsl:template match="code[@class='knitr']">
+    <xsl:element name="pre"><xsl:element name="code"><xsl:value-of select="."/></xsl:element></xsl:element>
   </xsl:template>
 
   <!-- todo items -->
@@ -131,25 +139,6 @@
   <!-- mod items -->
   <xsl:template match="mod">
     <span class="mod"><xsl:value-of select="."/></span>
-  </xsl:template>
-
-  <!-- section to div for html4 -->
-  <xsl:template match="section">
-    <xsl:element name="div">
-      <xsl:if test="@class != ''">
-	<xsl:attribute name="class"><xsl:value-of select="@class"/>
-	</xsl:attribute>
-      </xsl:if>
-      <xsl:apply-templates select="@*|node()"/>
-    </xsl:element>
-  </xsl:template>
-
-  <!-- appendix to div for html4 -->
-  <xsl:template match="appendix">
-    <xsl:element name="div">
-      <xsl:attribute name="class">appendix</xsl:attribute>
-      <xsl:apply-templates select="@*|node()"/>
-    </xsl:element>
   </xsl:template>
 
   <!-- copy everything into new doc -->

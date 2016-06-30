@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <?xml-stylesheet type="text/xsl" href="xsl/preview.xsl"?>
-<!-- Time-stamp: "2016-06-30 13:53:39 ahin017"-->
+<!-- Time-stamp: "2016-06-30 15:28:41 ahin017"-->
 <!DOCTYPE document [
 <!ENTITY mdash "&#x2014;">
 <!ENTITY ndash "&#x2013;">
-<!ENTITY conduit "<code>conduit</code>">
 <!ENTITY us "_">
 <!ENTITY tilde "~">
 <!ENTITY bar "|">
-<!ENTITY ldquo "&#x201C;">
-<!ENTITY rdquo "&#x201D;">
 ]>
 <document xmlns:xi="http://www.w3.org/2001/XInclude">
   
-  <head>
+  <metadata>
     <title>Transforming documents with OpenAPI pipelines</title>
     <subtitle>Limits are for quitters</subtitle>
     <author>
@@ -25,7 +22,7 @@
     <date></date>
     <description>Technical report on transforming documents using an
     OpenAPI pipeline.</description>
-  </head>
+  </metadata>
 
   <body>
     <div id="introduction">
@@ -46,23 +43,55 @@
 
     <p>The transformable document pipelines described in this report
     are based around an XML document with <code>document</code> as the
-    root node. This document has two child elements: <code>head</code>
+    root node. This document has two child elements: <code>metadata</code>
     and <code>body</code>.</p>
 
-    <p>The <code>head</code> element contains the document metadata,
+    <p>The <code>metadata</code> element contains the document metadata,
     with elements for the document <code>title</code> and
     <code>subtitle</code>, <code>author</code> information,
     <code>date</code> of publication, and a <code>description</code>
-    section. An example <code>head</code> element follows:</p>
+    section. An example <code>metadata</code> element follows:</p>
 
-    <pre><code><xi:include href="headExample.xml" parse="text">
-      <xi:fallback>xinclude headExample.html</xi:fallback>
+    <pre><code><xi:include href="metadataExample.xml" parse="text">
+      <xi:fallback>xinclude metadataExample.html</xi:fallback>
     </xi:include></code></pre>
 
     <p>The <code>body</code> element contains the document's main
     content, and is intended to support all the elements available to
     HTML 4.01, as well as several elements designed
     specifically for document transformation.</p>
+
+    <p>As in HTML 5 we can declare a <code>&lt;figure&gt;</code>
+    element, which contains an <code>&lt;img&gt;</code> element and a
+    <code>&lt;figcaption&gt;</code> element.</p>
+
+    <p>We have <q>double quotes</q> using <code>&lt;q&gt;</code> and
+    <sq>single quotes</sq> using <code>&lt;sq&gt;</code>. We can
+    directly link like <url>https://github.com/anhinton/conduit</url>
+    using <code>&lt;url&gt;</code> tags.</p>
+
+    <p>Entities can be used for special characters as in:</p>
+
+    <ul>
+      <li><code>&amp;mdash;</code> &mdash; em dash</li>
+      <li><code>&amp;ndash;</code> &ndash; en dash</li>
+      <li><code>&amp;us;</code> &us; underscore</li>
+      <li><code>&amp;tilde;</code> &tilde; tilde</li>
+      <li><code>&amp;bar;</code> &bar; bar</li>
+    </ul>
+
+    <p>R code to be processed by knitr can be wrapped in a
+    <code>&lt;code&gt;</code> element with
+    <code>class="knitr"</code>. An author can also provide a
+    <code>name</code> attribute for the knitr code chunk, as well as
+    knitr <code>options</code>.</p>
+
+    <code class="knitr" name="exchangeDemo" options="eval=FALSE">library(conduit)
+exchangeRates &lt;- loadModule(
+    name = "exchangeRates",
+    ref = "examples/subsetting/exchange_rates.xml")
+outputs &lt;- runModule(exchangeRates)
+    </code>
     
     <h1>Transformation to HTML</h1>
 
@@ -95,13 +124,6 @@
     <h2>Produce <code>.pdf</code> file</h2>
     
     <h1>Background</h1>
-
-    <pre class="knitr" name="exchangeDemo" options="eval=FALSE">library(conduit)
-exchangeRates &lt;- loadModule(
-    name = "exchangeRates",
-    ref = "examples/subsetting/exchange_rates.xml")
-outputs &lt;- runModule(exchangeRates)
-    </pre>
 
     <div class="references">
       <h1 class="unnumbered">References</h1>

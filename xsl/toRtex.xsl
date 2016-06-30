@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- Time-stamp: "2015-11-07 15:44:10 ashley"-->
+<!-- Time-stamp: "2016-06-30 15:23:31 ahin017"-->
 <!DOCTYPE document [
   <!ENTITY nl "&#xA;">
 ]>
@@ -35,36 +35,36 @@
     <xsl:text>% opts_chunk$set(cache=TRUE, size='small', background='#FFFFFF')&nl;</xsl:text>
     <xsl:text>%% end.rcode&nl;</xsl:text>
     <xsl:text>\begin{document}&nl;</xsl:text>
-    <xsl:apply-templates select="head"/>
+    <xsl:apply-templates select="metadata"/>
     <xsl:apply-templates select="body"/>
     <xsl:text>\end{document}&nl;</xsl:text>
   </xsl:template>
 
-  <xsl:template match="head">
+  <xsl:template match="metadata">
     <xsl:text>\title{</xsl:text>
-    <xsl:value-of select="/document/head/title"/>
+    <xsl:value-of select="/document/metadata/title"/>
     <xsl:text>}&nl;</xsl:text>
     <xsl:text>\subtitle{</xsl:text>
-    <xsl:for-each select="/document/head/subtitle">
+    <xsl:for-each select="/document/metadata/subtitle">
       <xsl:value-of select="node()"/>
       <xsl:text>\\&nl;</xsl:text>
     </xsl:for-each>
     <xsl:text>}&nl;</xsl:text>
     <xsl:text>\author{</xsl:text>
-    <xsl:value-of select="/document/head/author/name"/>
+    <xsl:value-of select="/document/metadata/author/name"/>
     <xsl:text>\\&nl;</xsl:text>
     <xsl:text>\href{mailto:</xsl:text>
-    <xsl:value-of select="/document/head/author/email"/>
+    <xsl:value-of select="/document/metadata/author/email"/>
     <xsl:text>}{</xsl:text>
-    <xsl:value-of select="/document/head/author/email"/>
+    <xsl:value-of select="/document/metadata/author/email"/>
     <xsl:text>}</xsl:text>
     <xsl:text>\\&nl;</xsl:text>
-    <xsl:value-of select="/document/head/author/affiliation"/>
+    <xsl:value-of select="/document/metadata/author/affiliation"/>
     <xsl:text>\\&nl;\\&nl;Supervisor: </xsl:text>
-    <xsl:value-of select="/document/head/author/supervisor"/>
+    <xsl:value-of select="/document/metadata/author/supervisor"/>
     <xsl:text>}&nl;</xsl:text>
     <xsl:text>\date{</xsl:text>
-    <xsl:value-of select="/document/head/date"/>
+    <xsl:value-of select="/document/metadata/date"/>
     <xsl:text>}&nl;</xsl:text>
     <xsl:text>\maketitle&nl;</xsl:text>
     <xsl:text>\tableofcontents&nl;</xsl:text>

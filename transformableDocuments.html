@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<?xml-stylesheet type="text/xsl" href="xsl/preview.xsl"><!-- Time-stamp: "2016-06-29 16:43:38 ashley"--><html>
+<?xml-stylesheet type="text/xsl" href="xsl/preview.xsl"><!-- Time-stamp: "2016-06-30 15:15:39 ahin017"--><html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Transforming documents with OpenAPI pipelines</title>
@@ -17,33 +17,34 @@
       Auckland</p>
 <p class="date"></p>
 </div>
-    <div>
-      <h1 class="unnumbered">Introduction</h1>
-
-      <p>This sections is “unnumbered”, which means it won't show
-      up in a table of contents.</p>
-
+    <div id="introduction">
+      <p>Many technologies now exist for writing a document in common
+      format to be transformed into various formats for sharing. This
+      report proposes that using markup, rather than common markdown
+      languages, is a good fit for writing flexible human- and
+      machine-readable transformable documents. The examples in this
+      report use OpenAPI pipelines to perform the document
+      transformations into various document formats.  The pipelines
+      produced show how such a task can be split into various reusable
+      modules.</p>
     </div>
+    
+    <h1>The case for transformable documents</h1>
+    
+    <h1>The <code>document</code> format</h1>
 
-    <div>
-      <h1>The case for transformable documents</h1>
-    </div>
+    <p>The transformable document pipelines described in this report
+    are based around an XML document with <code>document</code> as the
+    root node. This document has two child elements: <code>metadata</code>
+    and <code>body</code>.</p>
 
-    <div>
-      <h1>The <code>document</code> format</h1>
+    <p>The <code>metadata</code> element contains the document metadata,
+    with elements for the document <code>title</code> and
+    <code>subtitle</code>, <code>author</code> information,
+    <code>date</code> of publication, and a <code>description</code>
+    section. An example <code>metadata</code> element follows:</p>
 
-      <p>The transformable document pipeline is based around an XML
-      document with <code>document</code> as the root node. This
-      document has two child elements: <code>head</code> and
-      <code>body</code>.</p>
-
-      <p>The <code>head</code> node contains the document metadata,
-      with nodes for the document <code>title</code> and
-      <code>subtitle</code>, <code>author</code> information,
-      <code>date</code> of publication, and a <code>description</code>
-      section.</p>
-
-      <pre><code>&lt;head&gt;
+    <pre><code>&lt;metadata&gt;
   &lt;title&gt;Transforming documents with OpenAPI pipelines&lt;/title&gt;
   &lt;subtitle&gt;Limits are for quitters&lt;/subtitle&gt;
   &lt;author&gt;
@@ -55,59 +56,76 @@
   &lt;date&gt;&lt;/date&gt;
   &lt;description&gt;Technical report on transforming documents using an
   OpenAPI pipeline.&lt;/description&gt;
-&lt;/head&gt;
+&lt;/metadata&gt;
 </code></pre>
-    </div>
 
-    <div>
-      <h1>Transformation to HTML</h1>
+    <p>The <code>body</code> element contains the document's main
+    content, and is intended to support all the elements available to
+    HTML 4.01, as well as several elements designed
+    specifically for document transformation.</p>
 
-      <h2>Do xinclude</h2>
+    <p>As in HTML 5 we can declare a <code>&lt;figure&gt;</code>
+    element, which contains an <code>&lt;img&gt;</code> element and a
+    <code>&lt;figcaption&gt;</code> element.</p>
 
-      <p></p>
+    <p>We have “double quotes” using <code>&lt;q&gt;</code> and
+    ‘single quotes’ using <code>&lt;sq&gt;</code>. We can
+    directly link like <a href="https://github.com/anhinton/conduit">https://github.com/anhinton/conduit</a>
+    using <code>&lt;url&gt;</code> tags.</p>
 
-      <h2>XML entities</h2>
+    <p>Entities can be used for special characters as in:</p>
 
-      <h2>R code comments</h2>
-
-      <h2>Produce <code>.Rhtml</code> file</h2>
-
-      <h2>Produce <code>.html</code> file</h2>
-
-    </div>
-
-    <div>
-      <h1>Transformation to PDF</h1>
-
-      <h2>Do xinclude</h2>
-
-      <p></p>
-
-      <h2>XML entities</h2>
-
-      <h2>R code comments</h2>
-
-      <h2>Produce <code>.Rtex</code> file</h2>
-
-      <h2>Produce <code>.tex</code> file</h2>
-
-      <h2>Produce <code>.pdf</code> file</h2>
-
-    </div>
+    <ul>
+      <li>
+<code>&amp;mdash;</code> — em dash</li>
+      <li>
+<code>&amp;ndash;</code> – en dash</li>
+      <li>
+<code>&amp;us;</code> _ underscore</li>
+      <li>
+<code>&amp;tilde;</code> ~ tilde</li>
+      <li>
+<code>&amp;bar;</code> | bar</li>
+    </ul>
     
-    <div>
-      <h1>Background</h1>
+    <h1>Transformation to HTML</h1>
 
+    <h2>Do xinclude</h2>
 
+    <p></p>
 
-      <pre class="knitr" name="exchangeDemo" options="eval=FALSE">library(conduit)
-      exchangeRates &lt;- loadModule(
-      name = "exchangeRates",
-      ref = "examples/subsetting/exchange_rates.xml")
-      outputs &lt;- runModule(exchangeRates)
-      </pre>
-    </div>
+    <h2>XML entities</h2>
 
+    <h2>R code comments</h2>
+
+    <h2>Produce <code>.Rhtml</code> file</h2>
+
+    <h2>Produce <code>.html</code> file</h2>
+    
+    <h1>Transformation to PDF</h1>
+
+    <h2>Do xinclude</h2>
+
+    <p></p>
+
+    <h2>XML entities</h2>
+
+    <h2>R code comments</h2>
+
+    <h2>Produce <code>.Rtex</code> file</h2>
+
+    <h2>Produce <code>.tex</code> file</h2>
+
+    <h2>Produce <code>.pdf</code> file</h2>
+    
+    <h1>Background</h1>
+
+    <pre class="knitr" name="exchangeDemo" options="eval=FALSE">library(conduit)
+exchangeRates &lt;- loadModule(
+    name = "exchangeRates",
+    ref = "examples/subsetting/exchange_rates.xml")
+outputs &lt;- runModule(exchangeRates)
+    </pre>
 
     <div class="references">
       <h1 class="unnumbered">References</h1>
@@ -116,14 +134,9 @@
       Document processing will xinclude the contents of
 	references.html
     </div>
+    
+    <h1>Technical requirements</h1>
 
-    <!-- section break -->
-
-    <div class="appendix">
-      <h1>Technical requirements</h1>
-
-      <p>This is an appendix section.</p>
-
-    </div>
+    <p>This is an appendix section.</p>
   </div></body>
 </html>

@@ -1,4 +1,4 @@
-<head>
+<metadata>
   <title>Transforming documents with OpenAPI pipelines</title>
   <subtitle>Limits are for quitters</subtitle>
   <author>
@@ -10,4 +10,4 @@
   <date></date>
   <description>Technical report on transforming documents using an
   OpenAPI pipeline.</description>
-</head>
+</metadata>
