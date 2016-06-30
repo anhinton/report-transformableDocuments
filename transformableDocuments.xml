@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no" ?><!--*-html-*-->
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <?xml-stylesheet type="text/xsl" href="xsl/preview.xsl"?>
-<!-- Time-stamp: "2016-06-29 17:05:00 ashley"-->
+<!-- Time-stamp: "2016-06-30 13:53:39 ahin017"-->
 <!DOCTYPE document [
 <!ENTITY mdash "&#x2014;">
 <!ENTITY ndash "&#x2013;">
@@ -28,30 +28,41 @@
   </head>
 
   <body>
-    <h1 class="unnumbered">Introduction</h1>
-
-    <p>This sections is <q>unnumbered</q>, which means it won't show
-    up in a table of contents.</p>
+    <div id="introduction">
+      <p>Many technologies now exist for writing a document in common
+      format to be transformed into various formats for sharing. This
+      report proposes that using markup, rather than common markdown
+      languages, is a good fit for writing flexible human- and
+      machine-readable transformable documents. The examples in this
+      report use OpenAPI pipelines to perform the document
+      transformations into various document formats.  The pipelines
+      produced show how such a task can be split into various reusable
+      modules.</p>
+    </div>
     
     <h1>The case for transformable documents</h1>
     
     <h1>The <code>document</code> format</h1>
 
-    <p>The transformable document pipeline is based around an XML
-    document with <code>document</code> as the root node. This
-    document has two child elements: <code>head</code> and
-    <code>body</code>.</p>
+    <p>The transformable document pipelines described in this report
+    are based around an XML document with <code>document</code> as the
+    root node. This document has two child elements: <code>head</code>
+    and <code>body</code>.</p>
 
-    <p>The <code>head</code> node contains the document metadata,
-    with nodes for the document <code>title</code> and
+    <p>The <code>head</code> element contains the document metadata,
+    with elements for the document <code>title</code> and
     <code>subtitle</code>, <code>author</code> information,
     <code>date</code> of publication, and a <code>description</code>
-    section.</p>
+    section. An example <code>head</code> element follows:</p>
 
     <pre><code><xi:include href="headExample.xml" parse="text">
-      <xi:fallback>Document processing will xinclude the contents of
-      headExample.html</xi:fallback>
+      <xi:fallback>xinclude headExample.html</xi:fallback>
     </xi:include></code></pre>
+
+    <p>The <code>body</code> element contains the document's main
+    content, and is intended to support all the elements available to
+    HTML 4.01, as well as several elements designed
+    specifically for document transformation.</p>
     
     <h1>Transformation to HTML</h1>
 
