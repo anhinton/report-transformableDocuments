@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <?xml-stylesheet type="text/xsl" href="xsl/preview.xsl"?>
-<!-- Time-stamp: "2016-06-30 15:28:41 ahin017"-->
+<!-- Time-stamp: "2016-07-01 17:56:57 ashley"-->
 <!DOCTYPE document [
 <!ENTITY mdash "&#x2014;">
 <!ENTITY ndash "&#x2013;">
@@ -36,8 +36,89 @@
       produced show how such a task can be split into various reusable
       modules.</p>
     </div>
+
+    <!-- end section -->
     
     <h1>The case for transformable documents</h1>
+
+    <p>When writing reports and articles for publication in journals,
+    books, online or otherwise, an author will employ one of many
+    document formats to describe the typographical and structural
+    details of her document. Common formats for research publication
+    include the LaTeX system for producing printed documents, and HTML
+    for producing online documents. These and other formats allow an
+    author to have low-level control over a certain type of output,
+    but usually do not offer control over multiple outputs.</p>
+
+    <p>The Pandoc document converter is frequently used to allow an
+    author to write a document in one format and then convert to
+    another. For example an author could create an HTML document and
+    use Pandoc to generate a LaTeX version of this document. An author
+    will gnerally write a document using the Pandoc Markdown format,
+    and then use Pandoc to convert the document to one (or several)
+    formats for publication.</p>
+
+    <p>Pandoc Markdown is a variant of Markdown, a lightweight markup
+    language written as a simpler way to author HTML
+    documents. Markdown is intended to be readable without conversion,
+    and as such is written so as not to appear to contain markup tags
+    or formatting. While this can makes it easy for an author to write
+    a document with common formatting it makes it very difficult to
+    have fine-grained control over the eventual output
+    document(s).</p>
+
+    <p>As well as needing control over the appearance and structure of
+    a document, an author will often need to embed software code to be
+    executed to produce the final version of the document. Various
+    tools exist for executing code embedded in a literate document to
+    produce the desired output. For example, an author can embed R
+    code in her document and use the Knitr package to execute the R
+    code and produce a final document. An author embeds R code in
+    another document format, for example HTML or LaTeX, and processes
+    the document to produce an output document in the same format.</p>
+
+    <p>The R Markdown package combines the dynamic document processing
+    of Knitr with the common authoring format of Pandoc Markdown. An
+    author can write a document in Pandoc Markdown which contains
+    embedded R code to be executed. The author can then execute the
+    code and produce an output document for publication in one of the
+    many formats available through Pandoc document conversion.</p>
+
+    <p>It is clear that a document author has many options, and the
+    implementation of R Markdown in the RStudio IDE is an indication
+    that many developers in the R world at least see Markdown as a
+    very useful authoring tool. The following use cases will server to
+    highlight some of the drawbacks to authoring in Markdown. These
+    drawbacks will inform the design of a transformable document
+    solution described in this report.</p>
+
+    <p>While Markdown can be very useful for authoring simple
+    documents quickly (Markdown's creators took inspiration from the
+    formatting conventions of plain text emails) it is not suited to
+    more involved formatting. One area of limitation is in the
+    creation of lists. In Pandoc Markdown a simple list is created by
+    prepending a <q>*</q>, <q>+</q>, or <q>-</q> character to
+    the beginning of each list item, as in the following example:</p>
+
+    <pre><code>  * one
+  * two
+  * three</code></pre>
+    
+    <p>If an author wishes to create an embedded list, she must use
+    the four space rule to indent each embedded list.</p>
+
+    <pre><code>  * outer list 1
+      - inner list 1
+      - inner list 2
+  * outer list 2</code></pre>
+
+    <p></p>
+  
+    <p>Can't do XPATH-type things on code blocks.</p>
+
+    <p>Not easy to extend.</p>
+
+    <!-- end section -->
     
     <h1>The <code>document</code> format</h1>
 
@@ -92,6 +173,8 @@ exchangeRates &lt;- loadModule(
     ref = "examples/subsetting/exchange_rates.xml")
 outputs &lt;- runModule(exchangeRates)
     </code>
+
+    <!-- end section -->
     
     <h1>Transformation to HTML</h1>
 
@@ -106,6 +189,8 @@ outputs &lt;- runModule(exchangeRates)
     <h2>Produce <code>.Rhtml</code> file</h2>
 
     <h2>Produce <code>.html</code> file</h2>
+
+    <!-- end section -->
     
     <h1>Transformation to PDF</h1>
 
@@ -122,6 +207,8 @@ outputs &lt;- runModule(exchangeRates)
     <h2>Produce <code>.tex</code> file</h2>
 
     <h2>Produce <code>.pdf</code> file</h2>
+
+    <!-- end section -->
     
     <h1>Background</h1>
 
@@ -134,6 +221,8 @@ outputs &lt;- runModule(exchangeRates)
 	references.html</xi:fallback>
       </xi:include>
     </div>
+
+    <!-- end section -->
     
     <h1>Technical requirements</h1>
 
