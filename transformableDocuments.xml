@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<?xml-stylesheet type="text/xsl" href="xsl/preview.xsl"?>
-<!-- Time-stamp: "2016-07-01 17:56:57 ashley"-->
+<?xml version="1.0" encoding="UTF-8"  ?>
+<?xml-stylesheet href="xsl/preview.xsl" type="text/xsl"?>
 <!DOCTYPE document [
 <!ENTITY mdash "&#x2014;">
 <!ENTITY ndash "&#x2013;">
@@ -12,12 +11,10 @@
   
   <metadata>
     <title>Transforming documents with OpenAPI pipelines</title>
-    <subtitle>Limits are for quitters</subtitle>
     <author>
       <name>Ashley Noel Hinton</name>
       <email>ahin017@aucklanduni.ac.nz</email>
-      <affiliation>Department of Statistics, The University of
-      Auckland</affiliation>
+      <affiliation>Department of Statistics, The University of Auckland</affiliation>
     </author>
     <date></date>
     <description>Technical report on transforming documents using an
@@ -39,32 +36,36 @@
 
     <!-- end section -->
     
-    <h1>The case for transformable documents</h1>
+    <h1>A markup transformable document format</h1>
 
     <p>When writing reports and articles for publication in journals,
     books, online or otherwise, an author will employ one of many
     document formats to describe the typographical and structural
     details of her document. Common formats for research publication
-    include the LaTeX system for producing printed documents, and HTML
-    for producing online documents. These and other formats allow an
-    author to have low-level control over a certain type of output,
-    but usually do not offer control over multiple outputs.</p>
+    include the <a href="https://latex-project.org/">LaTeX</a> system
+    for producing printed documents, and <a
+    href="https://www.w3.org/html/">HTML</a> for producing online
+    documents. These and other formats allow an author to have
+    low-level control over a certain type of output, but usually do
+    not offer control over multiple outputs.</p>
 
-    <p>The Pandoc document converter is frequently used to allow an
-    author to write a document in one format and then convert to
-    another. For example an author could create an HTML document and
-    use Pandoc to generate a LaTeX version of this document. An author
-    will gnerally write a document using the Pandoc Markdown format,
-    and then use Pandoc to convert the document to one (or several)
-    formats for publication.</p>
+    <p>The <a href="http://pandoc.org/index.html">Pandoc</a> document
+    converter is frequently used to allow an author to write a
+    document in one format and then convert to another. For example an
+    author could create an HTML document and use Pandoc to generate a
+    LaTeX version of this document. An author will gnerally write a
+    document using the Pandoc Markdown format, and then use Pandoc to
+    convert the document to one (or several) formats for
+    publication.</p>
 
-    <p>Pandoc Markdown is a variant of Markdown, a lightweight markup
-    language written as a simpler way to author HTML
-    documents. Markdown is intended to be readable without conversion,
-    and as such is written so as not to appear to contain markup tags
-    or formatting. While this can makes it easy for an author to write
-    a document with common formatting it makes it very difficult to
-    have fine-grained control over the eventual output
+    <p>Pandoc Markdown is a variant of <a
+    href="https://daringfireball.net/projects/markdown/">Markdown</a>,
+    a lightweight markup language written as a simpler way to author
+    HTML documents. Markdown is intended to be readable without
+    conversion, and as such is written so as not to appear to contain
+    markup tags or formatting. While this can makes it easy for an
+    author to write a document with common formatting it makes it very
+    difficult to have fine-grained control over the eventual output
     document(s).</p>
 
     <p>As well as needing control over the appearance and structure of
@@ -72,17 +73,19 @@
     executed to produce the final version of the document. Various
     tools exist for executing code embedded in a literate document to
     produce the desired output. For example, an author can embed R
-    code in her document and use the Knitr package to execute the R
+    code in her document and use the <a
+    href="http://yihui.name/knitr/">Knitr</a> package to execute the R
     code and produce a final document. An author embeds R code in
     another document format, for example HTML or LaTeX, and processes
     the document to produce an output document in the same format.</p>
 
-    <p>The R Markdown package combines the dynamic document processing
-    of Knitr with the common authoring format of Pandoc Markdown. An
-    author can write a document in Pandoc Markdown which contains
-    embedded R code to be executed. The author can then execute the
-    code and produce an output document for publication in one of the
-    many formats available through Pandoc document conversion.</p>
+    <p>The <a href="http://rmarkdown.rstudio.com/">R Markdown</a>
+    package combines the dynamic document processing of Knitr with the
+    common authoring format of Pandoc Markdown. An author can write a
+    document in Pandoc Markdown which contains embedded R code to be
+    executed. The author can then execute the code and produce an
+    output document for publication in one of the many formats
+    available through Pandoc document conversion.</p>
 
     <p>It is clear that a document author has many options, and the
     implementation of R Markdown in the RStudio IDE is an indication
@@ -94,11 +97,12 @@
 
     <p>While Markdown can be very useful for authoring simple
     documents quickly (Markdown's creators took inspiration from the
-    formatting conventions of plain text emails) it is not suited to
-    more involved formatting. One area of limitation is in the
-    creation of lists. In Pandoc Markdown a simple list is created by
-    prepending a <q>*</q>, <q>+</q>, or <q>-</q> character to
-    the beginning of each list item, as in the following example:</p>
+    formatting conventions of plain text emails) an author also makes
+    several sacrifices in choosing Markdown over a markup language
+    like HTML. An example of these limitations is the creation of
+    unordered lists. In Pandoc Markdown a simple list is created by
+    prepending a <q>*</q>, <q>+</q>, or <q>-</q> character to the
+    beginning of each list item, as in the following example:</p>
 
     <pre><code>  * one
   * two
@@ -112,11 +116,110 @@
       - inner list 2
   * outer list 2</code></pre>
 
-    <p></p>
-  
-    <p>Can't do XPATH-type things on code blocks.</p>
+    <p>At even two levels this process is already quite complex. As
+    list membership depends on whitespace it can be a frustrating
+    exercise trying to make changes to a complex list, let alone
+    author a list in the first place.</p>
 
-    <p>Not easy to extend.</p>
+    <p>In contrast, a author using HTML markup can indicate an
+    unordered list using a<code>&lt;ul&gt;</code> element, which
+    <code>&lt;li&gt;</code> elements for each item, as in the
+    following code:</p>
+
+    <pre><code><![CDATA[<ul>
+  <li>one</li>
+  <li>two</li>
+  <li>three</li>
+</ul>]]></code></pre>
+
+    <p>Similarly, an embedded list simply nests the same structure
+    inside a list structure, as in the following code:</p>
+
+    <pre><code><![CDATA[<ul>
+  <li>outer list 1
+    <ul>
+      <li>inner list 1</li>
+      <li>inner list 2</li>
+    </ul>
+  </li>
+  <li>outer list 2</li>
+</ul>]]></code></pre>
+
+    <p>The author does not have to count white space, and it is
+    trivial to make changes to this list structure.</p>
+  
+    <p>A document author has various methods for embedding chunks of
+    code in her document. For example, an author of a Knitr HTML or
+    LaTeX document can enclose code chunks to be executed in specially
+    formatted comments in the respective document languages. For
+    example, a document author can embed and R code in a Knitr HTML
+    document as in the following code:</p>
+
+    <pre><code><![CDATA[<!-- begin.rcode
+x <- rnorm(n = 10)
+plot(x)
+end.rcode-->]]></code></pre>
+
+    <p>Similarly an author can embed R code in a Knitr LaTeX document
+    as in the following code:</p>
+
+    <pre><code><![CDATA[%% begin.rcode
+% x <- rnorm(n = 10)
+% plot(x)
+%% end.rcode]]></code></pre>
+
+    <p>A document author using the R Markdown package can enclose R
+    code chunks in special <q>fenced code</q> blocks as in the
+    following code:</p>
+
+    <pre><code><![CDATA[```{r}
+x <- rnorm(n = 10)
+plot(x)
+```]]></code></pre>
+
+    <p>While the use of these methods for including code makes it
+    quick and easy to write a document it makes it more difficult for
+    an author to do extra processing to chunks of code before
+    producing the a final document. In contrast, an author creating an
+    HTML document might wrap R code in <code>&lt;code&gt;</code>
+    elements as in the following code:</p>
+
+    <pre><code><![CDATA[<code class="R">
+  x <- rnorm(n = 10)
+  plot(x)
+</code>]]></code></pre>
+
+    <p>If an author marked up code chunks in this fashion she could,
+    for example, make use of tools which employ the XPATH query
+    language to locate <code>&lt;code&gt;</code> elemenents and
+    perform transformations. If the author gives R code chunks the
+    class <q>R</q>, as in the above example, she could perform
+    transformations on just the R code chunks.</p>
+
+    <p>If an author uses Pandoc Markdown to write a document she can
+    include raw HTML or raw TeX language elements to control the
+    document output. These raw code sections are only processed by
+    Pandoc when creating the associated output formats, and would
+    otherwise be ignored. There is no simple method for creating
+    custom sections or formats within Pandoc Markdown.</p>
+
+    <p>While an author using HTML is also unable to expect new and
+    custom elements to be recognised by a web browser, the fact that
+    HTML is a form of XML means an author can invent her own XML
+    elements for document writing. These custom elements could then be
+    processed using an XML transformation tool like XSL
+    Transformations to convert the custom elements to valid HTML
+    code.</p>
+
+    <p>Markdown has proven itself to be very useful for document
+    authors, and it is not the suggestion of this report that a markup
+    format replace Markdown entirely. Rather this report proposes that
+    in situation where Markdown is not powerful enough for a document
+    author a markup format like the one described in the next section
+    might provide the solution. Importantly, a well designed markup
+    document and transformation pipeline should allow an author to
+    recover a Markdown document as <em>output</em>, thus providing a
+    readable plain text document.</p>
 
     <!-- end section -->
     
