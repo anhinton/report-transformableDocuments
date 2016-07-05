@@ -213,12 +213,12 @@ plot(x)
 
     <!-- end section -->
     
-    <h1>The <code>document</code> format</h1>
+    <h1>The <code>document</code> markup format</h1>
 
-    <p>The transformable document pipelines described in this report
-    are based around an XML document with <code>document</code> as the
-    root node. This document has two child elements: <code>metadata</code>
-    and <code>body</code>.</p>
+    <p>The transformable document format described in this report is
+    an XML file with <code>document</code> as the root element. This
+    document has two child elements: <code>metadata</code> and
+    <code>body</code>.</p>
 
     <p>The <code>metadata</code> element contains the document metadata,
     with elements for the document <code>title</code> and
@@ -226,25 +226,107 @@ plot(x)
     <code>date</code> of publication, and a <code>description</code>
     section. An example <code>metadata</code> element follows:</p>
 
-    <pre><code><xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="metadataExample.xml" parse="text">
-      <xi:fallback>xinclude metadataExample.html</xi:fallback>
-    </xi:include></code></pre>
+    <pre><code>&lt;metadata&gt;
+  &lt;title&gt;Transforming documents with OpenAPI pipelines&lt;/title&gt;
+  &lt;subtitle&gt;Limits are for quitters&lt;/subtitle&gt;
+  &lt;author&gt;
+    &lt;name&gt;Ashley Noel Hinton&lt;/name&gt;
+    &lt;email&gt;ahin017@aucklanduni.ac.nz&lt;/email&gt;
+    &lt;affiliation&gt;Department of Statistics, The University of
+    Auckland&lt;/affiliation&gt;
+  &lt;/author&gt;
+  &lt;date&gt;&lt;/date&gt;
+  &lt;description&gt;Technical report on transforming documents using an
+  OpenAPI pipeline.&lt;/description&gt;
+&lt;/metadata&gt;
+</code></pre>
 
     <p>The <code>body</code> element contains the document's main
-    content, and is intended to support all the elements available to
-    HTML 4.01, as well as several elements designed
-    specifically for document transformation.</p>
+    content. The following elements are used in the same way as they
+    are used in HTML
+    (<a href="https://www.w3.org/TR/html-markup/elements.html">https://www.w3.org/TR/html-markup/elements.html</a>):</p>
 
-    <p>As in HTML 5 we can declare a <code>&lt;figure&gt;</code>
-    element, which contains an <code>&lt;img&gt;</code> element and a
-    <code>&lt;figcaption&gt;</code> element.</p>
+    <ul>
+      <li>
+<code>a</code> – hyperlink</li>
+      <li>
+<code>blockquote</code> – block quotation</li>
+      <li>
+<code>cite</code> – cited title of a work</li>
+      <li>
+<code>code</code> – code fragment</li>
+      <li>
+<code>em</code> – emphatic stress</li>
+      <li>
+<code>figcaption</code> – figure caption</li>
+      <li>
+<code>figure</code> – figure with optional caption</li>
+      <li>
+<code>h1</code> – heading</li>
+      <li>
+<code>h2</code> – heading</li>
+      <li>
+<code>h3</code> – heading</li>
+      <li>
+<code>img</code> – image</li>
+      <li>
+<code>li</code> – list item</li>
+      <li>
+<code>p</code> – paragraph</li>
+      <li>
+<code>pre</code> – preformatted text</li>
+      <li>
+<code>q</code> – quoted text</li>
+      <li>
+<code>section</code> – section</li>
+      <li>
+<code>ul</code> – unordered list</li>
+    </ul>
 
-    <p>We have “double quotes” using <code>&lt;q&gt;</code> and
-    ‘single quotes’ using <code>&lt;sq&gt;</code>. We can
-    directly link like <a href="https://github.com/anhinton/conduit">https://github.com/anhinton/conduit</a>
-    using <code>&lt;url&gt;</code> tags.</p>
+    <p>The following custom elements are introduced in the
+    <code>document</code> format:</p>
 
-    <p>Entities can be used for special characters as in:</p>
+    <ul>
+      <li>
+<code>sq</code> – single quote, used to enclose a
+      section of text to be quoted with single quotes.</li>
+      <li>
+<code>url</code> – URL hyperlink, used to indicate the
+      enclosed URL is both the href and value of a hyperlink.</li>
+    </ul>
+
+    <p>The following code block demonstrates the use of several of the
+    elements above:</p>
+
+    <pre><code>&lt;blockquote&gt;The &lt;code&gt;document&lt;/code&gt; format lets us quote with
+&lt;q&gt;double quotes&lt;/q&gt; using &lt;code&gt;&amp;lt;q&amp;gt;&lt;/code&gt; and &lt;sq&gt;single
+quotes&lt;/sq&gt; using &lt;code&gt;&amp;lt;sq&amp;gt;&lt;/code&gt;. We can directly link to a
+url&amp;#x2014;&lt;url&gt;https://github.com/anhinton/conduit&lt;/url&gt;&amp;#x2014;using
+&lt;code&gt;&amp;lt;url&amp;gt;&lt;/code&gt; tags.&lt;/blockquote&gt;
+</code></pre>
+
+    <p>The resulting output:</p>
+
+    <blockquote>The <code>document</code> format lets us quote with
+“double quotes” using <code>&lt;q&gt;</code> and ‘single
+quotes’ using <code>&lt;sq&gt;</code>. We can directly link to a
+url—<a href="https://github.com/anhinton/conduit">https://github.com/anhinton/conduit</a>—using
+<code>&lt;url&gt;</code> tags.</blockquote>
+
+    <p>If transformation to HTML was the only output format for my
+    document there would be no need to be so explicit about the common
+    HTML elements we have used. However, as I intend to also produce a
+    PDF file (via LaTeX), and a Markdown file, it is important that I
+    keep track of the elements which are to be transformed.</p>
+
+    <p>To ensure that special characters are rendered correctly in
+    various output formats, DTD entities are used in the
+    <code>document</code> format. Working definitions of these
+    entities are defined in the <code>document</code> DOCTYPE section
+    to help with document authoring. These entities can then be
+    replaced by language-appropriate representations in a
+    transformation pipeline. The entities defined for the pipelines in
+    this report are:</p>
 
     <ul>
       <li>
@@ -259,18 +341,24 @@ plot(x)
 <code>&amp;bar;</code> | bar</li>
     </ul>
 
-    <p>R code to be processed by knitr can be wrapped in a
-    <code>&lt;code&gt;</code> element with
+    <p>The document transformation pipelines in this report allow a
+    document author to execute chunks of R code using Knitr. Chunks of
+    R code are wrapped in a <code>&lt;code&gt;</code> element with
     <code>class="knitr"</code>. An author can also provide a
     <code>name</code> attribute for the knitr code chunk, as well as
-    knitr <code>options</code>.</p>
+    knitr <code>options</code>. The following code demonstrates how to
+    include an R code chunk to be executed:</p>
 
-    <pre><code>library(conduit)
-exchangeRates &lt;- loadModule(
-    name = "exchangeRates",
-    ref = "examples/subsetting/exchange_rates.xml")
-outputs &lt;- runModule(exchangeRates)
-    </code></pre>
+    <pre><code>&lt;code class="knitr" name="knitrDemo" options="comment='#$#'"&gt;&lt;![CDATA[x &lt;- rnorm(n = 10)
+mean(x)]]&gt;&lt;/code&gt;
+</code></pre>
+
+    <p>And the following is the result of executing this code
+    chunk:</p>
+
+    <p><strong>TODO: EXECUTE R CODE:</strong></p>
+<pre><code>x &lt;- rnorm(n = 10)
+mean(x)</code></pre>
 
     <!-- end section -->
     
@@ -314,10 +402,8 @@ outputs &lt;- runModule(exchangeRates)
       <h1 class="unnumbered">References</h1>
       <!-- citations not included in main text -->
       <cite key="w3c2008extensible"></cite>
-      <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="references.html">
-	<xi:fallback>Document processing will xinclude the contents of
-	references.html</xi:fallback>
-      </xi:include>
+      Document processing will xinclude the contents of
+	references.html
     </div>
 
     <!-- end section -->

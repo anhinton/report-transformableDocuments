@@ -223,12 +223,12 @@ plot(x)
 
     <!-- end section -->
     
-    <h1>The <code>document</code> format</h1>
+    <h1>The <code>document</code> markup format</h1>
 
-    <p>The transformable document pipelines described in this report
-    are based around an XML document with <code>document</code> as the
-    root node. This document has two child elements: <code>metadata</code>
-    and <code>body</code>.</p>
+    <p>The transformable document format described in this report is
+    an XML file with <code>document</code> as the root element. This
+    document has two child elements: <code>metadata</code> and
+    <code>body</code>.</p>
 
     <p>The <code>metadata</code> element contains the document metadata,
     with elements for the document <code>title</code> and
@@ -241,20 +241,67 @@ plot(x)
     </xi:include></code></pre>
 
     <p>The <code>body</code> element contains the document's main
-    content, and is intended to support all the elements available to
-    HTML 4.01, as well as several elements designed
-    specifically for document transformation.</p>
+    content. The following elements are used in the same way as they
+    are used in HTML
+    (<url>https://www.w3.org/TR/html-markup/elements.html</url>):</p>
 
-    <p>As in HTML 5 we can declare a <code>&lt;figure&gt;</code>
-    element, which contains an <code>&lt;img&gt;</code> element and a
-    <code>&lt;figcaption&gt;</code> element.</p>
+    <ul>
+      <li><code>a</code> &ndash; hyperlink</li>
+      <li><code>blockquote</code> &ndash; block quotation</li>
+      <li><code>cite</code> &ndash; cited title of a work</li>
+      <li><code>code</code> &ndash; code fragment</li>
+      <li><code>em</code> &ndash; emphatic stress</li>
+      <li><code>figcaption</code> &ndash; figure caption</li>
+      <li><code>figure</code> &ndash; figure with optional caption</li>
+      <li><code>h1</code> &ndash; heading</li>
+      <li><code>h2</code> &ndash; heading</li>
+      <li><code>h3</code> &ndash; heading</li>
+      <li><code>img</code> &ndash; image</li>
+      <li><code>li</code> &ndash; list item</li>
+      <li><code>p</code> &ndash; paragraph</li>
+      <li><code>pre</code> &ndash; preformatted text</li>
+      <li><code>q</code> &ndash; quoted text</li>
+      <li><code>section</code> &ndash; section</li>
+      <li><code>ul</code> &ndash; unordered list</li>
+    </ul>
 
-    <p>We have <q>double quotes</q> using <code>&lt;q&gt;</code> and
-    <sq>single quotes</sq> using <code>&lt;sq&gt;</code>. We can
-    directly link like <url>https://github.com/anhinton/conduit</url>
-    using <code>&lt;url&gt;</code> tags.</p>
+    <p>The following custom elements are introduced in the
+    <code>document</code> format:</p>
 
-    <p>Entities can be used for special characters as in:</p>
+    <ul>
+      <li><code>sq</code> &ndash; single quote, used to enclose a
+      section of text to be quoted with single quotes.</li>
+      <li><code>url</code> &ndash; URL hyperlink, used to indicate the
+      enclosed URL is both the href and value of a hyperlink.</li>
+    </ul>
+
+    <p>The following code block demonstrates the use of several of the
+    elements above:</p>
+
+    <pre><code><xi:include href="elementsExample.xml" parse="text">
+      <xi:fallback><todo>xinclude elementsExample.xml</todo></xi:fallback>
+    </xi:include></code></pre>
+
+    <p>The resulting output:</p>
+
+    <xi:include href="elementsExample.xml" parse="xml">
+      <xi:fallback><todo>xinclude elementsExample.xml</todo></xi:fallback>
+    </xi:include>
+
+    <p>If transformation to HTML was the only output format for my
+    document there would be no need to be so explicit about the common
+    HTML elements we have used. However, as I intend to also produce a
+    PDF file (via LaTeX), and a Markdown file, it is important that I
+    keep track of the elements which are to be transformed.</p>
+
+    <p>To ensure that special characters are rendered correctly in
+    various output formats, DTD entities are used in the
+    <code>document</code> format. Working definitions of these
+    entities are defined in the <code>document</code> DOCTYPE section
+    to help with document authoring. These entities can then be
+    replaced by language-appropriate representations in a
+    transformation pipeline. The entities defined for the pipelines in
+    this report are:</p>
 
     <ul>
       <li><code>&amp;mdash;</code> &mdash; em dash</li>
@@ -264,18 +311,24 @@ plot(x)
       <li><code>&amp;bar;</code> &bar; bar</li>
     </ul>
 
-    <p>R code to be processed by knitr can be wrapped in a
-    <code>&lt;code&gt;</code> element with
+    <p>The document transformation pipelines in this report allow a
+    document author to execute chunks of R code using Knitr. Chunks of
+    R code are wrapped in a <code>&lt;code&gt;</code> element with
     <code>class="knitr"</code>. An author can also provide a
     <code>name</code> attribute for the knitr code chunk, as well as
-    knitr <code>options</code>.</p>
+    knitr <code>options</code>. The following code demonstrates how to
+    include an R code chunk to be executed:</p>
 
-    <code class="knitr" name="exchangeDemo" options="eval=FALSE">library(conduit)
-exchangeRates &lt;- loadModule(
-    name = "exchangeRates",
-    ref = "examples/subsetting/exchange_rates.xml")
-outputs &lt;- runModule(exchangeRates)
-    </code>
+    <pre><code><xi:include href="knitrExample.xml" parse="text">
+      <xi:fallback><todo>xinclude knitrExample.xml</todo></xi:fallback>
+    </xi:include></code></pre>
+
+    <p>And the following is the result of executing this code
+    chunk:</p>
+
+    <xi:include href="knitrExample.xml" parse="xml">
+      <xi:fallback><todo>xinclude knitrExample.xml</todo></xi:fallback>
+    </xi:include>
 
     <!-- end section -->
     

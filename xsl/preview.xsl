@@ -123,6 +123,7 @@
 
   <!-- knitr chunks -->
   <xsl:template match="code[@class='knitr']">
+    <p><strong>TODO: EXECUTE R CODE:</strong></p>
     <xsl:element name="pre"><xsl:element name="code"><xsl:value-of select="."/></xsl:element></xsl:element>
   </xsl:template>
 

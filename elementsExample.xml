@@ -1,0 +1,5 @@
+<blockquote>The <code>document</code> format lets us quote with
+<q>double quotes</q> using <code>&lt;q&gt;</code> and <sq>single
+quotes</sq> using <code>&lt;sq&gt;</code>. We can directly link to a
+url&#x2014;<url>https://github.com/anhinton/conduit</url>&#x2014;using
+<code>&lt;url&gt;</code> tags.</blockquote>

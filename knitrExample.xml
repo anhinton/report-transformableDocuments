@@ -1,0 +1,2 @@
+<code class="knitr" name="knitrDemo" options="comment='#$#'"><![CDATA[x <- rnorm(n = 10)
+mean(x)]]></code>

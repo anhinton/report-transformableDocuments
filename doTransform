@@ -1,2 +1,2 @@
 #! /bin/bash
-xsltproc -o transformableDocuments.html transformableDocuments.xml
+xsltproc --xinclude -o transformableDocuments.html transformableDocuments.xml
