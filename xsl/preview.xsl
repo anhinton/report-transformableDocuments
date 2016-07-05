@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
-<!DOCTYPE xsl:stylesheet [
-]>
 <xsl:stylesheet version="1.0"
-                xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-  <xsl:output encoding="UTF-8" indent="yes" method="html"
-	      omit-xml-declaration="yes"
-	      doctype-public="-//W3C//DTD HTML 4.01//EN"
-	      doctype-system="http://www.w3.org/TR/html4/strict.dtd"/>
+		xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+  <xsl:output
+      method = "html"
+      encoding = "UTF-8"
+      omit-xml-declaration = "yes"
+      doctype-system = "about:legacy-compat"
+      indent = "yes" />
 
   <!-- complete html document template -->
   <xsl:template match="document">
