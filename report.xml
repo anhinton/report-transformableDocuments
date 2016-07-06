@@ -411,6 +411,9 @@ plot(x)
 	
       <h2>Transformation to HTML</h2>
 
+      <p>The docToHtml pipeline consists of ... <todo>what are the
+      modules?</todo></p>
+
       <h3>Include referenced XML</h3>
 
       <p></p>
@@ -447,16 +450,6 @@ plot(x)
 
     <section>
       <h1>Background</h1>
-    </section>
-
-    <section class="references">
-      <h1 class="unnumbered">References</h1>
-      <!-- citations not included in main text -->
-      <cite key="w3c2008extensible"/>
-      <xi:include href="references.html">
-	<xi:fallback>Document processing will xinclude the contents of
-	references.html</xi:fallback>
-      </xi:include>
     </section>
 
     <!-- end section -->
