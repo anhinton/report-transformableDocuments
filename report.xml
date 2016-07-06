@@ -14,8 +14,12 @@
     <author>
       <name>Ashley Noel Hinton</name>
       <email>ahin017@aucklanduni.ac.nz</email>
-      <affiliation>Department of Statistics, The University of Auckland</affiliation>
     </author>
+    <author>
+      <name>Paul Murrell</name>
+      <email>paul@stat.auckland.ac.nz</email>
+    </author>
+    <affiliation>Department of Statistics, The University of Auckland</affiliation>
     <date></date>
     <description>Technical report on transforming documents using an
     OpenAPI pipeline.</description>
@@ -408,52 +412,8 @@ plot(x)
       section I will show how this pipeline can be modified to produce
       PDF and Markdown output from the same source
       <code>document</code>.</p>
+    </section>
 	
-      <h2>Transformation to HTML</h2>
-
-      <p>The docToHtml pipeline consists of ... <todo>what are the
-      modules?</todo></p>
-
-      <h3>Include referenced XML</h3>
-
-      <p></p>
-
-      <h3>XML entities</h3>
-
-      <h3>R code comments</h3>
-
-      <h3>Produce <code>.Rhtml</code> file</h3>
-
-      <h3>Produce <code>.html</code> file</h3>
-
-      <!-- end section -->
-      
-      <h2>Transformation to PDF</h2>
-
-      <h3>Do xinclude</h3>
-
-      <p></p>
-
-      <h3>XML entities</h3>
-
-      <h3>R code comments</h3>
-
-      <h3>Produce <code>.Rtex</code> file</h3>
-
-      <h3>Produce <code>.tex</code> file</h3>
-
-      <h3>Produce <code>.pdf</code> file</h3>
-
-    </section>
-
-    <!-- end section -->
-
-    <section>
-      <h1>Background</h1>
-    </section>
-
-    <!-- end section -->
-
     <section>
       <h1>Technical requirements</h1>
 

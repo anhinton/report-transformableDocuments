@@ -1,3 +1,3 @@
-Technical report: An OpenAPI transformable document pipeline
+Technical report: A markup transformable document format
 ================
 
