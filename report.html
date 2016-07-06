@@ -1,6 +1,68 @@
 <!DOCTYPE html>
 <?xml-stylesheet href="xsl/preview.xsl" type="text/xsl"><html>
 <head>
+<style type="text/css">
+.knitr .inline {
+  background-color: #f7f7f7;
+  border:solid 1px #B0B0B0;
+}
+.error {
+	font-weight: bold;
+	color: #FF0000;
+}
+.warning {
+	font-weight: bold;
+}
+.message {
+	font-style: italic;
+}
+.source, .output, .warning, .error, .message {
+	padding: 0 1em;
+  border:solid 1px #F7F7F7;
+}
+.source {
+  background-color: #f5f5f5;
+}
+.rimage .left {
+  text-align: left;
+}
+.rimage .right {
+  text-align: right;
+}
+.rimage .center {
+  text-align: center;
+}
+.hl.num {
+  color: #AF0F91;
+}
+.hl.str {
+  color: #317ECC;
+}
+.hl.com {
+  color: #AD95AF;
+  font-style: italic;
+}
+.hl.opt {
+  color: #000000;
+}
+.hl.std {
+  color: #585858;
+}
+.hl.kwa {
+  color: #295F94;
+  font-weight: bold;
+}
+.hl.kwb {
+  color: #B05A65;
+}
+.hl.kwc {
+  color: #55aa55;
+}
+.hl.kwd {
+  color: #BC5A65;
+  font-weight: bold;
+}
+</style>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Transforming documents with OpenAPI pipelines</title>
 <meta name="author" content="Ashley Noel Hinton">
@@ -276,6 +338,8 @@ plot(x)
 	<li>
 <code>li</code> – list item</li>
 	<li>
+<code>ol</code> – ordered list</li>
+	<li>
 <code>p</code> – paragraph</li>
 	<li>
 <code>pre</code> – preformatted text</li>
@@ -354,15 +418,28 @@ url—<a href="https://github.com/anhinton/conduit">https://github.com/anhinton/
       include an R code chunk to be executed:</p>
 
       <pre><code>&lt;code class="knitr" name="knitrDemo" options="comment='#$#'"&gt;&lt;![CDATA[x &lt;- rnorm(n = 10)
-mean(x)]]&gt;&lt;/code&gt;
+mean(x)
+png("plot.png")
+plot(x)
+dev.off()]]&gt;&lt;/code&gt;
 </code></pre>
 
       <p>And the following is the result of executing this code
       chunk:</p>
 
-      <p><strong>TODO: EXECUTE R CODE:</strong></p>
-<pre><code>x &lt;- rnorm(n = 10)
-mean(x)</code></pre>
+<div class="chunk" id="knitrDemo"><div class="rcode"><div class="source"><pre class="knitr r"><span class="hl std">x</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">rnorm</span><span class="hl std">(</span><span class="hl kwc">n</span> <span class="hl std">=</span> <span class="hl num">10</span><span class="hl std">)</span>
+<span class="hl kwd">mean</span><span class="hl std">(x)</span>
+</pre></div>
+<div class="output"><pre class="knitr r">#$# [1] -0.1382412
+</pre></div>
+<div class="source"><pre class="knitr r"><span class="hl kwd">png</span><span class="hl std">(</span><span class="hl str">&quot;plot.png&quot;</span><span class="hl std">)</span>
+<span class="hl kwd">plot</span><span class="hl std">(x)</span>
+<span class="hl kwd">dev.off</span><span class="hl std">()</span>
+</pre></div>
+<div class="output"><pre class="knitr r">#$# png 
+#$#   2
+</pre></div>
+</div></div>
 
       <p>The <code>document</code> format also makes use of the
       <code>include</code> element from XInclude
@@ -374,16 +451,73 @@ mean(x)</code></pre>
       perform the transformation steps necessary for creating HTML, PDF,
       and Markdown output from the source document. The source document
       for this report is available at
-      <a href="report.xml">report.xml</a>. <strong>TODO: replace with final full
-      URL</strong></p>
+      <a href="report.xml">report.xml</a>. </p>
     </section>
 
     <!-- end section -->
 
     <section>
+      <h1>Using OpenAPI pipelines for transformation</h1>
+
+      <p>The OpenAPI architecture helps to break tasks in data
+      analysis down into small pieces making it easier for people to
+      contribute to a data problem. The goal of the OpenAPI project is
+      to make it easier for people to connect with data. Meaningful
+      steps in a data workflow can be wrapped as modules. Modules can
+      be arranged in pipelines, and shared to be recombined by other
+      authors in their own pipelines. Pipelines and modules can be
+      executed by OpenAPI glue system software. The whole project is
+      open source, and open to contributions from anyone
+      (<a href="http://stattech.wordpress.fos.auckland.ac.nz/2015-01-introducing-openapi/">Introducing
+      OpenAPI</a>,
+      <a href="http://stattech.wordpress.fos.auckland.ac.nz/2016-08-openapi-version-0-6/">OpenAPI
+      version 0.6</a>).</p>
+
+      <p>It is OpenAPI's dividing of tasks into modules which makes it
+      an ideal candidate for handling document
+      transformation. Transforming the <code>document</code> format
+      described in the previouse section can be broken down into
+      several discrete steps:</p>
+
+      <ol>
+	<li>Merge XML code indicated by <code>xi:include</code>
+	elements into the document.</li>
+	<li>Convert XML character entities into appropriate
+	characters.</li>
+	<li>Convert document into output format language.</li>
+	<li>Execute embedded chunks of code.</li>
+      </ol>
+
+      <p>Several technologies already exist for handling each of these
+      steps. For example, the xmllint
+      (<a href="http://www.xmlsoft.org/">http://www.xmlsoft.org/</a>) command line tool can
+      replace XInclude code, and replace entities with their
+      values. The xsltproc (ibid.) command line tool can be used to
+      apply an XSL stylesheet to the <code>document</code> to produce
+      the desired output format. The Knitr package in R can be used to
+      execute chunks of R code in various document formats.</p>
+
+      <p>What the OpenAPI architecture offers is the ability to wrap
+      transformation steps in a module which takes a file as an input,
+      and produces another file as an output. The output of one module
+      can be passed as the intput of another module, thus building a
+      pipeline which describes the entire transformation. Each module
+      in an OpenAPI pipeline specifies its execution language, meaning
+      an OpenAPI pipeline can have access to a wide variety of
+      tools.</p>
+
+      <p>In the following section I will descibe the modules used to
+      transform a tranformable <code>document</code> file to HTML
+      output, including the processing of chunks of R code. After this
+      section I will show how this pipeline can be modified to produce
+      PDF and Markdown output from the same source
+      <code>document</code>.</p>
+	
       <h2>Transformation to HTML</h2>
 
-      <h3>Do xinclude</h3>
+      <p>The docToHtml pipeline consists of ... </p>
+
+      <h3>Include referenced XML</h3>
 
       <p></p>
 
@@ -419,14 +553,6 @@ mean(x)</code></pre>
 
     <section>
       <h1>Background</h1>
-    </section>
-
-    <section class="references">
-      <h1 class="unnumbered">References</h1>
-      <!-- citations not included in main text -->
-      <cite key="w3c2008extensible"></cite>
-      Document processing will xinclude the contents of
-	references.html
     </section>
 
     <!-- end section -->

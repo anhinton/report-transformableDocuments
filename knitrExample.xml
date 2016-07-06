@@ -1,2 +1,5 @@
 <code class="knitr" name="knitrDemo" options="comment='#$#'"><![CDATA[x <- rnorm(n = 10)
-mean(x)]]></code>
+mean(x)
+png("plot.png")
+plot(x)
+dev.off()]]></code>

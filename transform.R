@@ -26,4 +26,29 @@ xinclude <- module(
             vessel = fileVessel("report.xml"),
             format = ioFormat("XML file"))))
 
-res1 <- runModule(xinclude, targetDirectory = tempdir())
+#res1 <- runModule(xinclude, targetDirectory = tempdir())
+substituteEntities <- module(
+    name = "substituteEntities",
+    language = moduleLanguage("bash"),
+    description = "Substitutes XML entity references for values",
+    inputs = list(
+        moduleInput(name = "report",
+                     vessel = fileVessel("report.xml"),
+                     format = ioFormat("XML file"))),
+    sources = list(moduleSource(
+        vessel = scriptVessel(readLines("scripts/substituteEntities.sh")))),
+    outputs = list(
+        moduleOutput(name = "report",
+                     vessel = fileVessel("report.xml"),
+                     format = ioFormat("XML file"))))
+
+
+
+docToHtml <- pipeline(
+    name = "docToHtml",
+    description = "Convert transformable XML document to HTML",
+    components = list(xinclude, substituteEntities),
+    pipes = list(
+        pipe("xinclude", "report", "substituteEntities", "report")))
+
+pplRes1 <- runPipeline(docToHtml, targetDirectory = tempdir())

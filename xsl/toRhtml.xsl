@@ -1,4 +1,7 @@
 <?xml version="1.0"?>
+<!DOCTYPE document [
+  <!ENTITY nl "&#xA;">
+]>
 <xsl:stylesheet version="1.0"
 		xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <xsl:output
@@ -9,7 +12,7 @@
       indent = "yes" />
 
   <!-- complete html document template -->
-  <xsl:template match="/document">
+  <xsl:template match="document">
     <html>
       <head>
 	<!-- process head tags -->
@@ -120,26 +123,23 @@
   <xsl:template match="sq">
     <xsl:text>&#x2018;</xsl:text><xsl:value-of select="."/><xsl:text>&#x2019;</xsl:text>
   </xsl:template>
-
+  
   <!-- knitr chunks -->
   <xsl:template match="code[@class='knitr']">
-    <xsl:element name="pre"><xsl:element name="code"><xsl:value-of select="."/></xsl:element></xsl:element>
+    <xsl:comment><xsl:text>begin.rcode </xsl:text><xsl:value-of select="@name"/><xsl:if test="@options"><xsl:text>, </xsl:text><xsl:value-of select="@options"/></xsl:if>
+    <xsl:text>&nl;</xsl:text>
+    <xsl:value-of select="node()"/>
+    <xsl:text>&nl;end.rcode</xsl:text></xsl:comment>
   </xsl:template>
 
   <!-- todo items -->
-  <xsl:template match="todo">
-    <strong>TODO: <xsl:value-of select="."/></strong>
-  </xsl:template>
+  <xsl:template match="todo"/>
 
   <!-- ann items -->
-  <xsl:template match="ann">
-    <span class="ann"><xsl:value-of select="."/></span>
-  </xsl:template>
+  <xsl:template match="ann"/>
 
   <!-- mod items -->
-  <xsl:template match="mod">
-    <span class="mod"><xsl:value-of select="."/></span>
-  </xsl:template>
+  <xsl:template match="mod"/>
 
   <!-- copy everything into new doc -->
   <xsl:template match="@*|node()">
