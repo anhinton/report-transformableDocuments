@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<document>
+  <metadata>
+    <title>Plotting in R</title>
+    <author>
+      <name>Ashley Noel Hinton</name>
+      <email>ahin017@aucklanduni.ac.nz</email>
+    </author>
+    <date>25 December 2015</date>
+  </metadata>
+
+  <body>
+    <p>A plot to celebrate 25 December:</p>
+
+    <code class="knitr"><![CDATA[x <- rnorm(n = 10)
+plot(x)]]></code>
+
+    <p>More information can be found at
+    <url>https://en.wikipedia.org/wiki/December_25</url>.</p>
+  </body>
+</document>

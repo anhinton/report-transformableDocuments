@@ -1,18 +1,49 @@
 body {
-    margin: auto; max-width: 800px; }
-code{ white-space: pre-wrap; }
-pre { margin-left: 2em; }
-img { max-width: 100%; }
-.ann {color: green; font-style: italic; background-color: silver; border: solid thin}
-.mod {color: red; font-style: italic; background-color: silver; border: solid thin}
-div.title {
-    text-align: center;
+    margin: auto; max-width: 800px;
 }
-p.author { 
+div.author { 
     font-style: italic;
     font-size: large;
- }
-div.introduction { 
-    padding: 0.5em 2em 0.5em 2em; 
+    text-align: center;
+}
+div.title {
+    text-align: center;
+    font-size: 133%;
+}
+figcaption {
+    font-size: 80%;
+    font-family: sans-serif;
+    text-align: center;
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+figure {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+h1, h2, h3 {
+    font-family: sans-serif;
+}
+img {
+    max-width: 100%;
+}
+pre {
+    margin-left: 2em;
+}
+
+/* .mod and .ann classes are intended for marking spans of class for*/
+/* editing attention */
+.ann {
+    color: green;
+    font-style: italic;
     background-color: silver;
+    border: solid thin
+}
+.mod {
+    color: red;
+    font-style: italic;
+    background-color: silver;
+    border: solid thin
 }

@@ -102,15 +102,6 @@
     </div>
   </xsl:template>
 
-  <!-- images and figures -->
-  <xsl:template match="img">
-    <xsl:element name="img">
-      <xsl:attribute name="src"><xsl:value-of select="normalize-space(@src)"/></xsl:attribute>
-      <xsl:attribute name="alt"><xsl:value-of select="normalize-space(@alt)"/></xsl:attribute>
-    </xsl:element>
-    <xsl:element name="figcaption">Figure: <xsl:value-of select="figcaption"/></xsl:element>
-  </xsl:template>
-
   <!-- url items -->
   <xsl:template match="url">
     <xsl:element name="a">      
@@ -119,16 +110,6 @@
       </xsl:attribute>
       <xsl:value-of select="node()"/>
     </xsl:element>
-  </xsl:template>
-
-  <!-- double-quote -->
-  <xsl:template match="q">
-    <xsl:text>&#x201C;</xsl:text><xsl:value-of select="."/><xsl:text>&#x201D;</xsl:text>
-  </xsl:template>
-
-  <!-- single-quote -->
-  <xsl:template match="sq">
-    <xsl:text>&#x2018;</xsl:text><xsl:value-of select="."/><xsl:text>&#x2019;</xsl:text>
   </xsl:template>
 
   <!-- knitr chunks -->

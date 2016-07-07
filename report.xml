@@ -104,10 +104,15 @@
 
       <p>While Markdown can be very useful for authoring simple
       documents quickly (Markdown's creators took inspiration from the
-      formatting conventions of plain text emails) an author also makes
-      several sacrifices in choosing Markdown over a markup language
-      like HTML. An example of these limitations is the creation of
-      unordered lists. In Pandoc Markdown a simple list is created by
+      formatting conventions of plain text emails) an author also
+      makes several sacrifices in choosing Markdown over a markup
+      language like HTML. Two examples of the limitations of Markdown
+      are the creating of lists and tables. List creation in Pandoc
+      Markdown is desrcibed below.
+      <a href="http://pandoc.org/README.html#tables">Table creation</a>
+      is left as an exercise for the reader.</p>
+
+      <p>In Pandoc Markdown a simple list is created by
       prepending a <q>*</q>, <q>+</q>, or <q>-</q> character to the
       beginning of each list item, as in the following example:</p>
 
@@ -144,7 +149,7 @@
 
       <pre><code><![CDATA[<ul>
   <li>outer list 1
-    <ul>
+    <ul class="subList">
       <li>inner list 1</li>
       <li>inner list 2</li>
     </ul>
@@ -154,6 +159,19 @@
 
       <p>The author does not have to count white space, and it is
       trivial to make changes to this list structure.</p>
+
+      <p>Markdown like HTML also gives a document author more control
+      over the poutput than Markdown. The author of the HTML list
+      example above has used the <code>class</code> attribute to
+      indicate the inner list belongs to the <q>subList</q>
+      class. Using <code>class</code> an author can apply output styles
+      or perform other actions on subsets of elements. When a document
+      authored in Markdown is transformed to HTML its lists will be
+      marked up using the same HTML list tags as above, but an author
+      of a Markdown document does not have access to these
+      <code>class</code> attributes for customising output. She could
+      include raw HTML in her Pandoc Markdown document, but this
+      limits the output types to those using HTML.</p>
   
       <p>A document author has various methods for embedding chunks of
       code in her document. For example, an author of a Knitr HTML or
@@ -213,20 +231,25 @@ plot(x)
       <p>While an author using HTML is also unable to expect new and
       custom elements to be recognised by a web browser, the fact that
       HTML is a form of XML means an author can invent her own XML
-      elements for document writing. These custom elements could then be
-      processed using an XML transformation tool like XSL
+      elements for document writing. These custom elements could then
+      be processed using an XML transformation tool like XSL
       Transformations to convert the custom elements to valid HTML
-      code.</p>
+      code. A markup document format has the benefit of providing a
+      simplified authoring format without sacrificing fine control
+      when required.</p>
 
       <p>Markdown has proven itself to be very useful for document
-      authors, and it is not the suggestion of this report that a markup
-      format replace Markdown entirely. Rather this report proposes that
-      in situation where Markdown is not powerful enough for a document
-      author a markup format like the one described in the next section
-      might provide the solution. Importantly, a well designed markup
-      document and transformation pipeline should allow an author to
-      recover a Markdown document as <em>output</em>, thus providing a
-      readable plain text document.</p>
+      authors, and it is not the suggestion of this report that a
+      markup format replace Markdown entirely. Rather this report
+      proposes that in situation where Markdown is not powerful enough
+      for a document author a markup format like the one described in
+      the next section might provide the solution. Importantly, a well
+      designed markup document should allow an author to recover a
+      Markdown document as <em>output</em>, thus providing a readable
+      plain text document. While a format like Markdown is designed to
+      satisfy a set of <em>known</em> transformations a format based
+      on markup can also satisfy future <em>unknown</em>
+      transformations, e.g. extracting subsets of elements.</p>
     </section>
 
     <!-- end section -->
@@ -271,21 +294,14 @@ plot(x)
 	<li><code>pre</code> &ndash; preformatted text</li>
 	<li><code>q</code> &ndash; quoted text</li>
 	<li><code>section</code> &ndash; section</li>
+	<li><code>strong</code> &ndash; strong importance</li>
 	<li><code>ul</code> &ndash; unordered list</li>
       </ul>
 
-      <p>The following custom elements are introduced in the
-      <code>document</code> format:</p>
-
-      <ul>
-	<li><code>sq</code> &ndash; single quote, used to enclose a
-	section of text to be quoted with single quotes.</li>
-	<li><code>url</code> &ndash; URL hyperlink, used to indicate the
-	enclosed URL is both the href and value of a hyperlink.</li>
-      </ul>
-
-      <p>The following code block demonstrates the use of several of the
-      elements above:</p>
+      <p>The <code>&lt;url&gt;</code> element is introduced in the
+      <code>document</code> format to indicate a hyperlink where to
+      enclosed URL is both the href and the value. The following code
+      block demonstrates the use of the <code>url</code> element:</p>
 
       <pre><code><xi:include href="elementsExample.xml" parse="text">
 	<xi:fallback><todo>xinclude elementsExample.xml</todo></xi:fallback>
@@ -297,36 +313,19 @@ plot(x)
 	<xi:fallback><todo>xinclude elementsExample.xml</todo></xi:fallback>
       </xi:include>
 
-      <p>If transformation to HTML was the only output format for my
-      document there would be no need to be so explicit about the common
-      HTML elements we have used. However, as I intend to also produce a
-      PDF file (via LaTeX), and a Markdown file, it is important that I
-      keep track of the elements which are to be transformed.</p>
-
-      <p>To ensure that special characters are rendered correctly in
-      various output formats, DTD entities are used in the
-      <code>document</code> format. Working definitions of these
-      entities are defined in the <code>document</code> DOCTYPE section
-      to help with document authoring. These entities can then be
-      replaced by language-appropriate representations in a
-      transformation pipeline. The entities defined for the pipelines in
-      this report are:</p>
-
-      <ul>
-	<li><code>&amp;mdash;</code> &mdash; em dash</li>
-	<li><code>&amp;ndash;</code> &ndash; en dash</li>
-	<li><code>&amp;us;</code> &us; underscore</li>
-	<li><code>&amp;tilde;</code> &tilde; tilde</li>
-	<li><code>&amp;bar;</code> &bar; bar</li>
-      </ul>
-
-      <p>The document transformation pipelines in this report allow a
-      document author to execute chunks of R code using Knitr. Chunks of
-      R code are wrapped in a <code>&lt;code&gt;</code> element with
+      <p>The <code>document</code> XML format uses
+      <code>&lt;code&gt;</code> elements to indicate blocks of
+      computer code, just as in HTML. Dynamic code chunks which are to
+      be executed are marked using the <code>class</code> attribute to
+      <code>code</code>. For example chunks of R code which are to be
+      executed used the Knitr package are wrapped in a
+      <code>&lt;code&gt;</code> element with
       <code>class="knitr"</code>. An author can also provide a
       <code>name</code> attribute for the knitr code chunk, as well as
-      knitr <code>options</code>. The following code demonstrates how to
-      include an R code chunk to be executed:</p>
+      knitr <code>options</code>. A document author can also use
+      <code>CDATA</code> sections to wrap code with reserved XML
+      characters. The following code demonstrates how to include an R
+      code chunk to be executed with Knitr:</p>
 
       <pre><code><xi:include href="knitrExample.xml" parse="text">
 	<xi:fallback><todo>xinclude knitrExample.xml</todo></xi:fallback>
@@ -341,76 +340,168 @@ plot(x)
 
       <p>The <code>document</code> format also makes use of the
       <code>include</code> element from XInclude
-      (<url>http://www.w3.org/2001/XInclude</url>) namespace to include
-      XML content from external files. The inclusions of this content is
-      one of the steps in the transformation pipeline.</p>
+      (<url>http://www.w3.org/2001/XInclude</url>) namespace to
+      include XML content from external files. This allows
+      <code>document</code> authors to embed other documents which may
+      be authored separately from the main document. There is no
+      simple method of doing this directly in either HTML or Pandoc
+      Markdown.</p>
 
-      <p>The next sections describes how OpenAPI pipelines are used to
-      perform the transformation steps necessary for creating HTML, PDF,
-      and Markdown output from the source document. The source document
-      for this report is available at
-      <url>report.xml</url>. <todo>replace with final full
-      URL</todo></p>
+      <p>The next sections describes some simple transformations which
+      can be performed on the <code>document</code> markup format
+      using freely available open source tools. This report was itself
+      written in the <code>document</code> markup format&mdash;the
+      source code is available at <url>report.xml</url>. <todo>replace
+      with final full URL</todo></p>
     </section>
 
     <!-- end section -->
 
     <section>
-      <h1>Using OpenAPI pipelines for transformation</h1>
+      <h1>Transforming the <code>document</code> markup format</h1>
 
-      <p>The OpenAPI architecture helps to break tasks in data
-      analysis down into small pieces making it easier for people to
-      contribute to a data problem. The goal of the OpenAPI project is
-      to make it easier for people to connect with data. Meaningful
-      steps in a data workflow can be wrapped as modules. Modules can
-      be arranged in pipelines, and shared to be recombined by other
-      authors in their own pipelines. Pipelines and modules can be
-      executed by OpenAPI glue system software. The whole project is
-      open source, and open to contributions from anyone
-      (<a href="http://stattech.wordpress.fos.auckland.ac.nz/2015-01-introducing-openapi/">Introducing
-      OpenAPI</a>,
-      <a href="http://stattech.wordpress.fos.auckland.ac.nz/2016-08-openapi-version-0-6/">OpenAPI
-      version 0.6</a>).</p>
+      <p>This section describes how freely available open source tools
+      can be used to transform the <code>document</code> markup format
+      in different ways. The examples include creating an HTML
+      document, preparing R code chunks for executing using Knitr,
+      processing XInclude elements, and some steps towards creating a
+      PDF document. The command line tools <code>xsltproc</code> is
+      used in the following examples, but many other tools are
+      available to do the transformations described.</p>
 
-      <p>It is OpenAPI's dividing of tasks into modules which makes it
-      an ideal candidate for handling document
-      transformation. Transforming the <code>document</code> format
-      described in the previouse section can be broken down into
-      several discrete steps:</p>
+      <h2>Transforming to HTML</h2>
 
-      <ol>
-	<li>Merge XML code indicated by <code>xi:include</code>
-	elements into the document.</li>
-	<li>Convert XML character entities into appropriate
-	characters.</li>
-	<li>Convert document into output format language.</li>
-	<li>Execute embedded chunks of code.</li>
-      </ol>
+      <p>The <code>document</code> markup format can be easily
+      transformed into HTML using XSL Transformations
+      (<url>https://www.w3.org/TR/1999/REC-xslt-19991116</url>). XSLT
+      stylsheets are XML documents which describe how another XML
+      document can be transformed. They can be used to produce new XML
+      documents, such as HTML, or other plain text formats. The
+      command line XSLT processor <code>xsltproc</code>
+      (<url>http://www.xmlsoft.org/</url>) can be used to apply an
+      XSLT stylesheet to an XML document to produce an HTML output
+      document.</p>
 
-      <p>Several technologies already exist for handling each of these
-      steps. For example, the xmllint
-      (<url>http://www.xmlsoft.org/</url>) command line tool can
-      replace XInclude code, and replace entities with their
-      values. The xsltproc (ibid.) command line tool can be used to
-      apply an XSL stylesheet to the <code>document</code> to produce
-      the desired output format. The Knitr package in R can be used to
-      execute chunks of R code in various document formats.</p>
+      <p>As a large part of the <code>document</code> format is based
+      on HTML already we do not have to desrcibe very many
+      transformations in our XSLT stylesheet. We will need to
+      transform the <code>metadata</code> section of the
+      <code>document</code> to HTML <code>head</code> elements and an
+      appropriate title section. We also need to transform our custom
+      <code>&lt;url&gt;</code> elements to HTML hyperlinks.</p>
 
-      <p>What the OpenAPI architecture offers is the ability to wrap
-      transformation steps in a module which takes a file as an input,
-      and produces another file as an output. The output of one module
-      can be passed as the intput of another module, thus building a
-      pipeline which describes the entire transformation. Each module
-      in an OpenAPI pipeline specifies its execution language, meaning
-      an OpenAPI pipeline can have access to a wide variety of
-      tools.</p>
+      <p>The full XSLT stylesheet used in this example can be found at
+      <url>examples/documentToHtml.xsl</url>. The XSLT code used to
+      transform <code>url</code> elements to HTML hyperlinks is as
+      follows:</p>
 
-      <p>In the following section I will descibe the modules used to
-      transform a tranformable <code>document</code> file to HTML
-      output, including the processing of chunks of R code. After this
-      section I will show how this pipeline can be modified to produce
-      PDF and Markdown output from the same source
-      <code>document</code>.</p>
+      <pre><code><![CDATA[<xsl:template match="url">
+  <xsl:element name="a">      
+    <xsl:attribute name="href">
+      <xsl:value-of select="node()"/>
+    </xsl:attribute>
+    <xsl:value-of select="node()"/>
+  </xsl:element>
+</xsl:template>]]></code></pre>
+
+      <p>The source <code>document</code>
+      <url>examples/toHtml.xml</url> contains the following XML:</p>
+
+      <pre><code><xi:include href="examples/toHtml.xml" parse="text">
+	<xi:fallback><todo>xinclude examples/toHtml.xml</todo></xi:fallback>
+      </xi:include></code></pre>
+
+      <p>This document can be transformed to HTML using the following
+      call to <code>xsltproc</code>:</p>
+
+      <pre><code>xsltproc -o examples/toHtml.html examples/documentToHtml.xsl examples/toHtml.xml</code></pre>
+
+      <p>The resulting HTML document can be viewed at
+      <url>examples/toHtml.html</url>.</p>
+
+      <h2>Process <code>xi:include</code> elements</h2>
+
+      <p>The <code>document</code> markup format uses XInclude
+      elements (<url>http://www.w3.org/2001/XInclude</url>) to embed
+      text from external documents. These elements can be processed by
+      the command line tool <code>xsltproc</code>
+      (<url>http://www.xmlsoft.org/</url>) can process the embedded
+      documents into the output document.</p>
+
+      <p>We will use the same XSLT stylesheet we used in the previous
+      example. The source <code>document</code>
+      <url>examples/processXinclude.xml</url> contains the following
+      XML:</p>
+
+      <pre><code><xi:include href="examples/processXinclude.xml" parse="text">
+	<xi:fallback><todo>xinclude
+	examples/processXinclude.xml</todo></xi:fallback>
+      </xi:include></code></pre>
+
+      <p>The element <code><![CDATA[<xi:include
+      href="evidenceList.xml" parse="xml"/>]]></code> indicates that
+      the XML included in <url>examples/evidenceList.xml</url> is to
+      be included in the output document.</p>
+
+      <p>We will add the <code>--xinclude</code> tag to our call to
+      <code>xsltproc</code> to process the XInclude elements when we
+      do our transformation:</p>
+
+      <pre><code>xsltproc --xinclude -o examples/processXinclude.html examples/documentToHtml.xsl  examples/processXinclude.xml</code></pre>
+
+      <p>The resulting HTML document can be viewed at
+      <url>examples/processXinclude.html</url>.</p>
+
+      <h2>Prepare R code chunks for Knitr</h2>
+
+      <p>The Knitr package lets document authors embed chunks of R
+      code in special comment code and execute these chunks to produce
+      an output document. The use of comments to indicate code makes
+      it difficult to perform custom actions on R code marked up in
+      this way. The <code>document</code> markup format wraps chunks
+      of R code to be executed by Knitr in <code>&lt;code
+      class="knitr"&gt;</code> elements. This allows an author using
+      the <code>document</code> markup format to perform any
+      operations she likes on chunks of R code. An XSLT stylesheet can
+      be used to transform chunks of code marked up in this fashion
+      into Knitr R code chunks in a Knitr HTML document.</p>
+
+      <p>The full XSLT stylesheet used in this example can be found at
+      <url>examples/documentToRhtml.xsl</url>. The XSLT code used to
+      transform <code>&lt;code class="knitr"&gt;</code> elements to
+      Knitr R code chunks is as follows:</p>
+
+      <pre><code><![CDATA[<xsl:template match="code[@class='knitr']">
+  <xsl:comment><xsl:text>begin.rcode </xsl:text><xsl:value-of select="@name"/><xsl:if test="@options"><xsl:text>, </xsl:text><xsl:value-of select="@options"/></xsl:if>
+  <xsl:text>&#xA;</xsl:text>
+  <xsl:value-of select="node()"/>
+  <xsl:text>&#xA;end.rcode</xsl:text></xsl:comment>
+</xsl:template>]]></code></pre>
+
+      <p>The source <code>document</code>
+      <url>examples/knitrChunk.xml</url> contains the following
+      XML:</p>
+
+      <pre><code><xi:include href="examples/knitrChunk.xml" parse="text">
+	<xi:fallback><todo>xinclude examples/knitrChunk.xml</todo></xi:fallback>
+      </xi:include></code></pre>
+
+      <p>This document can be transformed to Knitr HTML using the
+      following call to <code>xsltproc</code>:</p>
+
+      <pre><code>xsltproc -o examples/knitrChunk.Rhtml examples/documentToRhtml.xsl examples/knitrChunk.xml</code></pre>
+
+      <p>The resulting Knitr HTML document can be viewed at
+      <url>examples/knitrChunk.Rhtml</url>. This Knitr HTML document
+      can be converted to HTML using the Knitr package in R:</p>
+
+      <code class="knitr" name="rhtmlToHtml" option="eval=FALSE"><![CDATA[library(knitr)
+setwd("examples")
+knit(input = "knitrChunk.Rhtml")]]></code>
+
+      <p>The resulting HTML document can be viewed at <url>examples/knitrChunk.html</url>.</p>
+
+      <h2>Transforming to PDF</h2>
     </section>
 	
     <section>
