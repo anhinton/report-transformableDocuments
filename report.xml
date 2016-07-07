@@ -256,7 +256,6 @@ plot(x)
 
       <ul>
 	<li><code>a</code> &ndash; hyperlink</li>
-	<li><code>blockquote</code> &ndash; block quotation</li>
 	<li><code>cite</code> &ndash; cited title of a work</li>
 	<li><code>code</code> &ndash; code fragment</li>
 	<li><code>em</code> &ndash; emphatic stress</li>
