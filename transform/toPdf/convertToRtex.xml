@@ -7,15 +7,15 @@
     <format formatType="text">XML file</format>
   </input>
   <input name="toRhtml">
-    <file ref="toRhtml.xsl" path = ".///xsl"/>
+    <file ref="toRtex.xsl" path = ".///../../xsl"/>
     <format>XSL file</format>
   </input>
   <source>
     <script><![CDATA[#! /bin/bash
-xsltproc -o report.Rhtml toRhtml.xsl report.xml]]></script>
+xsltproc -o report.Rtex toRtex.xsl report.xml]]></script>
   </source>
   <output name="report">
-    <file ref="report.Rhtml"/>
+    <file ref="report.Rtex"/>
     <format formatType="text">Knitr HTML file</format>
   </output>
 </module>

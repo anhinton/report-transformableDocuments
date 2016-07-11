@@ -4,25 +4,32 @@
   <component name="xinclude" type="module">
     <file ref="xinclude.xml"/>
   </component>
+  <component name="texChars" type="module">
+    <file ref="texChars.xml"/>
+  </component>
   <component name="substituteEntities" type="module">
     <file ref="substituteEntities.xml"/>
   </component>
-  <component name="convertToRhtml" type="module">
-    <file ref="convertToRhtml.xml"/>
+  <component name="convertToRtex" type="module">
+    <file ref="convertToRtex.xml"/>
   </component>
-  <component name = "knitToHtml" type = "module">
-    <file ref = "knitToHtml.xml"/>
-  </component>
+  <!-- <component name = "knitToHtml" type = "module"> -->
+  <!--   <file ref = "knitToHtml.xml"/> -->
+  <!-- </component> -->
   <pipe>
     <start component="xinclude" output="report"/>
+    <end component = "texChars" input = "report"/>
+  </pipe>
+  <pipe>
+    <start component = "texChars" output = "report"/>
     <end component="substituteEntities" input="report"/>
   </pipe>
   <pipe>
     <start component="substituteEntities" output="report"/>
-    <end component="convertToRhtml" input="report"/>
+    <end component="convertToRtex" input="report"/>
   </pipe>
-  <pipe>
-    <start component="convertToRhtml" output="report"/>
-    <end component="knitToHtml" input="report"/>
-  </pipe>
+  <!-- <pipe> -->
+  <!--   <start component="convertToRhtml" output="report"/> -->
+  <!--   <end component="knitToHtml" input="report"/> -->
+  <!-- </pipe> -->
 </pipeline>

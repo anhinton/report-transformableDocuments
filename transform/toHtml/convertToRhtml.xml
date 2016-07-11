@@ -7,7 +7,7 @@
     <format formatType="text">XML file</format>
   </input>
   <input name="toRhtml">
-    <file ref="toRhtml.xsl" path = ".///xsl"/>
+    <file ref="toRhtml.xsl" path = ".///../../xsl"/>
     <format>XSL file</format>
   </input>
   <source>

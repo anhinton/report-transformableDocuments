@@ -1,12 +1,12 @@
 #! /usr/bin/Rscript
 library(conduit)
 
-## load document transformation pipeline
-transform <- loadPipeline(name = "transform",
-                          ref = "transform/toHtml/pipeline.xml")
+## load document to HTML transformation pipeline
+toHtml <- loadPipeline(name = "toHtml",
+                       ref = "transform/toHtml/pipeline.xml")
 
-## execute pipeline
-pplRes1 <- runPipeline(transform)
+## execute document to HTML pipeline
+pplRes1 <- runPipeline(toHtml, targetDirectory = tempdir())
 
 ## copy knitr figures to examples directory
 conduit:::dir.copy(from = pplRes1$outputList$knitToHtml$figure$ref,
@@ -14,3 +14,10 @@ conduit:::dir.copy(from = pplRes1$outputList$knitToHtml$figure$ref,
 ## copy final report.html to working directory
 file.copy(from = pplRes1$outputList$knitToHtml$report$ref, to = ".",
           overwrite = TRUE)
+
+## load document to PDF transformation pipeline
+toPdf <- loadPipeline(name = "toPdf",
+                      ref = "transform/toPdf/pipeline.xml")
+
+## execute document to PDF pipeline
+pplRes2 <- runPipeline(toPdf, targetDirectory = tempdir())

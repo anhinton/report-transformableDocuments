@@ -31,14 +31,16 @@
     <title><xsl:value-of select="title"/></title>
 
     <!-- author meta tag -->
-    <xsl:if test="author != ''">
+
+    <!-- author meta tag -->
+    <xsl:for-each select = "author">
       <xsl:element name="meta">
 	<xsl:attribute name="name">author</xsl:attribute>
 	<xsl:attribute name="content">
-	  <xsl:value-of select="author/name"/>
+	  <xsl:value-of select="name"/>
 	</xsl:attribute>
       </xsl:element>
-    </xsl:if>
+    </xsl:for-each>
 
     <!-- date meta tag -->
     <xsl:if test="date != ''">
@@ -76,32 +78,31 @@
 	</xsl:for-each>
 
 	<!-- author -->
-	<p class="author"><xsl:value-of select="/document/metadata/author/name"/>
-	<!-- email -->
-	<xsl:if test="/document/metadata/author/email">
-	<br/><xsl:element name="a"><xsl:attribute name="href"><xsl:value-of select="/document/metadata/author/email"/></xsl:attribute><xsl:value-of select="/document/metadata/author/email"/></xsl:element></xsl:if>
-	<!-- affiliation -->
-	<xsl:if test="/document/metadata/author/affiliation"><br/><xsl:value-of select="/document/metadata/author/affiliation"/></xsl:if>
-	<!-- supervisor -->
-	<xsl:if test="/document/metadata/author/supervisor"><br/><br/>Supervisor: <xsl:value-of select="/document/metadata/author/supervisor"/></xsl:if>
-	</p>
+	<xsl:for-each select="/document/metadata/author">
+	  <p class="author">
+	    <xsl:value-of select="name"/>
+	    <!-- email -->
+	    <xsl:if test="email">
+	    <br/><xsl:element name="a"><xsl:attribute name="href"><xsl:value-of select="email"/></xsl:attribute><xsl:value-of select="email"/></xsl:element></xsl:if>
+	    <!-- affiliation -->
+	    <xsl:if test="affiliation"><br/><xsl:value-of select="affiliation"/></xsl:if>
+	  </p>
+	</xsl:for-each>
 
-	<!-- date -->
+	<!-- group affiliation -->
+	<xsl:if test="/document/metadata/affiliation">
+	  <p class="author">
+	    <xsl:value-of select="/document/metadata/affiliation"/>
+	  </p>
+	</xsl:if>
+	  
+	  <!-- date -->
 	<p class="date"><xsl:value-of select="/document/metadata/date"/></p>
       </div>
 
       <!-- process rest of body -->
       <xsl:apply-templates select="@*|node()"/>
     </div>
-  </xsl:template>
-
-  <!-- images and figures -->
-  <xsl:template match="img">
-    <xsl:element name="img">
-      <xsl:attribute name="src"><xsl:value-of select="normalize-space(@src)"/></xsl:attribute>
-      <xsl:attribute name="alt"><xsl:value-of select="normalize-space(@alt)"/></xsl:attribute>
-    </xsl:element>
-    <xsl:element name="figcaption">Figure: <xsl:value-of select="figcaption"/></xsl:element>
   </xsl:template>
 
   <!-- url items -->

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- Time-stamp: "2016-06-30 15:23:31 ahin017"-->
+<!-- Time-stamp: "2016-07-11 17:01:42 ahin017"-->
 <!DOCTYPE document [
   <!ENTITY nl "&#xA;">
 ]>
@@ -9,30 +9,10 @@
 	      omit-xml-declaration="yes"/>
 
   <xsl:template match="document">
-    <xsl:text>\documentclass[11pt,a4paper]{report}&nl;</xsl:text>
-    <xsl:text>\setcounter{tocdepth}{2}&nl;</xsl:text>
-    <xsl:text>\renewcommand \thesection {\arabic{section}}&nl;</xsl:text>
-    <xsl:text>\setcounter{secnumdepth}{1}&nl;</xsl:text>
-    <xsl:text>\usepackage[hidelinks]{hyperref}&nl;</xsl:text>
-    <xsl:text>\usepackage{breakurl}&nl;</xsl:text>
-    <xsl:text>\usepackage{graphicx}&nl;</xsl:text>
-    <xsl:text>\usepackage{setspace}&nl;</xsl:text>
-    <xsl:text>\usepackage{listings}&nl;</xsl:text>
-    <xsl:text>\lstset{&nl;</xsl:text>
-    <xsl:text>basicstyle=\small\ttfamily,&nl;</xsl:text>
-    <xsl:text>columns=flexible,&nl;</xsl:text>
-    <xsl:text>breaklines=true&nl;</xsl:text>
-    <xsl:text>}&nl;</xsl:text>
-    <xsl:text>\usepackage{titling}&nl;</xsl:text>
-    <xsl:text>\newcommand{\subtitle}[1]{%&nl;</xsl:text>
-    <xsl:text>  \posttitle{%&nl;</xsl:text>
-    <xsl:text>    \par\end{center}&nl;</xsl:text>
-    <xsl:text>    \begin{center}\large#1\end{center}&nl;</xsl:text>
-    <xsl:text>    \vskip0.5em}%&nl;</xsl:text>
-    <xsl:text>}&nl;</xsl:text>
+    <xsl:text>\documentclass[11pt,a4paper]{article}&nl;</xsl:text>
     <xsl:text>%% begin.rcode setup, include=FALSE&nl;</xsl:text>
     <xsl:text>% library(knitr)&nl;</xsl:text>
-    <xsl:text>% opts_chunk$set(cache=TRUE, size='small', background='#FFFFFF')&nl;</xsl:text>
+    <xsl:text>% opts_chunk$set(cache = TRUE, size='small', background='#FFFFFF')&nl;</xsl:text>
     <xsl:text>%% end.rcode&nl;</xsl:text>
     <xsl:text>\begin{document}&nl;</xsl:text>
     <xsl:apply-templates select="metadata"/>
@@ -42,27 +22,33 @@
 
   <xsl:template match="metadata">
     <xsl:text>\title{</xsl:text>
-    <xsl:value-of select="/document/metadata/title"/>
+    <xsl:value-of select="title"/>
     <xsl:text>}&nl;</xsl:text>
-    <xsl:text>\subtitle{</xsl:text>
-    <xsl:for-each select="/document/metadata/subtitle">
-      <xsl:value-of select="node()"/>
+
+    <xsl:text>\author{</xsl:text>
+    <xsl:for-each select = "author">
+      <xsl:value-of select="name"/>
+      <xsl:if test = "email">
+	<xsl:text>\\&nl;</xsl:text>
+	<xsl:text>\href{mailto:</xsl:text>
+	<xsl:value-of select="email"/>
+	<xsl:text>}{</xsl:text>
+	<xsl:value-of select="email"/>
+	<xsl:text>}</xsl:text>
+      </xsl:if>
+      <xsl:if test = "affiliation">
+	<xsl:text>\\&nl;</xsl:text>
+	<xsl:value-of select = "affiliation"/>
+      </xsl:if>
       <xsl:text>\\&nl;</xsl:text>
     </xsl:for-each>
-    <xsl:text>}&nl;</xsl:text>
-    <xsl:text>\author{</xsl:text>
-    <xsl:value-of select="/document/metadata/author/name"/>
-    <xsl:text>\\&nl;</xsl:text>
-    <xsl:text>\href{mailto:</xsl:text>
-    <xsl:value-of select="/document/metadata/author/email"/>
-    <xsl:text>}{</xsl:text>
-    <xsl:value-of select="/document/metadata/author/email"/>
-    <xsl:text>}</xsl:text>
-    <xsl:text>\\&nl;</xsl:text>
-    <xsl:value-of select="/document/metadata/author/affiliation"/>
-    <xsl:text>\\&nl;\\&nl;Supervisor: </xsl:text>
-    <xsl:value-of select="/document/metadata/author/supervisor"/>
-    <xsl:text>}&nl;</xsl:text>
+    <xsl:text>}\\&nl;</xsl:text>
+
+    <xsl:if test = "affiliation">
+      <xsl:text>\\&nl;MILLIONS</xsl:text>
+      <xsl:value-of select = "node()"/>
+    </xsl:if>      
+    
     <xsl:text>\date{</xsl:text>
     <xsl:value-of select="/document/metadata/date"/>
     <xsl:text>}&nl;</xsl:text>

@@ -3,7 +3,7 @@
   <language>bash</language>
   <description>Process XInclude nodes</description>
   <input name="report">
-    <file ref="report.xml"/>
+    <file ref="report.xml" />
     <format formatType="text">XML file</format>
   </input>
   <input name="metadataExample">
