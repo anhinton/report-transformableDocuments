@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<module xmlns="http://www.openapi.org/2014/">
+  <language>R</language>
+  <description>Execute and convert Knitr HTML document to HTML</description>
+  <input name="report">
+    <file ref="report.Rhtml"/>
+    <format>Knitr HTML file</format>
+  </input>
+  <input name="examples">
+    <file ref = "examples"/>
+    <format>file directory</format>
+  </input>
+  <source>
+    <script><![CDATA[#! /usr/bin/Rscript
+library(knitr)
+knit("report.Rhtml")]]></script>
+  </source>
+  <output name = "report">
+    <file ref = "report.html"/>
+    <format>HTML file</format>
+  </output>
+  <output name = "figure">
+    <file ref = "examples/figure"/>
+    <format>file directory</format>
+  </output>
+</module>
+

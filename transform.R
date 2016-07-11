@@ -2,7 +2,8 @@
 library(conduit)
 
 ## load document transformation pipeline
-transform <- loadPipeline(name = "transform", ref = "transform/pipeline.xml")
+transform <- loadPipeline(name = "transform",
+                          ref = "transform/toHtml/pipeline.xml")
 
 ## execute pipeline
 pplRes1 <- runPipeline(transform)
