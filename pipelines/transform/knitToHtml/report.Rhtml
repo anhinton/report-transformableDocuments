@@ -1,30 +1,20 @@
-<?xml version="1.0" encoding="UTF-8"  ?>
-<!DOCTYPE document [
-<!ENTITY mdash "&#x2014;">
-<!ENTITY ndash "&#x2013;">
-<!ENTITY us "_">
-<!ENTITY tilde "~">
-<!ENTITY bar "|">
-]>
-<document xmlns:xi="http://www.w3.org/2001/XInclude">
-  
-  <metadata>
-    <title>Transforming documents with OpenAPI pipelines</title>
-    <author>
-      <name>Ashley Noel Hinton</name>
-      <email>ahin017@aucklanduni.ac.nz</email>
-    </author>
-    <author>
-      <name>Paul Murrell</name>
-      <email>paul@stat.auckland.ac.nz</email>
-    </author>
-    <affiliation>Department of Statistics, The University of Auckland</affiliation>
-    <date></date>
-    <description>Technical report on transforming documents using an
-    OpenAPI pipeline.</description>
-  </metadata>
-
-  <body>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Transforming documents with OpenAPI pipelines</title>
+<meta name="author" content="Ashley Noel Hinton">
+<meta name="description" content="Technical report on transforming documents using an
+    OpenAPI pipeline.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+<body><div class="main">
+<div class="title">
+<h1 class="title">Transforming documents with OpenAPI pipelines</h1>
+<p class="author">Ashley Noel Hinton<br><a href="ahin017@aucklanduni.ac.nz">ahin017@aucklanduni.ac.nz</a></p>
+<p class="date"></p>
+</div>
     <section id="introduction">
       <p>Many technologies now exist for writing a document in common
       format to be transformed into various formats for sharing. This
@@ -46,10 +36,8 @@
       journals, books, online or otherwise, an author will employ one
       of many document formats to describe the typographical and
       structural details of her document. Common formats for research
-      publication include the <a
-      href="https://latex-project.org/">LaTeX</a> system for producing
-      printed documents, and <a
-      href="https://www.w3.org/html/">HTML</a> for producing online
+      publication include the <a href="https://latex-project.org/">LaTeX</a> system for producing
+      printed documents, and <a href="https://www.w3.org/html/">HTML</a> for producing online
       documents. These and other formats allow an author to have
       low-level control over a certain type of output, but usually do
       not offer control over multiple outputs.</p>
@@ -63,8 +51,7 @@
       then use Pandoc to convert the document to one (or several)
       formats for publication.</p>
 
-      <p>Pandoc Markdown is a variant of <a
-      href="https://daringfireball.net/projects/markdown/">Markdown</a>,
+      <p>Pandoc Markdown is a variant of <a href="https://daringfireball.net/projects/markdown/">Markdown</a>,
       a lightweight markup language written as a simpler way to author
       HTML documents. Markdown is intended to be readable without
       conversion, and as such is written so as not to appear to
@@ -78,8 +65,7 @@
       to be executed to produce the final version of the
       document. Various tools exist for executing code embedded in a
       literate document to produce the desired output. For example, an
-      author can embed R code in her document and use the <a
-      href="http://yihui.name/knitr/">Knitr</a> package to execute the
+      author can embed R code in her document and use the <a href="http://yihui.name/knitr/">Knitr</a> package to execute the
       R code and produce a final document. An author embeds R code in
       another document format, for example HTML or LaTeX, and
       processes the document to produce an output document in the same
@@ -112,7 +98,7 @@
       is left as an exercise for the reader.</p>
 
       <p>In Pandoc Markdown a simple list is created by
-      prepending a <q>*</q>, <q>+</q>, or <q>-</q> character to the
+      prepending a “*”, “+”, or “-” character to the
       beginning of each list item, as in the following example:</p>
 
       <pre><code>  * one
@@ -137,24 +123,24 @@
       <code>&lt;li&gt;</code> elements for each item, as in the
       following code:</p>
 
-      <pre><code><![CDATA[<ul>
-  <li>one</li>
-  <li>two</li>
-  <li>three</li>
-</ul>]]></code></pre>
+      <pre><code>&lt;ul&gt;
+  &lt;li&gt;one&lt;/li&gt;
+  &lt;li&gt;two&lt;/li&gt;
+  &lt;li&gt;three&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
 
       <p>Similarly, an embedded list simply nests the same structure
       inside a list structure, as in the following code:</p>
 
-      <pre><code><![CDATA[<ul>
-  <li>outer list 1
-    <ul class="subList">
-      <li>inner list 1</li>
-      <li>inner list 2</li>
-    </ul>
-  </li>
-  <li>outer list 2</li>
-</ul>]]></code></pre>
+      <pre><code>&lt;ul&gt;
+  &lt;li&gt;outer list 1
+    &lt;ul class="subList"&gt;
+      &lt;li&gt;inner list 1&lt;/li&gt;
+      &lt;li&gt;inner list 2&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;outer list 2&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
 
       <p>The author does not have to count white space, and it is
       trivial to make changes to this list structure.</p>
@@ -162,7 +148,7 @@
       <p>Markdown like HTML also gives a document author more control
       over the poutput than Markdown. The author of the HTML list
       example above has used the <code>class</code> attribute to
-      indicate the inner list belongs to the <q>subList</q>
+      indicate the inner list belongs to the “subList”
       class. Using <code>class</code> an author can apply output styles
       or perform other actions on subsets of elements. When a document
       authored in Markdown is transformed to HTML its lists will be
@@ -179,27 +165,27 @@
       languages. For example, a document author can embed and R code
       in a Knitr HTML document as in the following code:</p>
 
-      <pre><code><![CDATA[<!-- begin.rcode
-x <- rnorm(n = 10)
+      <pre><code>&lt;!-- begin.rcode
+x &lt;- rnorm(n = 10)
 plot(x)
-end.rcode-->]]></code></pre>
+end.rcode--&gt;</code></pre>
 
       <p>Similarly an author can embed R code in a Knitr LaTeX
       document as in the following code:</p>
 
-      <pre><code><![CDATA[%% begin.rcode
-% x <- rnorm(n = 10)
+      <pre><code>%% begin.rcode
+% x &lt;- rnorm(n = 10)
 % plot(x)
-%% end.rcode]]></code></pre>
+%% end.rcode</code></pre>
 
       <p>A document author using the R Markdown package can enclose R
-      code chunks in special <q>fenced code</q> blocks as in the
+      code chunks in special “fenced code” blocks as in the
       following code:</p>
 
-      <pre><code><![CDATA[```{r}
-x <- rnorm(n = 10)
+      <pre><code>```{r}
+x &lt;- rnorm(n = 10)
 plot(x)
-```]]></code></pre>
+```</code></pre>
 
       <p>While the use of these methods for including code makes it
       quick and easy to write a document it makes it more difficult
@@ -208,16 +194,16 @@ plot(x)
       an HTML document might wrap R code in <code>&lt;code&gt;</code>
       elements as in the following code:</p>
 
-      <pre><code><![CDATA[<code class="R">
-  x <- rnorm(n = 10)
+      <pre><code>&lt;code class="R"&gt;
+  x &lt;- rnorm(n = 10)
   plot(x)
-</code>]]></code></pre>
+&lt;/code&gt;</code></pre>
 
       <p>If an author marked up code chunks in this fashion she could,
       for example, make use of tools which employ the XPATH query
       language to locate <code>&lt;code&gt;</code> elemenents and
       perform transformations. If the author gives R code chunks the
-      class <q>R</q>, as in the above example, she could perform
+      class “R”, as in the above example, she could perform
       transformations on just the R code chunks.</p>
 
       <p>If an author uses Pandoc Markdown to write a document she can
@@ -267,34 +253,58 @@ plot(x)
       <code>date</code> of publication, and a <code>description</code>
       section. An example <code>metadata</code> element follows:</p>
 
-      <pre><code><xi:include href="metadataExample.xml" parse="text">
-	<xi:fallback>xinclude metadataExample.html</xi:fallback>
-      </xi:include></code></pre>
+      <pre><code>&lt;metadata&gt;
+  &lt;title&gt;Today should be a holiday&lt;/title&gt;
+  &lt;author&gt;
+    &lt;name&gt;Ashley Noel Hinton&lt;/name&gt;
+    &lt;email&gt;ahin017@aucklanduni.ac.nz&lt;/email&gt;
+  &lt;/author&gt;
+  &lt;date&gt;25 December 2015&lt;/date&gt;
+&lt;/metadata&gt;
+</code></pre>
 
       <p>The <code>body</code> element contains the document's main
       content. The following elements are used in the same way as they
       are used in HTML
-      (<url>https://www.w3.org/TR/html-markup/elements.html</url>):</p>
+      (<a href="https://www.w3.org/TR/html-markup/elements.html">https://www.w3.org/TR/html-markup/elements.html</a>):</p>
 
       <ul>
-	<li><code>a</code> &ndash; hyperlink</li>
-	<li><code>cite</code> &ndash; cited title of a work</li>
-	<li><code>code</code> &ndash; code fragment</li>
-	<li><code>em</code> &ndash; emphatic stress</li>
-	<li><code>figcaption</code> &ndash; figure caption</li>
-	<li><code>figure</code> &ndash; figure with optional caption</li>
-	<li><code>h1</code> &ndash; heading</li>
-	<li><code>h2</code> &ndash; heading</li>
-	<li><code>h3</code> &ndash; heading</li>
-	<li><code>img</code> &ndash; image</li>
-	<li><code>li</code> &ndash; list item</li>
-	<li><code>ol</code> &ndash; ordered list</li>
-	<li><code>p</code> &ndash; paragraph</li>
-	<li><code>pre</code> &ndash; preformatted text</li>
-	<li><code>q</code> &ndash; quoted text</li>
-	<li><code>section</code> &ndash; section</li>
-	<li><code>strong</code> &ndash; strong importance</li>
-	<li><code>ul</code> &ndash; unordered list</li>
+	<li>
+<code>a</code> – hyperlink</li>
+	<li>
+<code>cite</code> – cited title of a work</li>
+	<li>
+<code>code</code> – code fragment</li>
+	<li>
+<code>em</code> – emphatic stress</li>
+	<li>
+<code>figcaption</code> – figure caption</li>
+	<li>
+<code>figure</code> – figure with optional caption</li>
+	<li>
+<code>h1</code> – heading</li>
+	<li>
+<code>h2</code> – heading</li>
+	<li>
+<code>h3</code> – heading</li>
+	<li>
+<code>img</code> – image</li>
+	<li>
+<code>li</code> – list item</li>
+	<li>
+<code>ol</code> – ordered list</li>
+	<li>
+<code>p</code> – paragraph</li>
+	<li>
+<code>pre</code> – preformatted text</li>
+	<li>
+<code>q</code> – quoted text</li>
+	<li>
+<code>section</code> – section</li>
+	<li>
+<code>strong</code> – strong importance</li>
+	<li>
+<code>ul</code> – unordered list</li>
       </ul>
 
       <p>The <code>&lt;url&gt;</code> element is introduced in the
@@ -302,15 +312,11 @@ plot(x)
       enclosed URL is both the href and the value. The following code
       block demonstrates the use of the <code>url</code> element:</p>
 
-      <pre><code><xi:include href="elementsExample.xml" parse="text">
-	<xi:fallback><todo>xinclude elementsExample.xml</todo></xi:fallback>
-      </xi:include></code></pre>
+      <pre><code></code></pre>
 
       <p>The resulting output:</p>
 
-      <xi:include href="elementsExample.xml" parse="xml">
-	<xi:fallback><todo>xinclude elementsExample.xml</todo></xi:fallback>
-      </xi:include>
+      
 
       <p>The <code>document</code> XML format uses
       <code>&lt;code&gt;</code> elements to indicate blocks of
@@ -326,20 +332,21 @@ plot(x)
       characters. The following code demonstrates how to include an R
       code chunk to be executed with Knitr:</p>
 
-      <pre><code><xi:include href="knitrExample.xml" parse="text">
-	<xi:fallback><todo>xinclude knitrExample.xml</todo></xi:fallback>
-      </xi:include></code></pre>
+      <pre><code>&lt;code class="knitr" name="knitrDemo" options="tidy=FALSE"&gt;&lt;![CDATA[x &lt;- rnorm(n = 10)
+mean(x)]]&gt;&lt;/code&gt;
+</code></pre>
 
       <p>And the following is the result of executing this code
       chunk:</p>
 
-      <xi:include href="knitrExample.xml" parse="xml">
-	<xi:fallback><todo>xinclude knitrExample.xml</todo></xi:fallback>
-      </xi:include>
+      <!--begin.rcode knitrDemo, tidy=FALSE
+x <- rnorm(n = 10)
+mean(x)
+end.rcode-->
 
       <p>The <code>document</code> format also makes use of the
       <code>include</code> element from XInclude
-      (<url>http://www.w3.org/2001/XInclude</url>) namespace to
+      (<a href="http://www.w3.org/2001/XInclude">http://www.w3.org/2001/XInclude</a>) namespace to
       include XML content from external files. This allows
       <code>document</code> authors to embed other documents which may
       be authored separately from the main document. There is no
@@ -349,9 +356,8 @@ plot(x)
       <p>The next sections describes some simple transformations which
       can be performed on the <code>document</code> markup format
       using freely available open source tools. This report was itself
-      written in the <code>document</code> markup format&mdash;the
-      source code is available at <url>report.xml</url>. <todo>replace
-      with final full URL</todo></p>
+      written in the <code>document</code> markup format—the
+      source code is available at <a href="report.xml">report.xml</a>. </p>
     </section>
 
     <!-- end section -->
@@ -372,12 +378,12 @@ plot(x)
 
       <p>The <code>document</code> markup format can be easily
       transformed into HTML using XSL Transformations
-      (<url>https://www.w3.org/TR/1999/REC-xslt-19991116</url>). XSLT
+      (<a href="https://www.w3.org/TR/1999/REC-xslt-19991116">https://www.w3.org/TR/1999/REC-xslt-19991116</a>). XSLT
       stylsheets are XML documents which describe how another XML
       document can be transformed. They can be used to produce new XML
       documents, such as HTML, or other plain text formats. The
       command line XSLT processor <code>xsltproc</code>
-      (<url>http://www.xmlsoft.org/</url>) can be used to apply an
+      (<a href="http://www.xmlsoft.org/">http://www.xmlsoft.org/</a>) can be used to apply an
       XSLT stylesheet to an XML document to produce an HTML output
       document.</p>
 
@@ -390,25 +396,23 @@ plot(x)
       <code>&lt;url&gt;</code> elements to HTML hyperlinks.</p>
 
       <p>The full XSLT stylesheet used in this example can be found at
-      <url>examples/documentToHtml.xsl</url>. The XSLT code used to
+      <a href="examples/documentToHtml.xsl">examples/documentToHtml.xsl</a>. The XSLT code used to
       transform <code>url</code> elements to HTML hyperlinks is as
       follows:</p>
 
-      <pre><code><![CDATA[<xsl:template match="url">
-  <xsl:element name="a">      
-    <xsl:attribute name="href">
-      <xsl:value-of select="node()"/>
-    </xsl:attribute>
-    <xsl:value-of select="node()"/>
-  </xsl:element>
-</xsl:template>]]></code></pre>
+      <pre><code>&lt;xsl:template match="url"&gt;
+  &lt;xsl:element name="a"&gt;      
+    &lt;xsl:attribute name="href"&gt;
+      &lt;xsl:value-of select="node()"/&gt;
+    &lt;/xsl:attribute&gt;
+    &lt;xsl:value-of select="node()"/&gt;
+  &lt;/xsl:element&gt;
+&lt;/xsl:template&gt;</code></pre>
 
       <p>The source <code>document</code>
-      <url>examples/toHtml.xml</url> contains the following XML:</p>
+      <a href="examples/toHtml.xml">examples/toHtml.xml</a> contains the following XML:</p>
 
-      <pre><code><xi:include href="examples/toHtml.xml" parse="text">
-	<xi:fallback><todo>xinclude examples/toHtml.xml</todo></xi:fallback>
-      </xi:include></code></pre>
+      <pre><code></code></pre>
 
       <p>This document can be transformed to HTML using the following
       call to <code>xsltproc</code>:</p>
@@ -416,30 +420,27 @@ plot(x)
       <pre><code>xsltproc -o examples/toHtml.html examples/documentToHtml.xsl examples/toHtml.xml</code></pre>
 
       <p>The resulting HTML document can be viewed at
-      <url>examples/toHtml.html</url>.</p>
+      <a href="examples/toHtml.html">examples/toHtml.html</a>.</p>
 
       <h2>Process <code>xi:include</code> elements</h2>
 
       <p>The <code>document</code> markup format uses XInclude
-      elements (<url>http://www.w3.org/2001/XInclude</url>) to embed
+      elements (<a href="http://www.w3.org/2001/XInclude">http://www.w3.org/2001/XInclude</a>) to embed
       text from external documents. These elements can be processed by
       the command line tool <code>xsltproc</code>
-      (<url>http://www.xmlsoft.org/</url>) can process the embedded
+      (<a href="http://www.xmlsoft.org/">http://www.xmlsoft.org/</a>) can process the embedded
       documents into the output document.</p>
 
       <p>We will use the same XSLT stylesheet we used in the previous
       example. The source <code>document</code>
-      <url>examples/processXinclude.xml</url> contains the following
+      <a href="examples/processXinclude.xml">examples/processXinclude.xml</a> contains the following
       XML:</p>
 
-      <pre><code><xi:include href="examples/processXinclude.xml" parse="text">
-	<xi:fallback><todo>xinclude
-	examples/processXinclude.xml</todo></xi:fallback>
-      </xi:include></code></pre>
+      <pre><code></code></pre>
 
-      <p>The element <code><![CDATA[<xi:include
-      href="evidenceList.xml" parse="xml"/>]]></code> indicates that
-      the XML included in <url>examples/evidenceList.xml</url> is to
+      <p>The element <code>&lt;xi:include
+      href="evidenceList.xml" parse="xml"/&gt;</code> indicates that
+      the XML included in <a href="examples/evidenceList.xml">examples/evidenceList.xml</a> is to
       be included in the output document.</p>
 
       <p>We will add the <code>--xinclude</code> tag to our call to
@@ -449,7 +450,7 @@ plot(x)
       <pre><code>xsltproc --xinclude -o examples/processXinclude.html examples/documentToHtml.xsl  examples/processXinclude.xml</code></pre>
 
       <p>The resulting HTML document can be viewed at
-      <url>examples/processXinclude.html</url>.</p>
+      <a href="examples/processXinclude.html">examples/processXinclude.html</a>.</p>
 
       <h2>Prepare R code chunks for Knitr</h2>
 
@@ -466,24 +467,22 @@ plot(x)
       into Knitr R code chunks in a Knitr HTML document.</p>
 
       <p>The full XSLT stylesheet used in this example can be found at
-      <url>examples/documentToRhtml.xsl</url>. The XSLT code used to
+      <a href="examples/documentToRhtml.xsl">examples/documentToRhtml.xsl</a>. The XSLT code used to
       transform <code>&lt;code class="knitr"&gt;</code> elements to
       Knitr R code chunks is as follows:</p>
 
-      <pre><code><![CDATA[<xsl:template match="code[@class='knitr']">
-  <xsl:comment><xsl:text>begin.rcode </xsl:text><xsl:value-of select="@name"/><xsl:if test="@options"><xsl:text>, </xsl:text><xsl:value-of select="@options"/></xsl:if>
-  <xsl:text>&#xA;</xsl:text>
-  <xsl:value-of select="node()"/>
-  <xsl:text>&#xA;end.rcode</xsl:text></xsl:comment>
-</xsl:template>]]></code></pre>
+      <pre><code>&lt;xsl:template match="code[@class='knitr']"&gt;
+  &lt;xsl:comment&gt;&lt;xsl:text&gt;begin.rcode &lt;/xsl:text&gt;&lt;xsl:value-of select="@name"/&gt;&lt;xsl:if test="@options"&gt;&lt;xsl:text&gt;, &lt;/xsl:text&gt;&lt;xsl:value-of select="@options"/&gt;&lt;/xsl:if&gt;
+  &lt;xsl:text&gt;&amp;#xA;&lt;/xsl:text&gt;
+  &lt;xsl:value-of select="node()"/&gt;
+  &lt;xsl:text&gt;&amp;#xA;end.rcode&lt;/xsl:text&gt;&lt;/xsl:comment&gt;
+&lt;/xsl:template&gt;</code></pre>
 
       <p>The source <code>document</code>
-      <url>examples/knitrChunk.xml</url> contains the following
+      <a href="examples/knitrChunk.xml">examples/knitrChunk.xml</a> contains the following
       XML:</p>
 
-      <pre><code><xi:include href="examples/knitrChunk.xml" parse="text">
-	<xi:fallback><todo>xinclude examples/knitrChunk.xml</todo></xi:fallback>
-      </xi:include></code></pre>
+      <pre><code></code></pre>
 
       <p>This document can be transformed to Knitr HTML using the
       following call to <code>xsltproc</code>:</p>
@@ -491,15 +490,17 @@ plot(x)
       <pre><code>xsltproc -o examples/knitrChunk.Rhtml examples/documentToRhtml.xsl examples/knitrChunk.xml</code></pre>
 
       <p>The resulting Knitr HTML document can be viewed at
-      <url>examples/knitrChunk.Rhtml</url>. This Knitr HTML document
+      <a href="examples/knitrChunk.Rhtml">examples/knitrChunk.Rhtml</a>. This Knitr HTML document
       can be converted to HTML using the Knitr package in R:</p>
 
-      <code class="knitr" name="rhtmlToHtml" option="eval=FALSE"><![CDATA[library(knitr)
+      <!--begin.rcode rhtmlToHtml
+library(knitr)
 oldwd <- setwd("examples")
 knit(input = "knitrChunk.Rhtml")
-setwd(oldwd)]]></code>
+setwd(oldwd)
+end.rcode-->
 
-      <p>The resulting HTML document can be viewed at <url>examples/knitrChunk.html</url>.</p>
+      <p>The resulting HTML document can be viewed at <a href="examples/knitrChunk.html">examples/knitrChunk.html</a>.</p>
 
       <h2>Transforming to PDF</h2>
     </section>
@@ -509,6 +510,5 @@ setwd(oldwd)]]></code>
 
       <p>This is an appendix section.</p>
     </section>
-  </body>
-  
-</document>
+  </div></body>
+</html>

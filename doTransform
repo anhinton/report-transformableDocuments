@@ -1,2 +1,0 @@
-#! /bin/bash
-xsltproc --xinclude -o report.html report.xml

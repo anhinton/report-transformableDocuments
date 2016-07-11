@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<module xmlns="http://www.openapi.org/2014/">
+  <language version="3.3.1">R</language>
+  <description>Execute and convert Knitr HTML document to HTML</description>
+  <input name="report">
+    <file ref="report.html"/>
+    <format formatType="text">HTML file</format>
+  </input>
+  <input name="figure">
+    <file ref="./examples/figure"/>
+    <format formatType="text">file directory</format>
+  </input>
+  <output name="report">
+    <file ref="report.html"/>
+    <format formatType="text">HTML file</format>
+  </output>
+  <output name="figure">
+    <file ref="examples/figure"/>
+    <format formatType="text">file directory</format>
+  </output>
+</module>

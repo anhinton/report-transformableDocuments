@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"  ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE document [
 <!ENTITY mdash "&#x2014;">
 <!ENTITY ndash "&#x2013;">
@@ -19,7 +19,7 @@
       <email>paul@stat.auckland.ac.nz</email>
     </author>
     <affiliation>Department of Statistics, The University of Auckland</affiliation>
-    <date></date>
+    <date/>
     <description>Technical report on transforming documents using an
     OpenAPI pipeline.</description>
   </metadata>
@@ -46,10 +46,8 @@
       journals, books, online or otherwise, an author will employ one
       of many document formats to describe the typographical and
       structural details of her document. Common formats for research
-      publication include the <a
-      href="https://latex-project.org/">LaTeX</a> system for producing
-      printed documents, and <a
-      href="https://www.w3.org/html/">HTML</a> for producing online
+      publication include the <a href="https://latex-project.org/">LaTeX</a> system for producing
+      printed documents, and <a href="https://www.w3.org/html/">HTML</a> for producing online
       documents. These and other formats allow an author to have
       low-level control over a certain type of output, but usually do
       not offer control over multiple outputs.</p>
@@ -63,8 +61,7 @@
       then use Pandoc to convert the document to one (or several)
       formats for publication.</p>
 
-      <p>Pandoc Markdown is a variant of <a
-      href="https://daringfireball.net/projects/markdown/">Markdown</a>,
+      <p>Pandoc Markdown is a variant of <a href="https://daringfireball.net/projects/markdown/">Markdown</a>,
       a lightweight markup language written as a simpler way to author
       HTML documents. Markdown is intended to be readable without
       conversion, and as such is written so as not to appear to
@@ -78,8 +75,7 @@
       to be executed to produce the final version of the
       document. Various tools exist for executing code embedded in a
       literate document to produce the desired output. For example, an
-      author can embed R code in her document and use the <a
-      href="http://yihui.name/knitr/">Knitr</a> package to execute the
+      author can embed R code in her document and use the <a href="http://yihui.name/knitr/">Knitr</a> package to execute the
       R code and produce a final document. An author embeds R code in
       another document format, for example HTML or LaTeX, and
       processes the document to produce an output document in the same
@@ -267,9 +263,15 @@ plot(x)
       <code>date</code> of publication, and a <code>description</code>
       section. An example <code>metadata</code> element follows:</p>
 
-      <pre><code><xi:include href="metadataExample.xml" parse="text">
-	<xi:fallback>xinclude metadataExample.html</xi:fallback>
-      </xi:include></code></pre>
+      <pre><code>&lt;metadata&gt;
+  &lt;title&gt;Today should be a holiday&lt;/title&gt;
+  &lt;author&gt;
+    &lt;name&gt;Ashley Noel Hinton&lt;/name&gt;
+    &lt;email&gt;ahin017@aucklanduni.ac.nz&lt;/email&gt;
+  &lt;/author&gt;
+  &lt;date&gt;25 December 2015&lt;/date&gt;
+&lt;/metadata&gt;
+</code></pre>
 
       <p>The <code>body</code> element contains the document's main
       content. The following elements are used in the same way as they
@@ -277,24 +279,24 @@ plot(x)
       (<url>https://www.w3.org/TR/html-markup/elements.html</url>):</p>
 
       <ul>
-	<li><code>a</code> &ndash; hyperlink</li>
-	<li><code>cite</code> &ndash; cited title of a work</li>
-	<li><code>code</code> &ndash; code fragment</li>
-	<li><code>em</code> &ndash; emphatic stress</li>
-	<li><code>figcaption</code> &ndash; figure caption</li>
-	<li><code>figure</code> &ndash; figure with optional caption</li>
-	<li><code>h1</code> &ndash; heading</li>
-	<li><code>h2</code> &ndash; heading</li>
-	<li><code>h3</code> &ndash; heading</li>
-	<li><code>img</code> &ndash; image</li>
-	<li><code>li</code> &ndash; list item</li>
-	<li><code>ol</code> &ndash; ordered list</li>
-	<li><code>p</code> &ndash; paragraph</li>
-	<li><code>pre</code> &ndash; preformatted text</li>
-	<li><code>q</code> &ndash; quoted text</li>
-	<li><code>section</code> &ndash; section</li>
-	<li><code>strong</code> &ndash; strong importance</li>
-	<li><code>ul</code> &ndash; unordered list</li>
+	<li><code>a</code> – hyperlink</li>
+	<li><code>cite</code> – cited title of a work</li>
+	<li><code>code</code> – code fragment</li>
+	<li><code>em</code> – emphatic stress</li>
+	<li><code>figcaption</code> – figure caption</li>
+	<li><code>figure</code> – figure with optional caption</li>
+	<li><code>h1</code> – heading</li>
+	<li><code>h2</code> – heading</li>
+	<li><code>h3</code> – heading</li>
+	<li><code>img</code> – image</li>
+	<li><code>li</code> – list item</li>
+	<li><code>ol</code> – ordered list</li>
+	<li><code>p</code> – paragraph</li>
+	<li><code>pre</code> – preformatted text</li>
+	<li><code>q</code> – quoted text</li>
+	<li><code>section</code> – section</li>
+	<li><code>strong</code> – strong importance</li>
+	<li><code>ul</code> – unordered list</li>
       </ul>
 
       <p>The <code>&lt;url&gt;</code> element is introduced in the
@@ -302,15 +304,11 @@ plot(x)
       enclosed URL is both the href and the value. The following code
       block demonstrates the use of the <code>url</code> element:</p>
 
-      <pre><code><xi:include href="elementsExample.xml" parse="text">
-	<xi:fallback><todo>xinclude elementsExample.xml</todo></xi:fallback>
-      </xi:include></code></pre>
+      <pre><code><todo>xinclude elementsExample.xml</todo></code></pre>
 
       <p>The resulting output:</p>
 
-      <xi:include href="elementsExample.xml" parse="xml">
-	<xi:fallback><todo>xinclude elementsExample.xml</todo></xi:fallback>
-      </xi:include>
+      <todo>xinclude elementsExample.xml</todo>
 
       <p>The <code>document</code> XML format uses
       <code>&lt;code&gt;</code> elements to indicate blocks of
@@ -326,16 +324,15 @@ plot(x)
       characters. The following code demonstrates how to include an R
       code chunk to be executed with Knitr:</p>
 
-      <pre><code><xi:include href="knitrExample.xml" parse="text">
-	<xi:fallback><todo>xinclude knitrExample.xml</todo></xi:fallback>
-      </xi:include></code></pre>
+      <pre><code>&lt;code class="knitr" name="knitrDemo" options="tidy=FALSE"&gt;&lt;![CDATA[x &lt;- rnorm(n = 10)
+mean(x)]]&gt;&lt;/code&gt;
+</code></pre>
 
       <p>And the following is the result of executing this code
       chunk:</p>
 
-      <xi:include href="knitrExample.xml" parse="xml">
-	<xi:fallback><todo>xinclude knitrExample.xml</todo></xi:fallback>
-      </xi:include>
+      <code class="knitr" name="knitrDemo" options="tidy=FALSE"><![CDATA[x <- rnorm(n = 10)
+mean(x)]]></code>
 
       <p>The <code>document</code> format also makes use of the
       <code>include</code> element from XInclude
@@ -349,7 +346,7 @@ plot(x)
       <p>The next sections describes some simple transformations which
       can be performed on the <code>document</code> markup format
       using freely available open source tools. This report was itself
-      written in the <code>document</code> markup format&mdash;the
+      written in the <code>document</code> markup format—the
       source code is available at <url>report.xml</url>. <todo>replace
       with final full URL</todo></p>
     </section>
@@ -406,9 +403,7 @@ plot(x)
       <p>The source <code>document</code>
       <url>examples/toHtml.xml</url> contains the following XML:</p>
 
-      <pre><code><xi:include href="examples/toHtml.xml" parse="text">
-	<xi:fallback><todo>xinclude examples/toHtml.xml</todo></xi:fallback>
-      </xi:include></code></pre>
+      <pre><code><todo>xinclude examples/toHtml.xml</todo></code></pre>
 
       <p>This document can be transformed to HTML using the following
       call to <code>xsltproc</code>:</p>
@@ -432,10 +427,8 @@ plot(x)
       <url>examples/processXinclude.xml</url> contains the following
       XML:</p>
 
-      <pre><code><xi:include href="examples/processXinclude.xml" parse="text">
-	<xi:fallback><todo>xinclude
-	examples/processXinclude.xml</todo></xi:fallback>
-      </xi:include></code></pre>
+      <pre><code><todo>xinclude
+	examples/processXinclude.xml</todo></code></pre>
 
       <p>The element <code><![CDATA[<xi:include
       href="evidenceList.xml" parse="xml"/>]]></code> indicates that
@@ -481,9 +474,7 @@ plot(x)
       <url>examples/knitrChunk.xml</url> contains the following
       XML:</p>
 
-      <pre><code><xi:include href="examples/knitrChunk.xml" parse="text">
-	<xi:fallback><todo>xinclude examples/knitrChunk.xml</todo></xi:fallback>
-      </xi:include></code></pre>
+      <pre><code><todo>xinclude examples/knitrChunk.xml</todo></code></pre>
 
       <p>This document can be transformed to Knitr HTML using the
       following call to <code>xsltproc</code>:</p>

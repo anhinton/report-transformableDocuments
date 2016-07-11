@@ -1,54 +1,15 @@
-### Create transformation pipelines for report
+#! /usr/bin/Rscript
 library(conduit)
 
-xinclude <- module(
-    name = "xinclude",
-    language = moduleLanguage("bash"),
-    description = "Process XInclude nodes",
-    inputs = list(
-        report = moduleInput(
-            name = "report",
-            vessel = fileVessel("report.xml"),
-            format = ioFormat("XML file")),
-        metadataExample =  moduleInput(
-            name = "metadataExample",
-            vessel = fileVessel("metadataExample.xml"),
-            format = ioFormat("XML file")),
-        knitrExample = moduleInput(
-            name = "knitrExample",
-            vessel = fileVessel("knitrExample.xml"),
-            format = ioFormat("XML file"))),
-    sources = list(
-        moduleSource(vessel = scriptVessel(readLines("scripts/xinclude.sh")))),
-    outputs = list(
-        report = moduleOutput(
-            name = "report",
-            vessel = fileVessel("report.xml"),
-            format = ioFormat("XML file"))))
+## load document transformation pipeline
+transform <- loadPipeline(name = "transform", ref = "transform/pipeline.xml")
 
-#res1 <- runModule(xinclude, targetDirectory = tempdir())
-substituteEntities <- module(
-    name = "substituteEntities",
-    language = moduleLanguage("bash"),
-    description = "Substitutes XML entity references for values",
-    inputs = list(
-        moduleInput(name = "report",
-                     vessel = fileVessel("report.xml"),
-                     format = ioFormat("XML file"))),
-    sources = list(moduleSource(
-        vessel = scriptVessel(readLines("scripts/substituteEntities.sh")))),
-    outputs = list(
-        moduleOutput(name = "report",
-                     vessel = fileVessel("report.xml"),
-                     format = ioFormat("XML file"))))
+## execute pipeline
+pplRes1 <- runPipeline(transform)
 
-
-
-docToHtml <- pipeline(
-    name = "docToHtml",
-    description = "Convert transformable XML document to HTML",
-    components = list(xinclude, substituteEntities),
-    pipes = list(
-        pipe("xinclude", "report", "substituteEntities", "report")))
-
-pplRes1 <- runPipeline(docToHtml, targetDirectory = tempdir())
+## copy knitr figures to examples directory
+conduit:::dir.copy(from = pplRes1$outputList$knitToHtml$figure$ref,
+                   to = "examples/figure", overwrite = TRUE)
+## copy final report.html to working directory
+file.copy(from = pplRes1$outputList$knitToHtml$report$ref, to = ".",
+          overwrite = TRUE)

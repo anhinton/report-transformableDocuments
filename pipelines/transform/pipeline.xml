@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<pipeline xmlns="http://www.openapi.org/2014/">
+  <description>Convert transformable XML document to HTML</description>
+  <component name="xinclude" type="module">
+    <file ref="./xinclude/xinclude.xml"/>
+  </component>
+  <component name="substituteEntities" type="module">
+    <file ref="./substituteEntities/substituteEntities.xml"/>
+  </component>
+  <component name="convertToRhtml" type="module">
+    <file ref="./convertToRhtml/convertToRhtml.xml"/>
+  </component>
+  <component name="knitToHtml" type="module">
+    <file ref="./knitToHtml/knitToHtml.xml"/>
+  </component>
+</pipeline>
