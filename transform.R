@@ -10,9 +10,13 @@ toHtml <- loadPipeline(name = "toHtml",
 ## execute document to HTML pipeline
 pplRes1 <- runPipeline(toHtml, targetDirectory = tempdir())
 
-## copy knitr figures to examples directory
+export(pplRes1)
+
+## copy knitrExample results to examples directory
 conduit:::dir.copy(from = pplRes1$outputList$knitToHtml$figure$ref,
                    to = "examples/figure", overwrite = TRUE)
+file.copy(from = pplRes1$outputList$knitToHtml$knitrExample$ref,
+                   to = "examples", overwrite = TRUE)
 ## copy final report.html to working directory
 file.copy(from = pplRes1$outputList$knitToHtml$report$ref, to = ".",
           overwrite = TRUE)

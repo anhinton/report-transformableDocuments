@@ -1,6 +1,9 @@
 body {
     margin: auto; max-width: 800px;
 }
+code {
+    white-space: pre-wrap;
+}
 div.author { 
     font-style: italic;
     font-size: large;
