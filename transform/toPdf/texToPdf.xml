@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<module xmlns="http://www.openapi.org/2014/">
+  <language>bash</language>
+  <description>Produce PDF from TeX source file</description>
+  <input name="report">
+    <file ref="report.tex"/>
+    <format>Knitr TeX file</format>
+  </input>
+  <input name="examples">
+    <file ref = "examples"/>
+    <format>file directory</format>
+  </input>
+  <input name="figure">
+    <file ref = "figure"/>
+    <format>file directory</format>
+  </input>
+  <source>
+    <script><![CDATA[#! /bin/bash
+pdflatex report.tex
+]]></script>
+  </source>
+  <output name = "report">
+    <file ref = "report.pdf"/>
+    <format>PDF file</format>
+  </output>
+</module>

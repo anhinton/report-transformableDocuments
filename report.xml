@@ -278,7 +278,6 @@ plot(x)
 
       <ul>
 	<li><code>a</code> &ndash; hyperlink</li>
-	<li><code>cite</code> &ndash; cited title of a work</li>
 	<li><code>code</code> &ndash; code fragment</li>
 	<li><code>em</code> &ndash; emphatic stress</li>
 	<li><code>figcaption</code> &ndash; figure caption</li>
@@ -501,13 +500,22 @@ setwd(oldwd)]]></code>
 
       <p>The resulting HTML document can be viewed at <url>examples/knitrChunk.html</url>.</p>
 
-      <h2>Transforming to PDF</h2>
+      <h2>A test</h2>
+
+      <code class="knitr" name="jobbies" options="cache=FALSE"><![CDATA[x <- 1:10
+plot(x)]]></code>
     </section>
 	
     <section>
       <h1>Technical requirements</h1>
 
       <p>This is an appendix section.</p>
+
+      <pre>Have a good
+
+hoon
+      on me</pre>
+      
     </section>
   </body>
   

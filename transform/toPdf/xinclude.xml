@@ -10,9 +10,17 @@
     <file ref="metadataExample.xml"/>
     <format formatType="text">XML file</format>
   </input>
+  <input name="elementsExample">
+    <file ref="elementsExample.xml"/>
+    <format>XML file</format>
+  </input>
   <input name="knitrExample">
     <file ref="knitrExample.xml"/>
     <format formatType="text">XML file</format>
+  </input>
+  <input name="examples">
+    <file ref="examples"/>
+    <format>file directory</format>
   </input>
   <source>
     <script><![CDATA[#! /bin/bash

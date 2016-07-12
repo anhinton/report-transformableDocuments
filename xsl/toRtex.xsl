@@ -1,30 +1,44 @@
 <?xml version="1.0"?>
-<!-- Time-stamp: "2016-07-11 17:01:42 ahin017"-->
+<!-- Time-stamp: "2016-07-12 14:22:35 ahin017"-->
 <!DOCTYPE document [
-  <!ENTITY nl "&#xA;">
+<!ENTITY nl "&#xA;">
 ]>
 <xsl:stylesheet version="1.0"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <xsl:output encoding="UTF-8" indent="yes" method="text"
 	      omit-xml-declaration="yes"/>
 
-  <xsl:template match="document">
+  <xsl:template match="/document">
+    <!-- setup -->
     <xsl:text>\documentclass[11pt,a4paper]{article}&nl;</xsl:text>
+    <xsl:text>\usepackage{hyperref}</xsl:text>
+    <xsl:text>\usepackage{graphicx}&nl;</xsl:text>
+    <xsl:text>&nl;</xsl:text>
+
+    <!-- knitr setup -->
     <xsl:text>%% begin.rcode setup, include=FALSE&nl;</xsl:text>
     <xsl:text>% library(knitr)&nl;</xsl:text>
     <xsl:text>% opts_chunk$set(cache = TRUE, size='small', background='#FFFFFF')&nl;</xsl:text>
     <xsl:text>%% end.rcode&nl;</xsl:text>
+    <xsl:text>&nl;</xsl:text>
+
+    <!-- produce document -->
     <xsl:text>\begin{document}&nl;</xsl:text>
+    <!-- process metadata -->
     <xsl:apply-templates select="metadata"/>
+    <xsl:text>&nl;</xsl:text>
+    <!-- process body -->
     <xsl:apply-templates select="body"/>
     <xsl:text>\end{document}&nl;</xsl:text>
   </xsl:template>
 
-  <xsl:template match="metadata">
+  <xsl:template match="/document/metadata">
+    <!-- title -->
     <xsl:text>\title{</xsl:text>
     <xsl:value-of select="title"/>
     <xsl:text>}&nl;</xsl:text>
 
+    <!-- author -->
     <xsl:text>\author{</xsl:text>
     <xsl:for-each select = "author">
       <xsl:value-of select="name"/>
@@ -41,98 +55,23 @@
 	<xsl:value-of select = "affiliation"/>
       </xsl:if>
       <xsl:text>\\&nl;</xsl:text>
-    </xsl:for-each>
-    <xsl:text>}\\&nl;</xsl:text>
-
+      <xsl:text>\\&nl;</xsl:text>
+    </xsl:for-each>    
     <xsl:if test = "affiliation">
-      <xsl:text>\\&nl;MILLIONS</xsl:text>
-      <xsl:value-of select = "node()"/>
-    </xsl:if>      
-    
+      <xsl:value-of select = "affiliation"/>
+    </xsl:if>
+    <xsl:text>}&nl;</xsl:text>
+
+    <!-- date -->
     <xsl:text>\date{</xsl:text>
-    <xsl:value-of select="/document/metadata/date"/>
+    <xsl:value-of select="date"/>
     <xsl:text>}&nl;</xsl:text>
-    <xsl:text>\maketitle&nl;</xsl:text>
-    <xsl:text>\tableofcontents&nl;</xsl:text>
+    
+    <xsl:text>\maketitle</xsl:text>
   </xsl:template>
 
-  <xsl:template match="body">
+  <xsl:template match="/document/body">
     <xsl:apply-templates select="section"/>
-    <xsl:text>\newpage&nl;</xsl:text>
-    <xsl:text>\appendix&nl;</xsl:text>
-    <xsl:text>\section*{Appendices}&nl;</xsl:text>
-    <xsl:text>\addcontentsline{toc}{section}{Appendices}&nl;</xsl:text>
-    <xsl:text>\renewcommand \thesection {\Alph{section}}&nl;</xsl:text>
-    <xsl:apply-templates select="/document/body/appendix"/>
-  </xsl:template>
-
-  <xsl:template match="section">
-    <xsl:text>\newpage&nl;</xsl:text>
-    <xsl:apply-templates select="node()"/>
-  </xsl:template>
-
-  <xsl:template match="section[@class='references']">
-    <xsl:text>\newpage&nl;</xsl:text>
-    <xsl:text>\onehalfspacing&nl;</xsl:text>
-    <xsl:apply-templates select="node()"/>
-    <xsl:text>\singlespacing&nl;</xsl:text>
-  </xsl:template>
-
-  <xsl:template match="subsection[@class='thanks']">
-    <xsl:text>\newpage&nl;</xsl:text>
-    <xsl:text>\subsection*{}&nl;&nl;</xsl:text>
-    <xsl:apply-templates select="node()"/>    
-  </xsl:template>
-
-  <xsl:template match="h1">
-    <xsl:text>\section{</xsl:text>
-    <xsl:apply-templates select="node()"/>
-    <xsl:text>}&nl;&nl;</xsl:text>
-  </xsl:template>
-
-  <xsl:template match="h1[@class='unnumbered']">
-    <xsl:text>\section*{</xsl:text>
-    <xsl:apply-templates select="node()"/>
-    <xsl:text>}&nl;</xsl:text>
-    <xsl:text>\addcontentsline{toc}{section}{</xsl:text>
-    <xsl:apply-templates select="node()"/>
-    <xsl:text>}&nl;&nl;</xsl:text>
-  </xsl:template>
-
-  <xsl:template match="h2">
-    <xsl:text>\subsection{</xsl:text>
-    <xsl:apply-templates select="node()"/>
-    <xsl:text>}&nl;&nl;</xsl:text>
-  </xsl:template>
-  
-  <xsl:template match="h3">
-    <xsl:text>\subsubsection{</xsl:text>
-    <xsl:apply-templates select="node()"/>
-    <xsl:text>}&nl;&nl;</xsl:text>
-  </xsl:template>
-  
-  <xsl:template match="code">
-    <xsl:text>\texttt{</xsl:text>
-    <xsl:apply-templates select="node()"/>
-    <xsl:text>}</xsl:text>
-  </xsl:template>
-
-  <xsl:template match="p">
-    <xsl:apply-templates select="node()"/>
-    <xsl:text>&nl;&nl;</xsl:text>
-  </xsl:template>
-
-  <xsl:template match="p[@class='references']">
-    <xsl:text>\noindent&nl;</xsl:text>
-    <xsl:text>\hangindent=0.7cm&nl;</xsl:text>
-    <xsl:apply-templates select="node()"/>
-    <xsl:text>&nl;&nl;</xsl:text>
-  </xsl:template>
-
-  <xsl:template match="em">
-    <xsl:text>\emph{</xsl:text>
-    <xsl:apply-templates select="node()"/>
-    <xsl:text>}</xsl:text>
   </xsl:template>
 
   <xsl:template match="a">
@@ -143,51 +82,13 @@
     <xsl:text>}</xsl:text>		  
   </xsl:template>
 
-  <xsl:template match="url">
-    <xsl:text>\burl{</xsl:text>
-    <xsl:value-of select="node()"/>
+  <xsl:template match="code">
+    <xsl:text>\texttt{</xsl:text>
+    <xsl:apply-templates select="node()"/>
     <xsl:text>}</xsl:text>
   </xsl:template>
 
-  <xsl:template match="a[@class='references']">
-    <xsl:text>\burl{</xsl:text>
-    <xsl:value-of select="node()"/>
-    <xsl:text>}</xsl:text>
-  </xsl:template>
-
-  <xsl:template match="cite"/>
-
-  <xsl:template match="ul">
-    <xsl:text>\begin{itemize}&nl;</xsl:text>
-    <xsl:apply-templates select="node()"/>
-    <xsl:text>\end{itemize}&nl;&nl;</xsl:text>
-  </xsl:template>
-
-  <xsl:template match="li">
-    <xsl:text>\item </xsl:text>
-    <xsl:apply-templates select="node()"/>
-    <xsl:text>&nl;</xsl:text>
-  </xsl:template>
-
-  <xsl:template match="figure">
-    <xsl:text>\begin{figure}&nl;</xsl:text>
-    <xsl:text>\centering&nl;</xsl:text>
-    <xsl:text>\includegraphics[width=0.8\textwidth]{</xsl:text>
-    <xsl:value-of select="translate(img/@src, '\', '')"/>
-    <xsl:text>}&nl;</xsl:text>
-    <xsl:text>\caption{</xsl:text>
-    <xsl:apply-templates select="node()"/>
-    <xsl:text>}&nl;</xsl:text>
-    <xsl:text>\end{figure}</xsl:text>
-  </xsl:template>    
-
-  <xsl:template match="pre">
-    <xsl:text>\begin{lstlisting}&nl;</xsl:text>
-    <xsl:value-of select="node()"/>
-    <xsl:text>&nl;\end{lstlisting}&nl;&nl;</xsl:text>
-  </xsl:template>
-
-  <xsl:template match="pre[@class='knitr']">
+  <xsl:template match="code[@class='knitr']">
     <xsl:text>%% begin.rcode </xsl:text>
     <xsl:value-of select="@name"/>
     <xsl:if test="@options">
@@ -196,12 +97,78 @@
     </xsl:if>
     <xsl:text>&nl;</xsl:text>
     <xsl:value-of select="node()"/>
-    <xsl:text>&nl;%% end.rcode&nl;&nl;</xsl:text>
+    <xsl:text>&nl;%% end.rcode</xsl:text>
   </xsl:template>
 
-  <xsl:template match="appendix">
+  <xsl:template match="em">
+    <xsl:text>\emph{</xsl:text>
     <xsl:apply-templates select="node()"/>
-    <xsl:text>\newpage&nl;</xsl:text>
+    <xsl:text>}</xsl:text>
+  </xsl:template>
+
+  <xsl:template match="figure">
+    <xsl:text>\begin{figure}&nl;</xsl:text>
+    <xsl:text>\centering&nl;</xsl:text>
+    <xsl:text>\includegraphics[width=0.8\textwidth]{</xsl:text>
+    <xsl:value-of select="img/@src"/>
+    <xsl:text>}&nl;</xsl:text>
+    <xsl:text>\caption{</xsl:text>
+    <xsl:value-of select="figcaption"/>
+    <xsl:text>}&nl;</xsl:text>
+    <xsl:text>\end{figure}&nl;</xsl:text>
+  </xsl:template>    
+
+  <xsl:template match="h1">
+    <xsl:text>\section{</xsl:text>
+    <xsl:apply-templates select="node()"/>
+    <xsl:text>}&nl;</xsl:text>
+  </xsl:template>
+
+  <xsl:template match="h2">
+    <xsl:text>\subsection{</xsl:text>
+    <xsl:apply-templates select="node()"/>
+    <xsl:text>}&nl;</xsl:text>
+  </xsl:template>
+  
+  <xsl:template match="h3">
+    <xsl:text>\subsubsection{</xsl:text>
+    <xsl:apply-templates select="node()"/>
+    <xsl:text>}&nl;</xsl:text>
+  </xsl:template>
+  
+  <xsl:template match="li"> 
+    <xsl:text>\item </xsl:text>
+    <xsl:apply-templates select="node()"/>
+  </xsl:template>
+
+  <xsl:template match="p">
+    <xsl:apply-templates select="node()"/>
+    <xsl:text>&nl;</xsl:text>
+  </xsl:template>
+
+  <xsl:template match="pre">
+    <xsl:text>\begin{verbatim}</xsl:text>
+    <xsl:if test="code">
+      <xsl:value-of select="code"/>
+    </xsl:if>
+    <xsl:value-of select="node()"/>
+    <xsl:text>\end{verbatim}&nl;</xsl:text>
+  </xsl:template>
+
+  <xsl:template match="section">    
+    <xsl:apply-templates select="node()"/>
+  </xsl:template>
+
+  <xsl:template match="ul">
+    <xsl:text>\begin{itemize}</xsl:text>
+    <xsl:apply-templates select="node()"/>
+    <xsl:text>\end{itemize}&nl;</xsl:text>
+  </xsl:template>
+
+  <xsl:template match="url">
+    <xsl:text>\url{</xsl:text>
+    <xsl:value-of select="node()"/>
+    <xsl:text>}</xsl:text>
   </xsl:template>
 
   <!-- copy everything into new doc -->
