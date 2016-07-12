@@ -22,15 +22,15 @@ file.copy(from = pplRes1$outputList$knitToHtml$report$ref, to = ".",
           overwrite = TRUE)
 
 
-### produce PDF output
+## ### produce PDF output
 
-## load document to PDF transformation pipeline
-toPdf <- loadPipeline(name = "toPdf",
-                      ref = "transform/toPdf/pipeline.xml")
+## ## load document to PDF transformation pipeline
+## toPdf <- loadPipeline(name = "toPdf",
+##                       ref = "transform/toPdf/pipeline.xml")
 
-## execute document to PDF pipeline
-pplRes2 <- runPipeline(toPdf, targetDirectory = tempdir())
+## ## execute document to PDF pipeline
+## pplRes2 <- runPipeline(toPdf, targetDirectory = tempdir())
 
-## copy final report.pdf to working directory
-file.copy(from = pplRes2$outputList$texToPdf$report$ref, to = ".",
-          overwrite = TRUE)
+## ## copy final report.pdf to working directory
+## file.copy(from = pplRes2$outputList$texToPdf$report$ref, to = ".",
+##           overwrite = TRUE)
