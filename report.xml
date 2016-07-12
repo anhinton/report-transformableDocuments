@@ -450,7 +450,7 @@ plot(x)
       <p>The resulting HTML document can be viewed at
       <url>examples/processXinclude.html</url>.</p>
 
-      <h2>Prepare R code chunks for Knitr</h2>
+      <h2>Subsetting elements: prepare R code chunks for Knitr</h2>
 
       <p>The Knitr package lets document authors embed chunks of R
       code in special comment code and execute these chunks to produce
@@ -490,32 +490,43 @@ plot(x)
       <pre><code>xsltproc -o examples/knitrChunk.Rhtml examples/documentToRhtml.xsl examples/knitrChunk.xml</code></pre>
 
       <p>The resulting Knitr HTML document can be viewed at
-      <url>examples/knitrChunk.Rhtml</url>. This Knitr HTML document
-      can be converted to HTML using the Knitr package in R:</p>
+      <url>examples/knitrChunk.Rhtml</url>.</p>
+
+      <h2>Extended transformations</h2>
+
+      <p>So far we have shown examples of single transformations on
+      documents written in the <code>document</code> markup
+      format. Authors of <code>document</code> files are not limited
+      to single transformations, however. In the previous example
+      demonstrated how a module author can convert a document with
+      marked up chunks of R code into a document for processing with
+      the Knitr package in R. The Knitr HTML document from the
+      previous example can be converted to HTML using the following
+      code in R:</p>
 
       <code class="knitr" name="rhtmlToHtml" option="eval=FALSE"><![CDATA[library(knitr)
 oldwd <- setwd("examples")
 knit(input = "knitrChunk.Rhtml")
 setwd(oldwd)]]></code>
 
-      <p>The resulting HTML document can be viewed at <url>examples/knitrChunk.html</url>.</p>
+      <p>The resulting HTML document can be viewed at
+      <url>examples/knitrChunk.html</url>. This output document is the
+      result of two transformation steps, using two different tools
+      (<code>xsltrproc</code>, and the Knitr package in R), each
+      producing an output document. The <code>document</code> format
+      can be used in this wat to authoring documents which require
+      several transformation steps, and several transformation
+      tools. The result of each transformation can be provided as a
+      source document for the following transformation.</p>
+      
+    </section>
 
-      <h2>A test</h2>
-
-      <code class="knitr" name="jobbies" options="cache=FALSE"><![CDATA[x <- 1:10
-plot(x)]]></code>
+    <section>
+      <h1>Discussion</h1>
     </section>
 	
     <section>
-      <h1>Technical requirements</h1>
-
-      <p>This is an appendix section.</p>
-
-      <pre>Have a good
-
-hoon
-      on me</pre>
-      
+      <h1>Technical requirements</h1>      
     </section>
   </body>
   

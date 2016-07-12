@@ -1,68 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style type="text/css">
-.knitr .inline {
-  background-color: #f7f7f7;
-  border:solid 1px #B0B0B0;
-}
-.error {
-	font-weight: bold;
-	color: #FF0000;
-}
-.warning {
-	font-weight: bold;
-}
-.message {
-	font-style: italic;
-}
-.source, .output, .warning, .error, .message {
-	padding: 0 1em;
-  border:solid 1px #F7F7F7;
-}
-.source {
-  background-color: #f5f5f5;
-}
-.rimage .left {
-  text-align: left;
-}
-.rimage .right {
-  text-align: right;
-}
-.rimage .center {
-  text-align: center;
-}
-.hl.num {
-  color: #AF0F91;
-}
-.hl.str {
-  color: #317ECC;
-}
-.hl.com {
-  color: #AD95AF;
-  font-style: italic;
-}
-.hl.opt {
-  color: #000000;
-}
-.hl.std {
-  color: #585858;
-}
-.hl.kwa {
-  color: #295F94;
-  font-weight: bold;
-}
-.hl.kwb {
-  color: #B05A65;
-}
-.hl.kwc {
-  color: #55aa55;
-}
-.hl.kwd {
-  color: #BC5A65;
-  font-weight: bold;
-}
-</style>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Transforming documents with OpenAPI pipelines</title>
 <meta name="author" content="Ashley Noel Hinton">
@@ -163,7 +101,7 @@
       is left as an exercise for the reader.</p>
 
       <p>In Pandoc Markdown a simple list is created by
-      prepending a “*”, “+”, or “-” character to the
+      prepending a <q>*</q>, <q>+</q>, or <q>-</q> character to the
       beginning of each list item, as in the following example:</p>
 
       <pre><code>  * one
@@ -213,7 +151,7 @@
       <p>Markdown like HTML also gives a document author more control
       over the poutput than Markdown. The author of the HTML list
       example above has used the <code>class</code> attribute to
-      indicate the inner list belongs to the “subList”
+      indicate the inner list belongs to the <q>subList</q>
       class. Using <code>class</code> an author can apply output styles
       or perform other actions on subsets of elements. When a document
       authored in Markdown is transformed to HTML its lists will be
@@ -244,7 +182,7 @@ end.rcode--&gt;</code></pre>
 %% end.rcode</code></pre>
 
       <p>A document author using the R Markdown package can enclose R
-      code chunks in special “fenced code” blocks as in the
+      code chunks in special <q>fenced code</q> blocks as in the
       following code:</p>
 
       <pre><code>```{r}
@@ -268,7 +206,7 @@ plot(x)
       for example, make use of tools which employ the XPATH query
       language to locate <code>&lt;code&gt;</code> elemenents and
       perform transformations. If the author gives R code chunks the
-      class “R”, as in the above example, she could perform
+      class <q>R</q>, as in the above example, she could perform
       transformations on just the R code chunks.</p>
 
       <p>If an author uses Pandoc Markdown to write a document she can
@@ -413,12 +351,9 @@ mean(x)]]&gt;&lt;/code&gt;
       <p>And the following is the result of executing this code
       chunk:</p>
 
-<div class="chunk" id="knitrDemo"><div class="rcode"><div class="source"><pre class="knitr r"><span class="hl std">x</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">rnorm</span><span class="hl std">(</span><span class="hl kwc">n</span> <span class="hl std">=</span> <span class="hl num">10</span><span class="hl std">)</span>
-<span class="hl kwd">mean</span><span class="hl std">(x)</span>
-</pre></div>
-<div class="output"><pre class="knitr r">## [1] 0.2334518
-</pre></div>
-</div></div>
+      <p><strong>TODO: EXECUTE R CODE:</strong></p>
+<pre><code>x &lt;- rnorm(n = 10)
+mean(x)</code></pre>
 
       <p>The <code>document</code> format also makes use of the
       <code>include</code> element from XInclude
@@ -433,7 +368,8 @@ mean(x)]]&gt;&lt;/code&gt;
       can be performed on the <code>document</code> markup format
       using freely available open source tools. This report was itself
       written in the <code>document</code> markup format—the
-      source code is available at <a href="report.xml">report.xml</a>. </p>
+      source code is available at <a href="report.xml">report.xml</a>. <strong>TODO: replace
+      with final full URL</strong></p>
     </section>
 
     <!-- end section -->
@@ -575,7 +511,7 @@ mean(x)]]&gt;&lt;/code&gt;
       <p>The resulting HTML document can be viewed at
       <a href="examples/processXinclude.html">examples/processXinclude.html</a>.</p>
 
-      <h2>Prepare R code chunks for Knitr</h2>
+      <h2>Subsetting elements: prepare R code chunks for Knitr</h2>
 
       <p>The Knitr package lets document authors embed chunks of R
       code in special comment code and execute these chunks to produce
@@ -634,56 +570,44 @@ plot(x)]]&gt;&lt;/code&gt;
       <pre><code>xsltproc -o examples/knitrChunk.Rhtml examples/documentToRhtml.xsl examples/knitrChunk.xml</code></pre>
 
       <p>The resulting Knitr HTML document can be viewed at
-      <a href="examples/knitrChunk.Rhtml">examples/knitrChunk.Rhtml</a>. This Knitr HTML document
-      can be converted to HTML using the Knitr package in R:</p>
+      <a href="examples/knitrChunk.Rhtml">examples/knitrChunk.Rhtml</a>.</p>
 
-<div class="chunk" id="rhtmlToHtml"><div class="rcode"><div class="source"><pre class="knitr r"><span class="hl kwd">library</span><span class="hl std">(knitr)</span>
-<span class="hl std">oldwd</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">setwd</span><span class="hl std">(</span><span class="hl str">&quot;examples&quot;</span><span class="hl std">)</span>
-<span class="hl kwd">knit</span><span class="hl std">(</span><span class="hl kwc">input</span> <span class="hl std">=</span> <span class="hl str">&quot;knitrChunk.Rhtml&quot;</span><span class="hl std">)</span>
-</pre></div>
-<div class="message"><pre class="knitr r">## 
-## 
-## processing file: knitrChunk.Rhtml
-</pre></div>
-<div class="output"><pre class="knitr r">##   |                                                                         |                                                                 |   0%  |                                                                         |......................                                           |  33%
-##   ordinary text without R code
-## 
-##   |                                                                         |...........................................                      |  67%
-## label: unnamed-chunk-1 (with options) 
-## List of 1
-##  $ indent: chr &quot;    &quot;
-</pre></div>
-<div class="output"><pre class="knitr r">##   |                                                                         |.................................................................| 100%
-##   ordinary text without R code
-</pre></div>
-<div class="message"><pre class="knitr r">## output file: knitrChunk.html
-</pre></div>
-<div class="output"><pre class="knitr r">## [1] &quot;knitrChunk.html&quot;
-</pre></div>
-<div class="source"><pre class="knitr r"><span class="hl kwd">setwd</span><span class="hl std">(oldwd)</span>
-</pre></div>
-</div></div>
+      <h2>Extended transformations</h2>
 
-      <p>The resulting HTML document can be viewed at <a href="examples/knitrChunk.html">examples/knitrChunk.html</a>.</p>
+      <p>So far we have shown examples of single transformations on
+      documents written in the <code>document</code> markup
+      format. Authors of <code>document</code> files are not limited
+      to single transformations, however. In the previous example
+      demonstrated how a module author can convert a document with
+      marked up chunks of R code into a document for processing with
+      the Knitr package in R. The Knitr HTML document from the
+      previous example can be converted to HTML using the following
+      code in R:</p>
 
-      <h2>A test</h2>
+      <p><strong>TODO: EXECUTE R CODE:</strong></p>
+<pre><code>library(knitr)
+oldwd &lt;- setwd("examples")
+knit(input = "knitrChunk.Rhtml")
+setwd(oldwd)</code></pre>
 
-<div class="chunk" id="jobbies"><div class="rcode"><div class="source"><pre class="knitr r"><span class="hl std">x</span> <span class="hl kwb">&lt;-</span> <span class="hl num">1</span><span class="hl opt">:</span><span class="hl num">10</span>
-<span class="hl kwd">plot</span><span class="hl std">(x)</span>
-</pre></div>
-</div><div class="rimage default"><img src="figure/jobbies-1.png" title="plot of chunk jobbies" alt="plot of chunk jobbies" class="plot" /></div></div>
+      <p>The resulting HTML document can be viewed at
+      <a href="examples/knitrChunk.html">examples/knitrChunk.html</a>. This output document is the
+      result of two transformation steps, using two different tools
+      (<code>xsltrproc</code>, and the Knitr package in R), each
+      producing an output document. The <code>document</code> format
+      can be used in this wat to authoring documents which require
+      several transformation steps, and several transformation
+      tools. The result of each transformation can be provided as a
+      source document for the following transformation.</p>
+      
+    </section>
+
+    <section>
+      <h1>Discussion</h1>
     </section>
 	
     <section>
-      <h1>Technical requirements</h1>
-
-      <p>This is an appendix section.</p>
-
-      <pre>Have a good
-
-hoon
-      on me</pre>
-      
+      <h1>Technical requirements</h1>      
     </section>
   </div></body>
 </html>
