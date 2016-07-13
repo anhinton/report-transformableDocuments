@@ -30,15 +30,34 @@
     <!-- author meta tag -->
 
     <!-- author meta tag -->
-    <xsl:for-each select = "author">
-      <xsl:element name="meta">
-	<xsl:attribute name="name">author</xsl:attribute>
-	<xsl:attribute name="content">
-	  <xsl:value-of select="name"/>
-	</xsl:attribute>
-      </xsl:element>
-    </xsl:for-each>
-
+    <xsl:choose>
+      
+      <!-- multiple authors -->
+      <xsl:when test="count(author) &gt; 1">
+	<xsl:element name="meta">
+	  <xsl:attribute name="name">author</xsl:attribute>
+	  <xsl:attribute name="content">
+	    <!-- all authors but last -->
+	    <xsl:for-each select = "author[position()&lt;last()]">
+	      <xsl:value-of select="name"/><xml:text>, </xml:text>
+	    </xsl:for-each>
+	    <!-- last author -->
+	    <xsl:value-of select="author[last()]/name"/>
+	  </xsl:attribute>
+	</xsl:element>
+      </xsl:when>
+      
+      <!-- single author -->
+      <xsl:otherwise>
+	<xsl:element name="meta">
+	  <xsl:attribute name="name">author</xsl:attribute>
+	  <xsl:attribute name="content">
+	    <xsl:value-of select="name"/>
+	  </xsl:attribute>
+	</xsl:element>
+      </xsl:otherwise>
+    </xsl:choose>
+    
     <!-- date meta tag -->
     <xsl:if test="date != ''">
       <xsl:element name="meta">
@@ -49,7 +68,7 @@
       </xsl:element>
     </xsl:if>
 
-    <!-- date meta tag -->
+    <!-- description meta tag -->
     <xsl:if test="description != ''">
       <xsl:element name="meta">
 	<xsl:attribute name="name">description</xsl:attribute>
