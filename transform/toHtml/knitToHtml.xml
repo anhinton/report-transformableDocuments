@@ -19,13 +19,5 @@ knit("report.Rhtml")]]></script>
     <file ref = "report.html"/>
     <format>HTML file</format>
   </output>
-  <output name = "figure">
-    <file ref = "examples/figure"/>
-    <format>file directory</format>
-  </output>
-  <output name = "knitrExample">
-    <file ref = "examples/knitrChunk.html"/>
-    <format>HTML file</format>
-  </output>
 </module>
 
