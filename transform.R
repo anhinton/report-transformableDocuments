@@ -10,7 +10,8 @@ toHtml <- loadPipeline(name = "toHtml",
 ## execute document to HTML pipeline
 pplRes1 <- runPipeline(toHtml, targetDirectory = tempdir())
 
-export(pplRes1)
+## export pipeline result
+tarball1 <- export(pplRes1)
 
 ## copy final report.html to working directory
 file.copy(from = pplRes1$outputList$knitToHtml$report$ref, to = ".",
