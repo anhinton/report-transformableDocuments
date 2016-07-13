@@ -490,7 +490,7 @@ plot(x)
       <p>The resulting Knitr HTML document can be viewed at
       <url>examples/knitrChunk.Rhtml</url>.</p>
 
-      <h2 id="#example4">4. Extended transformations</h2>
+      <h2 id="example4">4. Extended transformations</h2>
 
       <p>The previous three examples have shown single transformations
       on documents written in the <code>document</code> markup
