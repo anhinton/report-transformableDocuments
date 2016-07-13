@@ -64,37 +64,35 @@
 }
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Transforming documents with OpenAPI pipelines</title>
+<title>A transformable markup document format</title>
 <meta name="author" content="Ashley Noel Hinton, Paul Murrell">
-<meta name="description" content="Technical report on transforming documents using an
-    OpenAPI pipeline.">
+<meta name="description" content="Technical report proposing a markup format for producing transformable documents.">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="stylesheet.css">
 </head>
 <body><div class="main">
 <div class="title">
-<h1 class="title">Transforming documents with OpenAPI pipelines</h1>
+<h1 class="title">A transformable markup document format</h1>
 <p class="author">Ashley Noel Hinton<br><a href="ahin017@aucklanduni.ac.nz">ahin017@aucklanduni.ac.nz</a></p>
 <p class="author">Paul Murrell<br><a href="paul@stat.auckland.ac.nz">paul@stat.auckland.ac.nz</a></p>
 <p class="author">Department of Statistics, The University of Auckland</p>
 <p class="date"></p>
 </div>
     <section id="introduction">
-      <p>Many technologies now exist for writing a document in common
-      format to be transformed into various formats for sharing. This
-      report proposes that using markup, rather than common markdown
-      languages, is a good fit for writing flexible human- and
-      machine-readable transformable documents. The examples in this
-      report use OpenAPI pipelines to perform the document
-      transformations into various document formats.  The pipelines
-      produced show how such a task can be split into various reusable
-      modules.</p>
+      <p>Many technologies now exist for writing a document in format
+      which can be transformed into various output formats for
+      sharing. This report proposes that using markup, rather than one
+      of the Markdown languages, is a good fit for writing flexible
+      human- and machine-readable transformable documents. We propose
+      a transformable markup <code>document</code> format written in
+      XML. We provide several examples of how the
+      <code>document</code> format could be transformed.</p>
     </section>
 
     <!-- end section -->
 
     <section>    
-      <h1>A markup transformable document format</h1>
+      <h1>Why a markup format</h1>
 
       <p>When writing reports and articles for publication in
       journals, books, online or otherwise, an author will employ one
@@ -415,7 +413,7 @@ mean(x)]]&gt;&lt;/code&gt;
 <div class="chunk" id="knitrDemo"><div class="rcode"><div class="source"><pre class="knitr r"><span class="hl std">x</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">rnorm</span><span class="hl std">(</span><span class="hl kwc">n</span> <span class="hl std">=</span> <span class="hl num">10</span><span class="hl std">)</span>
 <span class="hl kwd">mean</span><span class="hl std">(x)</span>
 </pre></div>
-<div class="output"><pre class="knitr r">## [1] -0.002004184
+<div class="output"><pre class="knitr r">## [1] -0.001348067
 </pre></div>
 </div></div>
 
@@ -449,7 +447,7 @@ mean(x)]]&gt;&lt;/code&gt;
       used in the following examples, but many other tools are
       available to do the transformations described.</p>
 
-      <h2>Transforming to HTML</h2>
+      <h2 id="example1">1. Transforming to HTML</h2>
 
       <p>The <code>document</code> markup format can be easily
       transformed into HTML using XSL Transformations
@@ -522,7 +520,7 @@ mean(x)]]&gt;&lt;/code&gt;
       <p>The resulting HTML document can be viewed at
       <a href="examples/toHtml.html">examples/toHtml.html</a>.</p>
 
-      <h2>Process <code>xi:include</code> elements</h2>
+      <h2 id="example2">2. Process <code>xi:include</code> elements</h2>
 
       <p>The <code>document</code> markup format uses XInclude
       elements (<a href="http://www.w3.org/2001/XInclude">http://www.w3.org/2001/XInclude</a>) to embed
@@ -574,7 +572,7 @@ mean(x)]]&gt;&lt;/code&gt;
       <p>The resulting HTML document can be viewed at
       <a href="examples/processXinclude.html">examples/processXinclude.html</a>.</p>
 
-      <h2>Subsetting elements: prepare R code chunks for Knitr</h2>
+      <h2 id="example3">3. Subsetting elements: prepare R code chunks for Knitr</h2>
 
       <p>The Knitr package lets document authors embed chunks of R
       code in special comment code and execute these chunks to produce
@@ -635,7 +633,7 @@ plot(x)]]&gt;&lt;/code&gt;
       <p>The resulting Knitr HTML document can be viewed at
       <a href="examples/knitrChunk.Rhtml">examples/knitrChunk.Rhtml</a>.</p>
 
-      <h2>Extended transformations</h2>
+      <h2 id="#example4">4. Extended transformations</h2>
 
       <p>The previous three examples have shown single transformations
       on documents written in the <code>document</code> markup
@@ -650,27 +648,7 @@ plot(x)]]&gt;&lt;/code&gt;
 <div class="chunk" id="rhtmlToHtml"><div class="rcode"><div class="source"><pre class="knitr r"><span class="hl kwd">library</span><span class="hl std">(knitr)</span>
 <span class="hl std">oldwd</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">setwd</span><span class="hl std">(</span><span class="hl str">&quot;examples&quot;</span><span class="hl std">)</span>
 <span class="hl kwd">knit</span><span class="hl std">(</span><span class="hl kwc">input</span> <span class="hl std">=</span> <span class="hl str">&quot;knitrChunk.Rhtml&quot;</span><span class="hl std">)</span>
-</pre></div>
-<div class="message"><pre class="knitr r">## 
-## 
-## processing file: knitrChunk.Rhtml
-</pre></div>
-<div class="output"><pre class="knitr r">##   |                                                                         |                                                                 |   0%  |                                                                         |......................                                           |  33%
-##   ordinary text without R code
-## 
-##   |                                                                         |...........................................                      |  67%
-## label: unnamed-chunk-1 (with options) 
-## List of 1
-##  $ indent: chr &quot;    &quot;
-</pre></div>
-<div class="output"><pre class="knitr r">##   |                                                                         |.................................................................| 100%
-##   ordinary text without R code
-</pre></div>
-<div class="message"><pre class="knitr r">## output file: knitrChunk.html
-</pre></div>
-<div class="output"><pre class="knitr r">## [1] &quot;knitrChunk.html&quot;
-</pre></div>
-<div class="source"><pre class="knitr r"><span class="hl kwd">setwd</span><span class="hl std">(oldwd)</span>
+<span class="hl kwd">setwd</span><span class="hl std">(oldwd)</span>
 </pre></div>
 </div></div>
 
@@ -692,10 +670,188 @@ plot(x)]]&gt;&lt;/code&gt;
 
     <section>
       <h1>Discussion</h1>
+
+      <p>The <code>document</code> markup format provides a reasonably
+      simple authoring format in which an author can write documents
+      for one or several output formats. Like Markup, the
+      <code>document</code> format allows an author to target HTML and
+      PDF as output formats, among others. Unlike Markdown the
+      <code>document</code> format is not limited to a known set of
+      transformations. Adding a custom transformation to the
+      <code>document</code> format is as easy as using a custom XML
+      element while authoring—the transformation of this custom
+      element could then be defined in an XSLT stylesheet, for
+      example.</p>
+
+      <p>The kinds of transformations available to an author using the
+      <code>document</code> format are as many and diverse as those
+      available when using XML. This report has described two basic
+      transformations:</p>
+
+      <ul>
+	<li>
+<a href="#example1">Transformation to HTML</a> using an
+	XSLT stylesheet and the <code>xsltproc</code> command line
+	tool.</li>
+	<li>
+<a href="#example2">Incorporating external XML</a> files
+	using XInclude's <code>&lt;xi:include&gt;</code> elements,
+	processed with the <code>xmllint</code> command line
+	tool.</li>
+      </ul>
+
+      <p>This report has also demonstrated how transformations can be
+      <a href="#example3">applied to subsets of elements</a>, as in
+      the example where chunks of R code wrapped in <code>&lt;code
+      class="knitr"&gt;</code> elements were transformed into Knitr R
+      code chunks using an XSLT stylesheet and
+      <code>xsltproc</code>. The ability to perform transformations on
+      subsets of elements using the <code>document</code> markup
+      format allows an author much finer control over the output
+      produced than when using Markdown. For instance, an author may
+      wish to produce a teacher's and student's copy of a document,
+      with some sections only visible to the teacher. Subsetting
+      elements would allow an author to do produce a student's and as
+      teacher's output from the same source
+      <code>document</code>—this would likely require separate
+      source documents if done using Markdown.</p>
+
+      <p>While only HTML and Knitr HTML output was demonstrated in
+      this report, transformation to other formats is of course
+      possible. One popular format for sharing articles and reports is
+      the PDF format. One method for producing a PDF from the
+      <code>document</code> format is to use the <code>Pandoc</code>
+      document converter on the HTML output produced in the <a href="#example1">first example</a>. The transformation can be
+      performed using the following call to <code>Pandoc</code>:</p>
+
+      <pre><code>pandoc -s -o examples/toHtml.pdf examples/toHtml.html</code></pre>
+
+      <p>The resulting PDF document can be viewed at <a href="examples/toHtml.pdf">examples/toHtml.pdf</a>. If a
+      <code>document</code> author wanted to have greater control over
+      the PDF produced she might instead use an XSLT stylesheet and
+      <code>xsltproc</code> to transform the <code>document</code> to
+      the LaTeX format. This could then be transformed to PDF using a
+      tool like <code>pdflatex</code>.</p>
+
+      <p>The production of PDF and other formats, and the <a href="#example4">secondary transformation example</a> in this
+      report, where a Knitr HTML file produced from a
+      <code>document</code> is transformed into HTML, demonstrate how
+      a <code>document</code> author may want to perform multiple
+      transformation, employing multiple tools. For example an author
+      may wish to do all of the following to a
+      <code>document</code>:</p>
+
+      <ol>
+	<li>Merge XML from external documents indicated by
+	<code>&lt;xi:include&gt;</code> elements.</li>
+	<li>Convert the document to Knitr HTML.</li>
+	<li>Process the code chunks in the Knitr HTML to produce and
+	HTML output.</li>
+      </ol>
+
+      <p>A potential method for handling a pipeline of such
+      transformations is the OpenAPI architecture (<a href="http://stattech.wordpress.fos.auckland.ac.nz/2015-01-introducing-openapi/">Introducing
+      OpenAPI</a>, <a href="http://stattech.wordpress.fos.auckland.ac.nz/2016-08-openapi-version-0-6/">OpenAPI
+      version 0.6</a>). A document author could describe each of the
+      transformation steps as an OpenAPI <code>module</code>, and use
+      these modules to describe the entire transformation in an
+      OpenAPI <code>pipeline</code>.</p>
+
+      <p>Using an OpenAPI <code>pipeline</code> to describe a
+      <code>document</code> transformation doesn't just provide a
+      quick method of performing all transformations at
+      once—wrapping transformation code in OpenAPI
+      <code>module</code>s also provides a means by which the author
+      of a transformation <code>pipeline</code>, or anyone else, can
+      modify and extend the transformation. For example, if a user of
+      a transformation <code>pipeline</code> following the steps
+      listed above wished to perform another transformation between
+      step 1 and step 2, she would only need to create a
+      <code>module</code> which took the output produced in step 1 as
+      input, and produced the input required by step 2 as
+      output—<code>module</code> could then be placed into a
+      copy of the <code>pipeline</code>. The production of a teacher's
+      and student's version of the HTML output could be produced by
+      branching the <code>pipeline</code> to process a subset of
+      elements in the appropriate way. Similarly, a different output
+      format—PDF, for example—could be produced by adding
+      the appropriate transformation <code>module</code>s to the
+      <code>pipeline</code> while <em>still producing the original
+      HTML output</em>.</p>
     </section>
 	
     <section>
-      <h1>Technical requirements</h1>      
+      <h1>Technical requirements</h1>
+
+      <ul>
+	<li>Conduit version 0.6-3, a prototype OpenAPI
+	glue system R package, was used to produce the final version of this
+	report
+	(<a href="https://github.com/anhinton/conduit/releases/tag/v0.6-3">https://github.com/anhinton/conduit/releases/tag/v0.6-3</a>).</li>
+	<li>Knitr version 1.12.3, an R package, was used for the
+	transformations in this report
+	(<a href="http://yihui.name/knitr/">http://yihui.name/knitr/</a>).</li>
+	<li>Pandoc version 1.16.02 was used for the transformations in
+	this report (<a href="http://pandoc.org">http://pandoc.org</a>).</li>
+	<li>R version 3.3.1 was used for the transformations in this
+	report (<a href="https://www.r-project.org/">https://www.r-project.org/</a>).</li>
+	<li>All of the transformations described in this report were
+	produced on a machine running Ubuntu 16.04 LTS 64-bit
+	(<a href="http://www.ubuntu.com/">http://www.ubuntu.com/</a>).</li>
+	<li>
+<code>xmllint</code> using <code>libxml</code> version
+	20903 was used for the transformations in this report
+	(<a href="http://www.xmlsoft.org/">http://www.xmlsoft.org/</a>).</li>
+	<li>
+<code>xsltproc</code> using <code>libxml</code> 20903,
+	<code>libxslt</code> 10128 and <code>libexslt</code> 817 was
+	used for the transformations in this report
+	(<a href="http://www.xmlsoft.org/">http://www.xmlsoft.org/</a>).</li>
+      </ul>
+      
+    </section>
+
+    <section>
+      <h1>Resources</h1>
+
+      <ul>
+	<li>The <a href="#example1">transformation to HTML</a> example
+	uses the source document <a href="examples/toHtml.xml">examples/toHtml.xml</a>, and
+	the XSLT stylesheet
+	<a href="examples/documentToHtml.xsl">examples/documentToHtml.xsl</a>.</li>
+	<li>The <a href="#example2">processing XInclude elements</a>
+	example using the source document
+	<a href="examples/processXinclude.xml">examples/processXinclude.xml</a>, and the XML file
+	<a href="examples/evidenceList.xml">examples/evidenceList.xml</a>.</li>
+	<li>The <a href="#example3">subsetting elements</a> example
+	uses the source document <a href="examples/knitrChunk.xml">examples/knitrChunk.xml</a>,
+	and the XSLT stylesheet
+	<a href="examples/documentToRhtml.xsl">examples/documentToRhtml.xsl</a>.</li>
+	<li>The <a href="#example4">extended transformation</a>
+	example uses the output document
+	<a href="examples/knitrChunk.Rhtml">examples/knitrChunk.Rhtml</a> produced by the <a href="#example3">third example</a> as its source
+	document.</li>
+	<li>This report was produced using an OpenAPI pipeline
+	executed with <a href="https://github.com/anhinton/conduit/releases/tag/v0.6-3">Conduit
+	version 0.6-3</a>. The source <code>document</code> is
+	available at <a href="report.xml">report.xml</a>. The transformation
+	pipeline can be found at
+	<a href="transform/toHtml/pipeline.xml">transform/toHtml/pipeline.xml</a>—the pipeline's
+	modules are at <a href="transform/toHtml/convertToRhtml.xml">transform/toHtml/convertToRhtml.xml</a>,
+	<a href="transform/toHtml/xinclude.xml">transform/toHtml/xinclude.xml</a>,
+	<a href="transform/toHtml/knitToHtml.xml">transform/toHtml/knitToHtml.xml</a>, and
+	<a href="transform/toHtml/substituteEntities.xml">transform/toHtml/substituteEntities.xml</a>. The
+	pipeline result object can be found at
+	<a href="toHtml.tar.gz">toHtml.tar.gz</a>. The R script used to execute this
+	pipeline is available at <a href="transform.R">transform.R</a>.</li>
+      </ul>
+
+    </section>
+
+    <hr>
+
+    <section>
+      <p><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png"></a><br><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">A transformable markup document format</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Ashley Noel Hinton and Paul Murrell</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</p>
     </section>
   </div></body>
 </html>
