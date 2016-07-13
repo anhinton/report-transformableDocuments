@@ -23,8 +23,4 @@ knit("report.Rtex")]]></script>
     <file ref = "examples"/>
     <format>file directory</format>
   </output>
-  <output name = "figure">
-    <file ref = "figure"/>
-    <format>file directory</format>
-  </output>
 </module>

@@ -54,8 +54,4 @@
     <start component = "knitToTex" output = "examples"/>
     <end component = "texToPdf" input = "examples"/>
   </pipe>
-  <pipe>
-    <start component = "knitToTex" output = "figure"/>
-    <end component = "texToPdf" input = "figure"/>
-  </pipe>
 </pipeline>

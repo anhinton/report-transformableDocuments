@@ -10,10 +10,6 @@
     <file ref = "examples"/>
     <format>file directory</format>
   </input>
-  <input name="figure">
-    <file ref = "figure"/>
-    <format>file directory</format>
-  </input>
   <source>
     <script><![CDATA[#! /bin/bash
 pdflatex report.tex

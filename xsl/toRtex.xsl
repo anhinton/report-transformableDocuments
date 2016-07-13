@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- Time-stamp: "2016-07-12 14:22:35 ahin017"-->
+<!-- Time-stamp: "2016-07-13 12:25:52 ahin017"-->
 <!DOCTYPE document [
 <!ENTITY nl "&#xA;">
 ]>
@@ -148,10 +148,14 @@
 
   <xsl:template match="pre">
     <xsl:text>\begin{verbatim}</xsl:text>
-    <xsl:if test="code">
-      <xsl:value-of select="code"/>
-    </xsl:if>
-    <xsl:value-of select="node()"/>
+    <xsl:choose>
+      <xsl:when test="code">
+	<xsl:value-of select="code"/>
+      </xsl:when>
+      <xsl:otherwise>
+	<xsl:value-of select="node()"/>
+      </xsl:otherwise>
+    </xsl:choose>
     <xsl:text>\end{verbatim}&nl;</xsl:text>
   </xsl:template>
 

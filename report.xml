@@ -445,7 +445,7 @@ plot(x)
       <code>xsltproc</code> to process the XInclude elements when we
       do our transformation:</p>
 
-      <pre><code>xsltproc --xinclude -o examples/processXinclude.html examples/documentToHtml.xsl  examples/processXinclude.xml</code></pre>
+      <pre><code class = "long">xsltproc --xinclude -o examples/processXinclude.html examples/documentToHtml.xsl  examples/processXinclude.xml</code></pre>
 
       <p>The resulting HTML document can be viewed at
       <url>examples/processXinclude.html</url>.</p>
@@ -469,7 +469,7 @@ plot(x)
       transform <code>&lt;code class="knitr"&gt;</code> elements to
       Knitr R code chunks is as follows:</p>
 
-      <pre><code><![CDATA[<xsl:template match="code[@class='knitr']">
+      <pre><code class="long"><![CDATA[<xsl:template match="code[@class='knitr']">
   <xsl:comment><xsl:text>begin.rcode </xsl:text><xsl:value-of select="@name"/><xsl:if test="@options"><xsl:text>, </xsl:text><xsl:value-of select="@options"/></xsl:if>
   <xsl:text>&#xA;</xsl:text>
   <xsl:value-of select="node()"/>
@@ -494,13 +494,13 @@ plot(x)
 
       <h2>Extended transformations</h2>
 
-      <p>So far we have shown examples of single transformations on
-      documents written in the <code>document</code> markup
+      <p>The previous three examples have shown single transformations
+      on documents written in the <code>document</code> markup
       format. Authors of <code>document</code> files are not limited
-      to single transformations, however. In the previous example
+      to just one transformation, however. In the previous example
       demonstrated how a module author can convert a document with
       marked up chunks of R code into a document for processing with
-      the Knitr package in R. The Knitr HTML document from the
+      the Knitr package in R. The Knitr HTML document produced by the
       previous example can be converted to HTML using the following
       code in R:</p>
 
@@ -510,19 +510,28 @@ knit(input = "knitrChunk.Rhtml")
 setwd(oldwd)]]></code>
 
       <p>The resulting HTML document can be viewed at
-      <url>examples/knitrChunk.html</url>. This output document is the
-      result of two transformation steps, using two different tools
-      (<code>xsltrproc</code>, and the Knitr package in R), each
-      producing an output document. The <code>document</code> format
-      can be used in this wat to authoring documents which require
-      several transformation steps, and several transformation
-      tools. The result of each transformation can be provided as a
-      source document for the following transformation.</p>
+      <url>examples/knitrChunk.html</url>.</p>
+
+      <p>This output document is the result of two transformation
+      steps, using two different tools (<code>xsltrproc</code>, and
+      the Knitr package in R), each producing an output document. The
+      <code>document</code> format can be used in this wat to
+      authoring documents which require several transformation steps,
+      and several transformation tools. The result of each
+      transformation can be provided as a source document for the
+      following transformation. In the following discussion we discuss
+      how a <code>document</code> author might manage multiple
+      transformations on a <code>document</code>.</p>
       
     </section>
 
     <section>
       <h1>Discussion</h1>
+
+      <p>The <code>document</code> markup format provides a reasonably
+      simple authoring format in which an author can write documents
+      for one or several output formats. Like Markup, the
+      <code>document</code> format allows an author to target HTML and PDF as outpu formats, among others. Unlike </p>
     </section>
 	
     <section>

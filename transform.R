@@ -22,7 +22,7 @@ file.copy(from = pplRes1$outputList$knitToHtml$report$ref, to = ".",
           overwrite = TRUE)
 
 
-## ### produce PDF output
+### produce PDF output
 
 ## ## load document to PDF transformation pipeline
 ## toPdf <- loadPipeline(name = "toPdf",
