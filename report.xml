@@ -682,6 +682,25 @@ setwd(oldwd)]]></code>
       <code>module</code>s to the <code>pipeline</code> while
       <em>still producing the original HTML output</em>.</p>
     </section>
+
+    <section>
+      <h1>Summary</h1>
+
+      <p>In this report we have described how an XML authoring format
+      provides document authors with greater control over document
+      transformations than popular Markdown formats allow. We have
+      described a simple XML <code>document</code> format that
+      includes features of standard HTML formatting as well as custom
+      elements for document transformation. We have shown several
+      examples of how the <code>document</code> format can be used in
+      common document transformations. The <code>document</code>
+      format described is a good candidate for documents which require
+      multiple transformations, allowing an author to employ various
+      tools and to produce multiple output documents in multiple
+      formats.
+      </p>
+      
+    </section>
 	
     <section>
       <h1>Technical requirements</h1>
@@ -709,14 +728,6 @@ setwd(oldwd)]]></code>
 	used for the transformations in this report
 	(<url>http://www.xmlsoft.org/</url>).</li>
       </ul>
-      
-    </section>
-
-    <section>
-      <h1>Summary</h1>
-
-      <p>
-      </p>
       
     </section>
 
