@@ -318,7 +318,7 @@ plot(x)
       customised tags or transformations she may require. A
       <code>document</code> author is free to invent new personalised
       tags to suit her current document transformation needs. In this
-      section we describe such a custom<code>document</code> markup
+      section we describe such a custom <code>document</code> markup
       format.</p>
 
       <p>The transformable document format described in this report is
@@ -430,7 +430,7 @@ mean(x)]]&gt;&lt;/code&gt;
 <div class="chunk" id="knitrDemo"><div class="rcode"><div class="source"><pre class="knitr r"><span class="hl std">x</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">rnorm</span><span class="hl std">(</span><span class="hl kwc">n</span> <span class="hl std">=</span> <span class="hl num">10</span><span class="hl std">)</span>
 <span class="hl kwd">mean</span><span class="hl std">(x)</span>
 </pre></div>
-<div class="output"><pre class="knitr r">## [1] -0.3191205
+<div class="output"><pre class="knitr r">## [1] 0.03928092
 </pre></div>
 </div></div>
 
@@ -713,7 +713,7 @@ plot(x)]]&gt;&lt;/code&gt;
 	<li>
 <a href="#example2">Incorporating external XML</a> files
 	using XInclude's <code>&lt;xi:include&gt;</code> elements,
-	processed with the <code>xmllint</code> command line
+	processed with the <code>xsltproc</code> command line
 	tool.</li>
       </ul>
 
@@ -733,7 +733,34 @@ plot(x)]]&gt;&lt;/code&gt;
       <code>document</code>—this would likely require separate
       source documents if done using Markdown.</p>
 
-      <p>While only HTML and Knitr HTML output was demonstrated in
+      <p>It is of course also possible to subset and to perform
+      similar transformations on Markdown documents using regular
+      expressions—an author using a Markdown format could, for
+      example, include custom tags in her document indicating custom
+      transformations or subsets. Finding and transforming specific
+      XML elements is made easy by using existing XML query tools like
+      XPath. While custom tags and subsets in a Markdown document
+      could be found and transformed using regular expressions this
+      would place a greater burden on transformation authors, and
+      would be much easier to get wrong.</p>
+
+      <p>It is worth noting that an author using a markup format like
+      the <code>document</code> format described in this report is
+      making some sacrifices in terms of simplicity of authoring in
+      order to gain greater control over transformations. Authoring in
+      Markdown allows an author to allows an author to “format”
+      her source document in such a way that the source can also be
+      read as an output document. Authoring in XML makes a source
+      document less immediately readable. For example, though Markdown
+      list formatting can be fiddly to manage as an author it has the
+      advantage of appearing like list output. A markup list format,
+      like that found in HTML, consists of many list tags which are
+      intended to tell a computer that the content is a list, not to
+      be read by a human. In this respect an author has to know more
+      “code” to author using a markup format than when using a
+      Markdown format.</p>
+
+      <p>While only HTML and Knitr HTML output were demonstrated in
       this report, transformation to other formats is of course
       possible. One popular format for sharing articles and reports is
       the PDF format. One method for producing a PDF from the
