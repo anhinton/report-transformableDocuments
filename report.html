@@ -80,7 +80,7 @@
 </div>
     <section id="introduction">
       <p>Many technologies now exist for writing a document in format
-      which can be transformed into various output formats for
+      that can be transformed into various output formats for
       sharing. This report proposes that using markup, rather than one
       of the Markdown languages, is a good fit for writing flexible
       human- and machine-readable transformable documents. We propose
@@ -149,6 +149,8 @@
       drawbacks will inform the design of a transformable document
       solution described in this report.</p>
 
+      <h2>Limitations of Markdown</h2>
+
       <p>While Markdown can be very useful for authoring simple
       documents quickly (Markdown's creators took inspiration from the
       formatting conventions of plain text emails) an author also
@@ -207,15 +209,15 @@
       <p>The author does not have to count white space, and it is
       trivial to make changes to this list structure.</p>
 
-      <p>Markdown like HTML also gives a document author more control
-      over the poutput than Markdown. The author of the HTML list
+      <p>Markup like HTML also gives a document author more control
+      over the output than Markdown. The author of the HTML list
       example above has used the <code>class</code> attribute to
       indicate the inner list belongs to the “subList”
-      class. Using <code>class</code> an author can apply output styles
-      or perform other actions on subsets of elements. When a document
-      authored in Markdown is transformed to HTML its lists will be
-      marked up using the same HTML list tags as above, but an author
-      of a Markdown document does not have access to these
+      class. Using <code>class</code> an author can apply output
+      styles or perform other actions on subsets of elements. When a
+      document authored in Markdown is transformed to HTML its lists
+      will be marked up using the same HTML list tags as above, but an
+      author of a Markdown document does not have access to these
       <code>class</code> attributes for customising output. She could
       include raw HTML in her Pandoc Markdown document, but this
       limits the output types to those using HTML.</p>
@@ -368,7 +370,7 @@ plot(x)
       </ul>
 
       <p>The <code>&lt;url&gt;</code> element is introduced in the
-      <code>document</code> format to indicate a hyperlink where to
+      <code>document</code> format to indicate a hyperlink where the
       enclosed URL is both the href and the value. The following code
       block demonstrates the use of the <code>url</code> element:</p>
 
@@ -413,7 +415,7 @@ mean(x)]]&gt;&lt;/code&gt;
 <div class="chunk" id="knitrDemo"><div class="rcode"><div class="source"><pre class="knitr r"><span class="hl std">x</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">rnorm</span><span class="hl std">(</span><span class="hl kwc">n</span> <span class="hl std">=</span> <span class="hl num">10</span><span class="hl std">)</span>
 <span class="hl kwd">mean</span><span class="hl std">(x)</span>
 </pre></div>
-<div class="output"><pre class="knitr r">## [1] 0.001456971
+<div class="output"><pre class="knitr r">## [1] -0.8012751
 </pre></div>
 </div></div>
 
@@ -524,10 +526,10 @@ mean(x)]]&gt;&lt;/code&gt;
 
       <p>The <code>document</code> markup format uses XInclude
       elements (<a href="http://www.w3.org/2001/XInclude">http://www.w3.org/2001/XInclude</a>) to embed
-      text from external documents. These elements can be processed by
-      the command line tool <code>xsltproc</code>
-      (<a href="http://www.xmlsoft.org/">http://www.xmlsoft.org/</a>) can process the embedded
-      documents into the output document.</p>
+      text from external documents. These documents referenced in
+      these elements can be processed and embedded directly into the
+      output document using the command line tool
+      <code>xsltproc</code> (<a href="http://www.xmlsoft.org/">http://www.xmlsoft.org/</a>).</p>
 
       <p>We will use the same XSLT stylesheet we used in the previous
       example. The source <code>document</code>
@@ -638,12 +640,12 @@ plot(x)]]&gt;&lt;/code&gt;
       <p>The previous three examples have shown single transformations
       on documents written in the <code>document</code> markup
       format. Authors of <code>document</code> files are not limited
-      to just one transformation, however. In the previous example
-      demonstrated how a module author can convert a document with
-      marked up chunks of R code into a document for processing with
-      the Knitr package in R. The Knitr HTML document produced by the
-      previous example can be converted to HTML using the following
-      code in R:</p>
+      to just one transformation, however. In the <a href="#example3">previous example</a> we demonstrated how a
+      module author can convert a document with marked up chunks of R
+      code into a document which can then be processed using the Knitr
+      package in R. The <a href="examples/knitrChunk.Rhtml">Knitr HTML
+      document</a> produced in the previous example can be converted
+      to HTML using the following code in R:</p>
 
 <div class="chunk" id="rhtmlToHtml"><div class="rcode"><div class="source"><pre class="knitr r"><span class="hl kwd">library</span><span class="hl std">(knitr)</span>
 <span class="hl std">oldwd</span> <span class="hl kwb">&lt;-</span> <span class="hl kwd">setwd</span><span class="hl std">(</span><span class="hl str">&quot;examples&quot;</span><span class="hl std">)</span>
@@ -658,12 +660,12 @@ plot(x)]]&gt;&lt;/code&gt;
       <p>This output document is the result of two transformation
       steps, using two different tools (<code>xsltrproc</code>, and
       the Knitr package in R), each producing an output document. The
-      <code>document</code> format can be used in this wat to
-      authoring documents which require several transformation steps,
-      and several transformation tools. The result of each
-      transformation can be provided as a source document for the
-      following transformation. In the following discussion we discuss
-      how a <code>document</code> author might manage multiple
+      <code>document</code> format can be used in this way to author
+      documents that require several transformation steps, and several
+      transformation tools. The result of each transformation can be
+      provided as a source document for the following
+      transformation. In the following discussion we explore how a
+      <code>document</code> author might manage multiple
       transformations on a <code>document</code>.</p>
       
     </section>
@@ -769,15 +771,15 @@ plot(x)]]&gt;&lt;/code&gt;
       step 1 and step 2, she would only need to create a
       <code>module</code> which took the output produced in step 1 as
       input, and produced the input required by step 2 as
-      output—<code>module</code> could then be placed into a
-      copy of the <code>pipeline</code>. The production of a teacher's
-      and student's version of the HTML output could be produced by
-      branching the <code>pipeline</code> to process a subset of
-      elements in the appropriate way. Similarly, a different output
-      format—PDF, for example—could be produced by adding
-      the appropriate transformation <code>module</code>s to the
-      <code>pipeline</code> while <em>still producing the original
-      HTML output</em>.</p>
+      output—this new <code>module</code> could then be placed
+      into a copy of the <code>pipeline</code>. The production of a
+      teacher's and student's version of the HTML output could be
+      produced by branching the <code>pipeline</code> to process a
+      subset of elements in the appropriate way. Similarly, a
+      different output format—PDF, for example—could be
+      produced by adding the appropriate transformation
+      <code>module</code>s to the <code>pipeline</code> while
+      <em>still producing the original HTML output</em>.</p>
     </section>
 	
     <section>
@@ -800,14 +802,22 @@ plot(x)]]&gt;&lt;/code&gt;
 	(<a href="http://www.ubuntu.com/">http://www.ubuntu.com/</a>).</li>
 	<li>
 <code>xmllint</code> using <code>libxml</code> version
-	20903 was used for the transformations in this report
-	(<a href="http://www.xmlsoft.org/">http://www.xmlsoft.org/</a>).</li>
+	20903 was used in the transformations which produced this
+	report (<a href="http://www.xmlsoft.org/">http://www.xmlsoft.org/</a>).</li>
 	<li>
 <code>xsltproc</code> using <code>libxml</code> 20903,
 	<code>libxslt</code> 10128 and <code>libexslt</code> 817 was
 	used for the transformations in this report
 	(<a href="http://www.xmlsoft.org/">http://www.xmlsoft.org/</a>).</li>
       </ul>
+      
+    </section>
+
+    <section>
+      <h1>Summary</h1>
+
+      <p>
+      </p>
       
     </section>
 
