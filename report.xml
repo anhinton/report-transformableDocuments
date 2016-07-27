@@ -254,7 +254,22 @@ plot(x)
     <!-- end section -->
 
     <section>
-      <h1>The <code>document</code> markup format</h1>
+      <h1>A <code>document</code> markup format</h1>
+
+      <p>In the previous section we described some of the limitations
+      in the Markdown document authoring format. It is our proposal
+      that an authoring format based in XML provides more control and
+      flexibility when authoring a document. When an author uses a
+      Markdown format she is limited to the formatting tags and
+      transformations found in Markdown; similarly an author using
+      HTML markup is limited to HTML tags. Authoring a document in
+      XML, however, permits an author not only to include all of the
+      tags and transformations afforded by HTML, but also any
+      customised tags or transformations she may require. A
+      <code>document</code> author is free to invent new personalised
+      tags to suit her current document transformation needs. In this
+      section we describe such a custom <code>document</code> markup
+      format.</p>
 
       <p>The transformable document format described in this report is
       an XML file with <code>document</code> as the root element. This
